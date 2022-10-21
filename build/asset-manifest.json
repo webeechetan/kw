@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.be61da89.css",
+    "main.js": "/static/js/main.c20fe376.js",
+    "static/media/invite_signup_img.png": "/static/media/invite_signup_img.b37165c298b7ae887650.png",
+    "static/media/invite_img.png": "/static/media/invite_img.3190a6cba621ef67d528.png",
+    "static/media/signup-img2.png": "/static/media/signup-img2.9ee253314f88a20f5c36.png",
+    "static/media/welcome-img.png": "/static/media/welcome-img.c437df84de8699e157e7.png",
+    "static/media/town-hall-logo.png": "/static/media/town-hall-logo.37e4dd9a476563afd4f7.png",
+    "static/media/webeesocial-logo.png": "/static/media/webeesocial-logo.37e4dd9a476563afd4f7.png",
+    "static/media/signup-img1.png": "/static/media/signup-img1.6799b08c48cfb98779a0.png",
+    "index.html": "/index.html",
+    "main.be61da89.css.map": "/static/css/main.be61da89.css.map",
+    "main.c20fe376.js.map": "/static/js/main.c20fe376.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.be61da89.css",
+    "static/js/main.c20fe376.js"
+  ]
+}

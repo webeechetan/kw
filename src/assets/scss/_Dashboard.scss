@@ -1,0 +1,161 @@
+// Main Body Style
+.main-body {
+    background-color: $dashboard_bg;
+    display: flex;
+    flex-wrap: wrap;
+    
+    // Content Body Style
+    &-content {
+        width: calc(100% - 300px);
+        padding: $spacing_md;
+    }
+
+    // Body Header
+    &-header {
+        margin-bottom: $spacing_sm;
+        &-title {
+            font-size: 1.8em;
+        }
+    }
+
+    // Card
+    &-card {
+        border: none;
+        border-radius: $border_radius_xs;
+        .card-body {
+            padding: $spacing_sm;
+        }
+    } 
+}
+
+// Box Item Style
+.box {
+    &-item {
+        @include box_item;
+    }
+}
+
+// Welcome Box Style {
+.welcome-box {
+    &-img {
+        margin-top: -40px;
+        img {
+            max-width: 225px;
+        }
+        @media (max-width: 1440px) {
+            margin-top: -35px;
+        }
+    }
+}
+
+// Avatar
+.avatar {
+    &_email {
+        margin-bottom: 0;
+    }
+}
+
+// Teams
+.team {
+    &-member {
+        width: 35px;
+        height: 35px;
+        border-radius: $border_radius;
+        background-color: $light;
+        border: 1px solid transparent;
+        color: $text_light;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        @include flex_center;
+        margin: $spacing_members;
+        overflow: hidden;
+        &:last-child {
+            background-color: transparent;
+            border-color: $grey;
+        }
+        a {
+            color: $brand;
+        }
+        img {
+            max-width: 100%;
+        }
+        &-group {
+            @include flex_justify_center;
+        }
+    }
+}
+
+// Scrollbar
+.scrollbar {
+    overflow: hidden;
+    overflow-Y: auto;
+    padding-right: $spacing_xs;
+    &::-webkit-scrollbar-track {
+        background-color: $light;
+    }
+    &::-webkit-scrollbar {
+        border-radius: $border_radius_xs;
+        width: $scrollbar_width;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: $border_radius_xs;
+        background-color: $yellow;
+    }
+}
+
+// Image
+.img {
+    &-townhall {
+        &-logo {
+            width: $townhall_logo;
+        }
+        &-dp {
+            width: $townhall_dp;
+            border-radius: $border_radius;
+        }
+    }
+    &-team {
+        &-dp {
+            width: $team_dp;
+            border-radius: $border_radius;
+        }
+    }
+}
+
+// TODO
+.todo {
+    &-add {
+        position: relative;
+        input {
+            border: 2px solid $secondary;
+        }
+        &-btn {
+            position: absolute;
+            right: $spacing_sm;
+            top: 7px;
+        }
+    }
+    &-item {
+        @include flex_align_center;
+        border: 1px solid $grey;
+        padding: $spacing_xs $spacing_sm;
+        border-radius: $border_radius_xs;
+        &:not(:last-child) {
+            margin-bottom: $spacing_xs;
+        }
+        &-text {
+            flex: 1
+        }
+        &-btns {
+            @include flex_align_center;
+            width: 125px;
+            button {
+                border: none;
+                &:not(:last-child) {
+                    margin-right: $spacing_xs;
+                }
+            }
+        }
+    }
+}

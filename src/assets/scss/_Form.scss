@@ -1,0 +1,75 @@
+.form {
+    &-control, &-select {
+        color: $text_form;
+        border: 1px solid $border_form;
+        padding: $spacing_xs $spacing_sm;
+        border-radius: $border_radius_xs;
+        font-size: 1rem;
+        line-height: normal;
+        text-align: left;
+
+        &:focus {
+            outline: none;
+            box-shadow: none ;
+            border: 1px solid $brand;
+        }
+        &::placeholder {
+            color: $text_form;
+        }
+        @media (min-width: 768px) {
+            min-height: 50px;
+        }
+    }
+    &-check {
+        text-align: left;
+        &-input {
+            border: 1px solid $brand;
+            &[type=checkbox] {
+                border-radius: $border_radius_checkbox;
+            }
+            &:checked {
+                background-color: $brand;
+                border-color: $brand;
+            }
+            &:focus {
+                outline: none;
+                box-shadow: none;
+            }
+        }
+    }
+    &-field {
+        position: relative;
+        .form-control, .form-select {
+            padding: $spacing_xs $spacing_sm $spacing_xs 55px;
+        }
+        &-icon {
+            color: $yellow;
+            position: absolute;
+            top: 8px;
+            left: 10px;
+            padding-right: 10px;
+            border-right: 1px solid $border_form;
+            @include flex_align_center;
+            @media (min-width: 768px) {
+                top: 10px;
+                min-height: calc(50px - 20px);
+            }
+        }
+    }
+}
+
+.was-validated {
+    .form-control:valid:focus {
+        outline: none;
+        box-shadow: none ;
+        border: 1px solid $secondary;
+    }
+}
+
+input {
+    &:-webkit-autofill, &:-webkit-autofill:focus {
+        box-shadow: 0 0 0 50px $white inset;
+        -webkit-box-shadow: 0 0 0 50px $white inset;
+        -webkit-text-fill-color: $text_form;
+    }
+}

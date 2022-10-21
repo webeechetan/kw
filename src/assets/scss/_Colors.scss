@@ -1,0 +1,100 @@
+$brand: #f83890;
+$secondary: #7407ff;
+$dark: #191919;
+$yellow: #f7d306;
+$yellow_light: #fdf4c1;
+$grey: #eee;
+$grey_xd: #ddd;
+$light: #f5f5f5;
+$text_light: #9c9c9c;
+$text_color: #191919;
+$text_form: $text_light;
+$sidebar_link_color: #717579;
+$white: #fff;
+$link_hover: #4c1c90;
+$dropdown_link_hover: #974eff;
+$dashboard_bg: #f6f5f5;
+$sidebar_active_bg_color: #f6f5f5;
+$border: $text_color;
+$border_light: #f5f5f5;
+$border_light2: #eee;
+$border_form: #ced4da;
+$bg_dropdown: $secondary;
+
+// Actions
+$success: #48914d;
+$success_light: #dae9db;
+$danger: #fc534f;
+$danger_light: #fedddc;
+$warning: #fed73b;
+$warning_light: #fff7d8;
+
+// Buttons Colors
+$primary_hover: $secondary;
+$secondary_hover: $brand;
+$yellow_hover: $yellow;
+
+// Pagination
+$pagination_color: $text_color;
+$pagination_bg: $light;
+$pagination_border_width: 1px;
+$pagination_border_color: $pagination_color;
+
+$pagination_hover_color: $white;
+$pagination_focus_color: $pagination_hover_color;
+$pagination_active_color: $pagination_hover_color;
+
+$pagination_hover_bg: $brand;
+$pagination_focus_bg: $pagination_hover_bg;
+$pagination_active_bg: $pagination_hover_bg;
+
+$pagination_hover_border_color: $pagination_hover_bg;
+$pagination_focus_border_color: $pagination_hover_border_color;
+$pagination_active_border_color: $pagination_hover_border_color;
+
+$pagination_disabled_color: $text_light;
+$pagination_disabled_bg: $grey;
+$pagination_disabled_border_color: $pagination_disabled_bg;
+
+// Scrollbar
+$scrollbar_width: 6px;
+
+// Table 
+$table_header_color: $secondary;
+
+// Default Classies
+.text {
+    &-primary {
+        color: $brand !important;
+    }
+    &-secondary {
+        color: $secondary !important;
+    }
+    &-yellow {
+        color: $yellow !important;
+    }
+    &-link {
+        text-decoration: underline;
+        color: $brand;
+        &:hover {
+            color: $secondary;
+        }
+    }
+}
+
+// Background Colors
+.bg {
+    &-primary {
+        background-color: $brand !important;
+    }
+    &-secondary {
+        background-color: $secondary !important;
+    }
+    &-md {
+        @media (min-width: 768px) {
+            &-secondary {
+                background-color: $secondary !important;
+            }
+        }
+    }
+}

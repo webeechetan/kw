@@ -1,0 +1,227 @@
+// Menu Style
+.menu {
+    // Sidebar Menu Style
+    &-sidebar {
+        li {
+            position: relative;
+            &:not(:last-child) {
+                margin-bottom: 5px;
+            }
+            a {
+                color: $sidebar_link_color;
+                font-weight: 600;
+                padding: $spacing_sidenav_item;
+                transition: $ease_05;
+                font-size: 0.9rem;
+                @include flex_align_center;
+
+                // Sidebar Menu Icon Style
+                svg {
+                    margin-right: $spacing_sm;
+                    width: 0.8em;
+                }
+
+                &:after {
+                    content: "";
+                    width: 6px;
+                    height: 100%;
+                    background-color: $brand;
+                    position: absolute;
+                    left: -100%;
+                    top: 0;
+                    border-radius: 0 30px 30px 0;
+                    transition: $ease_05;
+                }
+
+                &.active, &:hover {
+                    color: $brand;
+                    background-color: $sidebar_active_bg_color;
+                    
+                    &:after {
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Navbar
+.navbar {
+    padding: 0;
+    flex: 1 1;
+    &-expand-lg {
+        .navbar-nav .nav-link {
+            padding: $spacing_xs $spacing_sm;
+        }
+    }
+    &-light {
+        .navbar-nav {
+            .nav-link {
+                color: $text_color;
+            }
+        }   
+    }
+    &-nav {
+        .dropdown {
+            &-toggle {
+                &:after {
+                    display: none;
+                }
+            }
+            &-notification {
+                > .dropdown-toggle {
+                    &:before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        right: 23px;
+                        width: 7px;
+                        height: 7px;
+                        border-radius: $border_radius;
+                        background: $brand;
+                        cursor: pointer;
+                        box-shadow: 0 0 0 rgb(247 45 102 / 90%);
+                        animation: pulse 2s infinite;
+                    }
+                }
+            }
+            &-account {
+                .nav-link {
+                    span {
+                        display: inline-flex;
+                        width: 30px;
+                        height: 30px;
+                        border-radius: $border_radius;
+                        overflow: hidden;
+                        border: 2px solid $border_light;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dropdown {
+    &-menu {
+        min-width: 15rem;
+        background-color: $white;
+        background-clip: padding-box;
+        box-shadow: $box_shadow;
+        border: 1px solid $light;
+        position: relative;
+        &[data-bs-popper] {
+            right: 0;
+            left: inherit;
+            margin-top: 0;
+            padding: 0;
+        }
+        &:before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            border-bottom: 10px solid $light;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            top: -8.5px;
+            left: 16px;
+            border-bottom: 10px solid #fff;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+        }
+    }
+    &-item {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
+        padding: $spacing_dropdown_item;
+        &:hover, &:focus {
+            background-color: $light;
+            color: $text_color;
+            .dropdown-subIcon {
+                background-color: $brand;
+                color: $white;
+            }
+        }
+        &-icon {
+            width: 30px;
+            svg {
+                max-width: 0.8em;
+            }
+        }
+    }
+    &-header {
+        @include flex_align_center;
+        padding: $spacing_dropdown_header;
+        border-bottom: 1px solid $border_light2;
+        color: $text_color;
+        h6 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: $text_color;
+        }
+    }
+    &-menu-items {
+        .dropdown {
+            &-item {
+                border-bottom: 1px solid $border_light2;
+            }
+        }
+    }
+    &-button {
+        padding: $spacing_dropdown_header;
+        .btn {
+            padding: 5px 15px;
+            justify-content: center;
+            font-size: 0.8em;
+        }
+    }
+    &-subIcon {
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $light;
+        border-radius: $border_radius;
+        margin-right: $spacing_xs;
+        transition: $ease_03;
+        svg {
+            width: 0.8em;
+        }
+    }
+    &-user {
+        width: 30px;
+        height: 30px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $light;
+        border-radius: $border_radius;
+        margin-right: $spacing_xs;
+        transition: $ease_03;
+        overflow: hidden;
+    }
+    &-account {
+        .dropdown-menu {
+            min-width: 13rem;
+        }
+    }
+    &-search {
+        .dropdown-menu {
+            border-color: transparent;
+            min-width: inherit;
+        }
+    }
+    &-menu-end {
+        .dropdown-menu:before, .dropdown-menu:after {
+            left: inherit;
+            right: 22px;
+        }
+    }
+}

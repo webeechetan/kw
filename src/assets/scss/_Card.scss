@@ -1,0 +1,124 @@
+.card {
+    &-style1 {
+        border-radius: $border_radius_sm;
+        border: 1px solid $grey;
+        text-align: center;
+        transition: $ease_03;
+        &:hover {
+            border-color: $brand;
+        }
+        .card {
+            &-title {
+                font-size: 1.3rem;
+                color: $text_color;
+                width: calc(100% - 50px);
+                margin-left: auto;
+                margin-right: auto;
+                a {
+                    color: $text_color;
+                    transition: $ease_03;
+                    &:hover {
+                        color: $brand;
+                    }
+                }
+            }
+            &-icon {
+                width: 50px;
+                height: 50px;
+                background-color: $brand;
+                color: $white;
+                border-radius: $border_radius_xs;
+                margin: 0 auto 15px auto;
+                @include flex_center;
+
+                a {
+                    color: $white;
+                }
+            }
+            &-body {
+                position: relative;
+            }
+        }
+    }
+    &-style2 {
+        .card {
+            &-title {
+                &-wrap {
+                    background-color: $light;
+                    padding: $spacing_xs $spacing_sm;
+                    border-radius: $border_radius_xs;
+                }
+            }
+            &-top {
+                @include flex;
+                position: relative;
+                .card-options {
+                    top: 0;
+                }
+            }
+            &-user {
+                @include user;
+                margin-right: $spacing_sm;
+            }
+            &-right {
+                flex: 1;
+                .notice-name {
+                    font-size: 1.2rem;
+                    small {
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+    &-icons-group {
+        list-style-type: none;
+        @include flex_align_center;
+        flex-direction: initial;
+        li {
+            &:not(:last-child) {
+                margin-right: $spacing_sm;
+            }
+            a {
+                color: $text_light;
+                &:hover {
+                    color: $brand;
+                }
+            }
+        }
+    }
+    &-options {
+        position: absolute;
+        top: $spacing_sm;
+        right: $spacing_sm;
+
+        &-submenu {
+            transform: translate(0, 28px) !important;
+            min-width: 10rem;
+            &.dropdown {
+                &-menu {
+                    &:before, &:after {
+                        left: inherit;
+                        right: 15px;
+                    }
+                }
+            }
+            .dropdown {
+                &-item {
+                    align-items: center;
+                    padding: $spacing_options_dropdown_item;
+                    svg {
+                        width: 1.3rem;
+                        margin-right: $spacing_s;
+                    }
+                }
+            }
+        }
+    }
+    &-scroll {
+        max-height: 470px;
+        > .row:not(:last-child) {
+            margin-bottom: $spacing_md;
+        }
+    }
+}

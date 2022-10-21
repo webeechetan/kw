@@ -1,0 +1,127 @@
+// ===== Variables ===== //
+
+// Font Family
+$main-font: 'Rubik', sans-serif;
+
+// Transition Ease
+$ease_03: all 0.3s ease;
+$ease_05: all 0.5s ease;
+
+// Border Radius
+$border_radius: 50%;
+$border_radius_xs: 6px;
+$border_radius_sm: 10px;
+$border_radius_md: 20px;
+$border_radius_checkbox: 3px;
+
+// Spacing
+$spacing_s: 5px;
+$spacing_xs: 10px;
+$spacing_sm: 20px;
+$spacing_md: 30px;
+$spacing_lg: 50px;
+$spacing_xl: 70px;
+$spacing_xll: 90px;
+$spacing_btn: 0.5rem 1.4rem;
+$spacing_btn_sm: 0.3rem 1rem; 
+$spacing_sidenav_item: 12px 25px;
+$spacing_sidenav_btm: 12px 25px;
+$spacing_dropdown_item: 10px 15px;
+$spacing_options_dropdown_item: 7px 15px;
+$spacing_dropdown_header: 15px;
+$spacing_dropdown_btm: 15px;
+$spacing_members: 5px;
+
+// Pagination
+$pagination-border-width: 1px;
+
+// Box Shadow
+$box_shadow: 0 3px 30px #eee;
+
+// Table Spacing
+$table_header_spacing: 15px 20px;
+
+// Image sizes
+$townhall_logo: 120px;
+$townhall_dp: 100px;
+$team_dp: 75px;
+
+// ===== Mixins ===== //
+
+// User
+@mixin user {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $light;
+    overflow: hidden;
+}
+
+// Box Item
+@mixin box_item {
+    background: $white;
+    border-radius: $border_radius_sm;
+    padding: $spacing_sm $spacing_md;
+    @media (max-width: 1440px) {
+        padding: $spacing_xs $spacing_sm;
+    }
+}
+
+// Task Item
+@mixin task_container {
+    display: flex;
+    flex-wrap: wrap;
+    background: $white;
+    border-radius: $border_radius_sm;
+    padding: $spacing_xs;
+    border: 1px solid $border_light;
+}
+
+// Flex Center
+@mixin flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+// Flex Center
+@mixin flex_center {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+// Flex Justify Center
+@mixin flex_justify_center {
+    display: flex;
+    justify-content: center;
+}
+
+// Flex Align Center
+@mixin flex_align_center {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+// Flex Align End
+@mixin flex_align_end {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+}
+
+// Flex Direction Column
+@mixin flex_direction_column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+// Rounded Box
+@mixin rounded_box_50 {
+    width: 50px;
+    height: 50px;
+    border-radius: $border_radius_xs;
+    @include flex_center;
+}
