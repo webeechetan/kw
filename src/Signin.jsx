@@ -1,21 +1,43 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Link, useHistory} from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Spinner, Alert} from 'react-bootstrap';
 import MarkEmailReadTwoToneIcon from '@mui/icons-material/MarkEmailReadTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
+import axios from 'axios';
+import { config } from './config';
 
 export default function Signin() {
+    const history = useHistory();
     const [validated, setValidated] = useState(false);
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+    const [spinner,setSpinner] = useState(false);
+    const [alert, setAlert] = useState(false);
 
     const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        setSpinner(true);
         event.preventDefault();
-        event.stopPropagation();
-        }
-
         setValidated(true);
+        signin()
+        .then(res =>{ 
+            console.log(res.data.success);
+            if(res.data.success){
+                history.push('/dashboard');
+            } 
+        })
+        .catch(error => { 
+            setSpinner(false);
+            if(error.response.data.success==false){
+                setAlert(true);
+                setPassword('');
+            }
+            console.log(error.response.data.data) 
+        });
     };
+    async function signin (){
+        const res = await axios.post(config.api_url+'/organization/login',{email,password});
+        return res;
+     };
     return (
         <>
             <div className="signin-content">
@@ -43,18 +65,18 @@ export default function Signin() {
                                     <p><small>or sign in with your E-mail</small></p>
                                 </div>
                                 <div className="signin-content-right-btm mt-4">
-                                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                                    <Form  validated={validated} onSubmit={handleSubmit}>
                                         <Form.Group className="mb-3" controlId="signinEmail">
                                             <div className="form-field">
                                                 <div className="form-field-icon"><MarkEmailReadTwoToneIcon /></div>
-                                                <Form.Control type="email" placeholder="Enter Email" required />
+                                                <Form.Control type="email" placeholder="Enter Email" required onChange={ (e)=>{ setEmail(e.target.value) }} />
                                                 <Form.Control.Feedback type="invalid">Please Enter Valid Email.</Form.Control.Feedback>
                                             </div>
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="signinPassword">
                                             <div className="form-field">
                                                 <div className="form-field-icon"><LockOpenTwoToneIcon /></div>
-                                                <Form.Control type="password" placeholder="Enter Password" required />
+                                                <Form.Control type="password" placeholder="Enter Password" required onChange={ (e)=>{ setPassword(e.target.value) }} />
                                                 <Form.Control.Feedback type="invalid">Please Enter Valid Password.</Form.Control.Feedback>
                                             </div>
                                         </Form.Group>
@@ -70,7 +92,23 @@ export default function Signin() {
                                         </Row>
                                         
                                         <Row className="btn-group">
-                                            <Col><Button className="w-100" variant="primary" type="submit">Sign In</Button></Col>
+                                            { alert === true ? 
+                                            <Alert variant="danger">
+                                                Invalid Credentials
+                                            </Alert>
+                                             : ''}
+                                            <Col>
+                                                { spinner === true ?
+                                                    <Button className="w-100" variant="primary" type="submit">
+                                                        <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                                                        <span className="visually-hidden">Loading...</span>
+                                                    </Button>
+                                                : 
+                                                <Button className="w-100" variant="primary" type="submit">
+                                                    Sign In
+                                                </Button>
+                                                }
+                                            </Col>
                                             <Col>
                                                 <Link to="/">
                                                     <Button className="w-100" variant="primary-border">Sign Up</Button>

@@ -1,24 +1,49 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Link, Redirect, useHistory } from 'react-router-dom';
+import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
+import axios from 'axios';
 
 
 export default function Signup() {
+    let history = useHistory();
     const [validated, setValidated] = useState(false);
-
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [phone, setPhone] = useState('');
+    const [btn, setBtn] = useState('Sign Up Now');
+    const [alert, setAlert] = useState(false);
     const handleSubmit = (event) => {
+        setAlert(true);
+        setBtn('Registering...');
+        event.preventDefault();
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
+            event.stopPropagation();
+        }else{
+            setValidated(true);
+            signup()
+            .then(res =>{ 
+                console.log(res.data.success);
+                if(res.data.success){
+                    history.push('/signin');
+                } 
+            })
+            .catch(error => { 
+                console.log(error.response.data.data) 
+            });
+            setBtn('Sign Up Now');
         }
+    };
 
-        setValidated(true);
+    async function signup (){
+       const res =  await axios.post('http://localhost:8000/api/organization/register',{name,email,password});
+       return res;
     };
     return (
         <>
@@ -48,20 +73,20 @@ export default function Signup() {
                                 <p>Let’s get started with a few simple steps</p>
                             </div>
                             <div className="signup-form">
-                                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                                <Form validated={validated} onSubmit={handleSubmit}>
                                     <Form.Group className="form-field mb-3" controlId="signupName">
                                         <div className="form-field-icon"><PersonOutlineIcon /></div>
-                                        <Form.Control type="text" placeholder="Enter Name" required />
+                                        <Form.Control type="text" placeholder="Enter Name" required onChange={(e)=> setName(e.target.value) } />
                                         <Form.Control.Feedback type="invalid">Please Enter Valid Name.</Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group className="mb-3 form-field" controlId="signupEmail">
                                         <div className="form-field-icon"><MailOutlinedIcon /></div>
-                                        <Form.Control type="email" placeholder="Work Email" required />
+                                        <Form.Control type="email" placeholder="Work Email" required onChange={(e)=> setEmail(e.target.value) } />
                                         <Form.Control.Feedback type="invalid">Please Enter Valid Email.</Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group className="form-field mb-3" controlId="signupPhone">
                                         <div className="form-field-icon"><LocalPhoneOutlinedIcon /></div>
-                                        <Form.Control type="text" placeholder="Phone" required />
+                                        <Form.Control type="text" placeholder="Phone" required onChange={(e)=> setPhone(e.target.value) } />
                                         <Form.Control.Feedback type="invalid">Please Enter Valid Phone Number.</Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group className="form-field mb-3" controlId="signupRole">
@@ -71,7 +96,7 @@ export default function Signup() {
                                     </Form.Group>
                                     <Form.Group className="mb-3 form-field" controlId="signupPassword">
                                         <div className="form-field-icon"><LockOpenOutlinedIcon /></div>
-                                        <Form.Control type="password" placeholder="Password 8+ Characters" maxlength="8" required />
+                                        <Form.Control type="password" placeholder="Password 8+ Characters"  required onChange={(e)=> setPassword(e.target.value) } />
                                         <Form.Control.Feedback type="invalid">Please Enter Valid 8+ Characters Password.</Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="signinCheckbox">
@@ -80,8 +105,13 @@ export default function Signup() {
                                     <Row>
                                         <Col lg="10" xl="9" className="mx-auto">
                                             <Form.Group className="mb-3" controlId="signinCheckbox">
-                                                <Button className="w-100" variant="primary" type="submit">Sign Up Now</Button>
+                                                <Button className="w-100" variant="primary" type="submit">{ btn }</Button>
                                             </Form.Group>
+                                            { alert === true ? 
+                                            <Alert variant="success">
+                                                Registered Successfully
+                                            </Alert>
+                                             : ''}
                                             <p>Or sign up with:</p>
                                             <a href="#" className="signin-google-btn w-100">
                                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
