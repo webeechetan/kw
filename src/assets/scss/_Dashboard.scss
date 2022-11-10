@@ -86,6 +86,12 @@
     }
 }
 
+/* --- Member --- */
+.icon{
+    &-group{
+        @include flex_space_between;
+    }
+}
 // Scrollbar
 .scrollbar {
     overflow: hidden;

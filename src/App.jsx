@@ -13,6 +13,7 @@ import Invite from './Invite';
 import Signin from './Signin';
 import Signup from './Signup';
 import InviteSignup from './InviteSignup';
+import Members from './members/Members';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             <Route exact path="/tasks" component={Tasks} />
             <Route exact path="/messages" component={Messages} />
             <Route exact path="/projects" component={Projects} />
+            <Route exact path="/members" component={Members} />
           </Switch>
       </Router>
     </>

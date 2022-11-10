@@ -770,6 +770,12 @@ ul.list-none {
   justify-content: center;
 }
 
+/* --- Member --- */
+.icon-group {
+  display: flex;
+  justify-content: space-around;
+}
+
 .scrollbar {
   overflow: hidden;
   overflow-Y: auto;
@@ -1243,6 +1249,10 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
 .card-style1 .card-body {
   position: relative;
 }
+.card-style1 .card-footer {
+  background-color: #fff;
+  border-radius: 0px 0px 10px 10px;
+}
 .card-style2 .card-title-wrap {
   background-color: #f5f5f5;
   padding: 10px 20px;
@@ -1633,5 +1643,3 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   background-color: #eee;
   border-color: #eee;
 }
-
-/*# sourceMappingURL=app.css.map */
