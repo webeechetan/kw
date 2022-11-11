@@ -5,8 +5,10 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-export default function Members(props) {
+
+export default function Members() {
     return (
         <>
         <Header />
@@ -17,10 +19,10 @@ export default function Members(props) {
                     <div className="main-body-header">
                         <Row className="align-items-center">
                             <Col>
-                                <h3 className="main-body-header-title mb-0">Memmber</h3>
+                                <h3 className="main-body-header-title mb-0">Member</h3>
                             </Col>
-                            <Col className="text-end">
-                                <Button>Add Member</Button>
+                                <Col className="text-end">
+                                <Link to="../forms"><Button>Add Member</Button></Link>
                             </Col>
                         </Row>
                     </div>

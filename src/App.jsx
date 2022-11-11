@@ -14,6 +14,7 @@ import Signin from './Signin';
 import Signup from './Signup';
 import InviteSignup from './InviteSignup';
 import Members from './members/Members';
+import MembersForm from './members/components/MembersForm';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route exact path="/messages" component={Messages} />
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />
+            <Route exact path="/forms" component={MembersForm} />
           </Switch>
       </Router>
     </>
