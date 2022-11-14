@@ -21,7 +21,7 @@ export default function MembersForm() {
     useEffect(() => {
         setTimeout(() => {
             setSpinnerTo(false);
-        }, 12000);
+        }, 3000);
     }, []);
 
     const handleSubmit = (e) => {

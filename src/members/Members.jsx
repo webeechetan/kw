@@ -12,6 +12,7 @@ import axios from 'axios';
 
 export default function Members() {
 
+<<<<<<< HEAD
     const [members, setMembers] = useState([]);
 
     const getMembers = () => {
@@ -31,6 +32,8 @@ export default function Members() {
     //     setSpinner(value);
     // }
 
+=======
+>>>>>>> 4f024041b4a969ded3aaa6ba840a587836dd15ba
     return (
         <>
         <Header />
@@ -44,7 +47,7 @@ export default function Members() {
                                 <h3 className="main-body-header-title mb-0">Member</h3>
                             </Col>
                                 <Col className="text-end">
-                                <Link to="../membersform"><Button>Add Member</Button></Link>
+                                    <Link to="../Membersform"><Button>Add Member</Button></Link>        
                             </Col>
                         </Row>
                     </div>
