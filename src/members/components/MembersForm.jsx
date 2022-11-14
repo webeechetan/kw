@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { Container, Row, Col, Button,Form } from 'react-bootstrap';
+import { Container, Row, Col, Button,Form, Spinner} from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { config } from '../../config';
 
 
 export default function MembersForm() {
+
     const history = useHistory();
     const [validated, setValidated] = React.useState(false);
     const [name , setName] = React.useState('');
@@ -15,6 +16,13 @@ export default function MembersForm() {
     const [phone , setPhone] = React.useState('');
     const [address , setAddress] = React.useState('');
     const [password , setPassword] = React.useState('');
+    const [spinner , setSpinner] = React.useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setSpinnerTo(false);
+        }, 12000);
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -34,6 +42,10 @@ export default function MembersForm() {
         });
 
     };
+
+    const setSpinnerTo = (val) => {
+        setSpinner(val);
+    }
 
     async function addMember() {
         let __token = localStorage.getItem('__token');
@@ -55,6 +67,7 @@ export default function MembersForm() {
         <Header />
         <div className="main-body">
             <Sidebar />
+
             <div className="main-body-content">
                 <Container fluid>
                     <div className="main-body-header">
@@ -67,29 +80,32 @@ export default function MembersForm() {
                     {/* Users */}
                    <Row>
                        <Col md="8" className='mx-auto'>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control type="name" placeholder="Enter Full Name" onChange={(e)=>{ setName(e.target.value) }} />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control type="email" placeholder="Enter Your Email" onChange={(e)=>{ setEmail(e.target.value) }} />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control type="password" placeholder="Enter Your Password" onChange={(e)=>{ setPassword(e.target.value) }} />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control type="number" placeholder="Enter Your Phone Number" onChange={(e)=>{ setPhone(e.target.value) }} />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} onChange={(e)=>{ setAddress(e.target.value) }} />
-                                </Form.Group>
-                                    <Button className="w-100" variant="primary" type="submit">Submit</Button>
-                            </Form>
+                            { spinner ==  true ? 
+                                <Spinner animation="grow" role="status" variant="warning" />
+                                    :
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group className="mb-3" controlId="Form.Control">
+                                        <Form.Control type="name" placeholder="Enter Full Name" onChange={(e)=>{ setName(e.target.value) }} />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3" controlId="Form.Control">
+                                        <Form.Control type="email" placeholder="Enter Your Email" onChange={(e)=>{ setEmail(e.target.value) }} />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3" controlId="Form.Control">
+                                        <Form.Control type="password" placeholder="Enter Your Password" onChange={(e)=>{ setPassword(e.target.value) }} />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3" controlId="Form.Control">
+                                        <Form.Control type="number" placeholder="Enter Your Phone Number" onChange={(e)=>{ setPhone(e.target.value) }} />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3" controlId="Form.Control">
+                                        <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} onChange={(e)=>{ setAddress(e.target.value) }} />
+                                    </Form.Group>
+                                        <Button className="w-100" variant="primary" type="submit">Submit</Button>
+                                </Form>
+                            } 
                         </Col>
                    </Row>
-
                 </Container>
-            </div>
+            </div> 
         </div>
         </>
     )
