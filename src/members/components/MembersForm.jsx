@@ -1,10 +1,55 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import { Container, Row, Col, Button,Form } from 'react-bootstrap';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { config } from '../../config';
 
-export default function MembersForm
-    () {
+
+export default function MembersForm() {
+    const history = useHistory();
+    const [validated, setValidated] = React.useState(false);
+    const [name , setName] = React.useState('');
+    const [email , setEmail] = React.useState('');
+    const [phone , setPhone] = React.useState('');
+    const [address , setAddress] = React.useState('');
+    const [password , setPassword] = React.useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.stopPropagation();
+        }
+        setValidated(true);
+        addMember()
+        .then((res) => {
+            if(res.data.success){
+                history.push('/members');
+            }
+            console.log(res);
+        }).catch((error) => {
+            console.log(error);
+        });
+
+    };
+
+    async function addMember() {
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const data = {
+            name,
+            email,
+            phone,
+            address,
+            password
+        }
+        const res = await axios.post(`${config.api_url}/users`, data,header);
+        return res;
+    }
     return (
         <>
         <Header />
@@ -25,18 +70,21 @@ export default function MembersForm
                     {/* Users */}
                    <Row>
                        <Col md="8" className='mx-auto'>
-                            <Form>
+                            <Form onSubmit={handleSubmit}>
                                 <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="name" placeholder="Enter Full Name" />
+                                    <Form.Control type="name" placeholder="Enter Full Name" onChange={(e)=>{ setName(e.target.value) }} />
                                 </Form.Group> 
                                 <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="email" placeholder="Enter Your Email" />
+                                    <Form.Control type="email" placeholder="Enter Your Email" onChange={(e)=>{ setEmail(e.target.value) }} />
                                 </Form.Group> 
                                 <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="number" placeholder="Enter Your Phone Number" />
+                                    <Form.Control type="password" placeholder="Enter Your Password" onChange={(e)=>{ setPassword(e.target.value) }} />
                                 </Form.Group> 
                                 <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} />
+                                    <Form.Control type="number" placeholder="Enter Your Phone Number" onChange={(e)=>{ setPhone(e.target.value) }} />
+                                </Form.Group> 
+                                <Form.Group className="mb-3" controlId="Form.Control">
+                                    <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} onChange={(e)=>{ setAddress(e.target.value) }} />
                                 </Form.Group>
                                     <Button className="w-100" variant="primary" type="submit">Submit</Button>
                             </Form>

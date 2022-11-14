@@ -22,6 +22,7 @@ export default function Signin() {
         .then(res =>{ 
             console.log(res.data.success);
             if(res.data.success){
+                localStorage.setItem('__token',res.data.data.token);
                 history.push('/dashboard');
             } 
         })

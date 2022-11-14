@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
@@ -6,9 +6,31 @@ import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import config from '../config';
+import axios from 'axios';
 
 
 export default function Members() {
+
+    const [members, setMembers] = useState([]);
+
+    const getMembers = () => {
+        axios.get(`${config.config.api_url}/users`,config.config.headers)
+        .then((res) => {
+            setMembers(res.data.data);
+        }).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    useEffect(() => {
+        getMembers();
+    }, []);
+
+    // const setSpinnerTo = (value) => {
+    //     setSpinner(value);
+    // }
+
     return (
         <>
         <Header />
