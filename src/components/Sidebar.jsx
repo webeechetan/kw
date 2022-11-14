@@ -8,6 +8,7 @@ import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 import WavesOutlinedIcon from '@mui/icons-material/WavesOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 
 export default function LeftSidebar() {
     return (
@@ -29,7 +30,8 @@ export default function LeftSidebar() {
                     <ul className="list-none menu-sidebar">
                         <li><Link to="../dashboard" className="active"><HomeOutlinedIcon/> Dashboard</Link></li>
                         <li><Link to="../teams"><PeopleAltOutlinedIcon/> Teams</Link></li>
-                        <li><Link to="../tasks" className=""><AssignmentOutlinedIcon/> Tasks</Link></li>
+                        <li><Link to="../tasks" className=""><AssignmentOutlinedIcon /> Tasks</Link></li>
+                        <li><Link to="../members" className=""><GroupOutlinedIcon/> Members</Link></li>
                         <li><Link to="../messages" className=""><MarkChatUnreadOutlinedIcon/> Messages</Link></li>
                         <li><Link to="../projects" className=""><DashboardOutlinedIcon/> Projects</Link></li>
                         <li><Link to="../calendar" className=""><EventNoteOutlinedIcon/> Calendar</Link></li>
