@@ -38,7 +38,12 @@
             &-body {
                 position: relative;
             }
+            &-footer{
+                background-color: $white;
+               border-radius: $border_radius_xmd;
+            }
         }
+       
     }
     &-style2 {
         .card {
