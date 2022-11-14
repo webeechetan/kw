@@ -59,9 +59,6 @@ export default function MembersForm() {
                 <Container fluid>
                     <div className="main-body-header">
                         <Row className="align-items-center">
-                            <Col>
-                                <h3 className="main-body-header-title mb-0">Member</h3>
-                            </Col>
                             <Col className="text-end">
                                 <Button>Add Member</Button>
                             </Col>

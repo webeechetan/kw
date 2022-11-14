@@ -15,6 +15,7 @@ import Signup from './Signup';
 import InviteSignup from './InviteSignup';
 import Members from './members/Members';
 import MembersForm from './members/components/MembersForm';
+import TeamsForm  from './teams/components/TeamsForm'
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
             <Route exact path="/messages" component={Messages} />
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />
-            <Route exact path="/forms" component={MembersForm} />
+            <Route exact path="/membersform" component={MembersForm} />
+            <Route exact path= "/teamsform" component={TeamsForm} />
           </Switch>
       </Router>
     </>
