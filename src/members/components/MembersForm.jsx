@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { Container, Row, Col, Button,Form } from 'react-bootstrap';
+import { Container, Row, Col,Spinner, Button,Form } from 'react-bootstrap';
 
-export default function MembersForm
-    () {
+export default function MembersForm() {
+    const [spinner, setSpinner] = useState(false)
+    useEffect(() => {
+        setSpinner(true)
+        setTimeout(() => {
+            setSpinner(false)
+        }, 30000);
+        
+    })
     return (
         <>
         <Header />
@@ -22,21 +29,26 @@ export default function MembersForm
                     {/* Users */}
                    <Row>
                        <Col md="8" className='mx-auto'>
-                            <Form>
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="name" placeholder="Enter Full Name" />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="email" placeholder="Enter Your Email" />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="number" placeholder="Enter Your Phone Number" />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} />
-                                </Form.Group>
-                                    <Button className="w-100" variant="primary" type="submit">Submit</Button>
-                            </Form>
+                           {
+                               spinner == true ?
+                                 <Spinner animation="grow" variant="warning" />
+                                    :        
+                                <Form>
+                                   <Form.Group className="mb-3" controlId="Form.Control">
+                                     <Form.Control type="name" placeholder="Enter Full Name" />
+                                   </Form.Group> 
+                                   <Form.Group className="mb-3" controlId="Form.Control">
+                                     <Form.Control type="email" placeholder="Enter Your Email" />
+                                   </Form.Group> 
+                                   <Form.Group className="mb-3" controlId="Form.Control">
+                                     <Form.Control type="number" placeholder="Enter Your Phone Number" />
+                                   </Form.Group> 
+                                   <Form.Group className="mb-3" controlId="Form.Control">
+                                      <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} />
+                                   </Form.Group>
+                                   <Button className="w-100" variant="primary" type="submit">Submit</Button>
+                              </Form>   
+                           }
                         </Col>
                    </Row>
 
