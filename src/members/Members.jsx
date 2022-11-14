@@ -22,7 +22,7 @@ export default function Members() {
                                 <h3 className="main-body-header-title mb-0">Member</h3>
                             </Col>
                                 <Col className="text-end">
-                                <Link to="../forms"><Button>Add Member</Button></Link>
+                                <Link to="../membersform"><Button>Add Member</Button></Link>
                             </Col>
                         </Row>
                     </div>

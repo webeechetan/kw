@@ -3,8 +3,7 @@ import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 import { Container, Row, Col, Button,Form } from 'react-bootstrap';
 
-export default function MembersForm
-    () {
+export default function TeamsForm() {
     return (
         <>
         <Header />
@@ -15,7 +14,7 @@ export default function MembersForm
                     <div className="main-body-header">
                         <Row className="align-items-center">
                             <Col className="text-end">
-                                <Button>Add Member</Button>
+                                <Button>Add Team</Button>
                             </Col>
                         </Row>
                     </div>
@@ -24,16 +23,10 @@ export default function MembersForm
                        <Col md="8" className='mx-auto'>
                             <Form>
                                 <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="name" placeholder="Enter Full Name" />
+                                <Form.Control type="text" placeholder="Enter Team Name" />
                                 </Form.Group> 
                                 <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="email" placeholder="Enter Your Email" />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                <Form.Control type="number" placeholder="Enter Your Phone Number" />
-                                </Form.Group> 
-                                <Form.Group className="mb-3" controlId="Form.Control">
-                                    <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} />
+                                    <Form.Control as="textarea" placeholder="Enter Team Description" rows={3} />
                                 </Form.Group>
                                     <Button className="w-100" variant="primary" type="submit">Submit</Button>
                             </Form>

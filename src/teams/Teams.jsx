@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import Team from './components/Team';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function Teams(props) {
     return (
@@ -18,7 +19,7 @@ export default function Teams(props) {
                                 <h3 className="main-body-header-title mb-0">Teams</h3>
                             </Col>
                             <Col className="text-end">
-                                <Button>Add Team</Button>
+                                <Link to="../teamsform"><Button>Add Team</Button></Link>
                             </Col>
                         </Row>
                     </div>
