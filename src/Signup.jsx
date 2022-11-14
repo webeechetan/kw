@@ -7,6 +7,7 @@ import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import BusinessCenterOutlinedIcon from '@mui/icons-material/BusinessCenterOutlined';
 import LockOpenOutlinedIcon from '@mui/icons-material/LockOpenOutlined';
 import axios from 'axios';
+import config from './config';
 
 
 export default function Signup() {
@@ -42,7 +43,7 @@ export default function Signup() {
     };
 
     async function signup (){
-       const res =  await axios.post('http://localhost:8000/api/organization/register',{name,email,password});
+       const res =  await axios.post(config.api_url+'/organization/register',{name,email,password});
        return res;
     };
     return (
