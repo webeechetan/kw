@@ -12,7 +12,6 @@ import axios from 'axios';
 
 export default function Members() {
 
-<<<<<<< HEAD
     const [members, setMembers] = useState([]);
 
     const getMembers = () => {
@@ -28,12 +27,6 @@ export default function Members() {
         getMembers();
     }, []);
 
-    // const setSpinnerTo = (value) => {
-    //     setSpinner(value);
-    // }
-
-=======
->>>>>>> 4f024041b4a969ded3aaa6ba840a587836dd15ba
     return (
         <>
         <Header />
