@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { config } from '../../config';
 
 
-export default function addMember() {
+export default function AddMember() {
 
     const history = useHistory();
     const [validated, setValidated] = React.useState(false);
@@ -72,6 +72,9 @@ export default function addMember() {
                 <Container fluid>
                     <div className="main-body-header">
                         <Row className="align-items-center">
+                            <Col>
+                                <h3 className="main-body-header-title mb-0">Member</h3>
+                            </Col>
                             <Col className="text-end">
                                 <Button>Add Member</Button>
                             </Col>
@@ -79,7 +82,8 @@ export default function addMember() {
                     </div>
                     {/* Users */}
                    <Row>
-                       <Col md="8" className='mx-auto'>
+                       <Col md="6" className='mx-auto'>
+                             <h3 className='main-body-header-title mb-3 text-center'>Add New Members</h3>
                             { spinner ==  true ? 
                                 <Spinner animation="grow" role="status" variant="warning" />
                                     :
@@ -99,7 +103,7 @@ export default function addMember() {
                                     <Form.Group className="mb-3" controlId="Form.Control">
                                         <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} onChange={(e)=>{ setAddress(e.target.value) }} />
                                     </Form.Group>
-                                        <Button className="w-100" variant="primary" type="submit">Submit</Button>
+                                        <Button variant="primary" type="submit">Submit</Button>
                                 </Form>
                             } 
                         </Col>

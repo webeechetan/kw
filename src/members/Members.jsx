@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import { Container, Row, Col, Card,Dropdown, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import config from '../config';
 import axios from 'axios';
@@ -24,10 +27,6 @@ export default function Members() {
         getMembers();
     }, []);
 
-    // const setSpinnerTo = (value) => {
-    //     setSpinner(value);
-    // }
-
     return (
         <>
         <Header />
@@ -41,7 +40,7 @@ export default function Members() {
                                 <h3 className="main-body-header-title mb-0">Member</h3>
                             </Col>
                                 <Col className="text-end">
-                                    <Link to="../Membersform"><Button>Add Member</Button></Link>        
+                                    <Link to="../addmember"><Button>Add Member</Button></Link>        
                             </Col>
                         </Row>
                     </div>
@@ -52,7 +51,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                            <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Ragini</a></Card.Title>
                                                 <Card.Text>UI/UX Desginer</Card.Text>
                                         </Card.Body>
@@ -61,7 +69,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                           <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Sonia</a></Card.Title>
                                                 <Card.Text>Account Manager</Card.Text>
                                         </Card.Body>
@@ -70,7 +87,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                            <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Rajiay</a></Card.Title>
                                                 <Card.Text>PHP Developer</Card.Text>
                                         </Card.Body>
@@ -79,7 +105,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                           <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Priyanka</a></Card.Title>
                                                 <Card.Text>Media Planner</Card.Text>
                                         </Card.Body>
@@ -88,7 +123,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                           <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Katrin</a></Card.Title>
                                                 <Card.Text>Content Writer</Card.Text>
                                         </Card.Body>
@@ -97,7 +141,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                           <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Siya</a></Card.Title>
                                                 <Card.Text>HR</Card.Text>
                                         </Card.Body>
@@ -106,7 +159,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                           <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Ragini</a></Card.Title>
                                                 <Card.Text>UI/UX Desginer</Card.Text>
                                         </Card.Body>
@@ -115,7 +177,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                           <div className="card-options">
+                                                <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Stiffen</a></Card.Title>
                                                 <Card.Text>jr. PHP Developer</Card.Text>
                                         </Card.Body>
@@ -124,7 +195,16 @@ export default function Members() {
                                 <Col md="4" className="mb-4">
                                     <Card className="card-style1">
                                         <Card.Body>
-                                            <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                        <div className="card-options">
+                                            <Dropdown align="end">
+                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                    <Dropdown.Menu className="card-options-submenu">
+                                                        <Dropdown.Item href="#"><EditOutlinedIcon/> Edit</Dropdown.Item>
+                                                        <Dropdown.Item href="#"><DeleteOutlineOutlinedIcon/> Delete</Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                            </Dropdown>
+                                            </div>
+                                            <div className="mb-3"><img className="img-fluid img-member-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
                                                 <Card.Title><a href="#">Sofia</a></Card.Title>
                                                 <Card.Text>Sr. Account Manager</Card.Text>
                                         </Card.Body>

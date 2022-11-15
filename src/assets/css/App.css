@@ -1737,4 +1737,15 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   border-color: #eee;
 }
 
-/*---- Pagination Style Start Here ----*/
+/*---- Pagination Style End Here ----*/
+/*---- Himanshu Style Here ----*/
+.main-body-card {
+  background-color: #f6f5f5;
+  border: none;
+}
+
+/*---- Image ----*/
+.img-member-dp {
+  width: 70px;
+  border-radius: 50%;
+}
