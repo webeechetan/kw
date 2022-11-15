@@ -1,6 +1,6 @@
-// Menu Style
+/*---- Menu Style ----*/
 .menu {
-    // Sidebar Menu Style
+    /* ---- Sidebar Menu Style ----*/
     &-sidebar {
         li {
             position: relative;
@@ -15,7 +15,7 @@
                 font-size: 0.9rem;
                 @include flex_align_center;
 
-                // Sidebar Menu Icon Style
+                /*---- Sidebar Menu Icon Style ----*/
                 svg {
                     margin-right: $spacing_sm;
                     width: 0.8em;
@@ -46,7 +46,7 @@
     }
 }
 
-// Navbar
+/* ---- Navbar ----*/
 .navbar {
     padding: 0;
     flex: 1 1;
@@ -81,7 +81,7 @@
                         border-radius: $border_radius;
                         background: $brand;
                         cursor: pointer;
-                        box-shadow: 0 0 0 rgb(247 45 102 / 90%);
+                        box-shadow: 0 3px 15px rgb(247, 45, 0.9);
                         animation: pulse 2s infinite;
                     }
                 }

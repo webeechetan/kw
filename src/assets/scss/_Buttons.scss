@@ -1,7 +1,7 @@
-// Buttons Style Start Here
+/*---- Buttons Style Start Here ----*/
 .btn {
     padding: $spacing_btn;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 400;
     transition: $ease_05;
     &-icon {
@@ -70,7 +70,7 @@
         margin-top: 30px;
     }
 
-    // Actions
+    /*---- Actions ----*/
     &-action {
         .btn {
             &-icon {
@@ -107,7 +107,7 @@
         }
     }
 
-    // Options
+    /*---- Options ----*/
     &-options {
         padding: 0;
         &:after {
@@ -119,4 +119,4 @@
         
     }
 }
-// Buttons Style End Here
+/*---- Buttons Style End Here ----*/

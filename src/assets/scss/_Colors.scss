@@ -1,8 +1,10 @@
 $brand: #f83890;
 $secondary: #7407ff;
+$secondary_light: #FCFAFF;
 $dark: #191919;
 $yellow: #f7d306;
 $yellow_light: #fdf4c1;
+$orange_light: #FFFBFD;
 $grey: #eee;
 $grey_xd: #ddd;
 $light: #f5f5f5;
@@ -21,7 +23,7 @@ $border_light2: #eee;
 $border_form: #ced4da;
 $bg_dropdown: $secondary;
 
-// Actions
+/*---- Actions ----*/
 $success: #48914d;
 $success_light: #dae9db;
 $danger: #fc534f;
@@ -29,12 +31,12 @@ $danger_light: #fedddc;
 $warning: #fed73b;
 $warning_light: #fff7d8;
 
-// Buttons Colors
+/*---- Buttons Colors ----*/
 $primary_hover: $secondary;
 $secondary_hover: $brand;
 $yellow_hover: $yellow;
 
-// Pagination
+/*---- Pagination ---*/
 $pagination_color: $text_color;
 $pagination_bg: $light;
 $pagination_border_width: 1px;
@@ -56,13 +58,13 @@ $pagination_disabled_color: $text_light;
 $pagination_disabled_bg: $grey;
 $pagination_disabled_border_color: $pagination_disabled_bg;
 
-// Scrollbar
+/*---- Scrollbar ----*/
 $scrollbar_width: 6px;
 
-// Table 
+/*---- Table ----*/ 
 $table_header_color: $secondary;
 
-// Default Classies
+/*---- Default Classies ----*/
 .text {
     &-primary {
         color: $brand !important;
@@ -82,7 +84,7 @@ $table_header_color: $secondary;
     }
 }
 
-// Background Colors
+/*---- Background Colors ----*/
 .bg {
     &-primary {
         background-color: $brand !important;

@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { config } from '../../config';
 
 
-export default function MembersForm() {
+export default function addMember() {
 
     const history = useHistory();
     const [validated, setValidated] = React.useState(false);

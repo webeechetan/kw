@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import config from '../config';
@@ -12,7 +9,6 @@ import axios from 'axios';
 
 export default function Members() {
 
-<<<<<<< HEAD
     const [members, setMembers] = useState([]);
 
     const getMembers = () => {
@@ -32,8 +28,6 @@ export default function Members() {
     //     setSpinner(value);
     // }
 
-=======
->>>>>>> 4f024041b4a969ded3aaa6ba840a587836dd15ba
     return (
         <>
         <Header />
@@ -62,13 +56,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Ragini</a></Card.Title>
                                                 <Card.Text>UI/UX Desginer</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col> 
                                 <Col md="4" className="mb-4">
@@ -78,13 +65,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Sonia</a></Card.Title>
                                                 <Card.Text>Account Manager</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col> 
                                 <Col md="4" className="mb-4">
@@ -94,13 +74,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Rajiay</a></Card.Title>
                                                 <Card.Text>PHP Developer</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col> 
                                 <Col md="4" className="mb-4">
@@ -110,13 +83,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Priyanka</a></Card.Title>
                                                 <Card.Text>Media Planner</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col>
                                 <Col md="4" className="mb-4">
@@ -126,13 +92,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Katrin</a></Card.Title>
                                                 <Card.Text>Content Writer</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col> 
                                 <Col md="4" className="mb-4">
@@ -142,13 +101,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Siya</a></Card.Title>
                                                 <Card.Text>HR</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col>
                                 <Col md="4" className="mb-4">
@@ -158,13 +110,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Ragini</a></Card.Title>
                                                 <Card.Text>UI/UX Desginer</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col> 
                                 <Col md="4" className="mb-4">
@@ -174,13 +119,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Stiffen</a></Card.Title>
                                                 <Card.Text>jr. PHP Developer</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col>   
                                 <Col md="4" className="mb-4">
@@ -190,13 +128,6 @@ export default function Members() {
                                                 <Card.Title><a href="#">Sofia</a></Card.Title>
                                                 <Card.Text>Sr. Account Manager</Card.Text>
                                         </Card.Body>
-                                        <Card.Footer className="card-footer-style1">
-                                            <div className="icon-group">
-                                                    <span><ChatBubbleOutlineIcon /></span>
-                                                    <span><PieChartOutlineIcon /></span>
-                                                    <span><PersonOutlineIcon /></span>                                                
-                                            </div>
-                                        </Card.Footer>
                                     </Card>                                    
                                 </Col>
                             </Row>

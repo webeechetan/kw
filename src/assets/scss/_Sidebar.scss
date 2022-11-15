@@ -1,7 +1,7 @@
-// Sidebar Style
+/* ---- Sidebar Style ----*/
 .sidebar {
 
-    // Sidebar Left Style
+    /*---- Sidebar Left Style ----*/
     &-l {
         width: 275px;
         max-width: 100%;
@@ -10,7 +10,7 @@
         position: relative;
         padding-bottom: 150px;
 
-        // Sidebar Left Top Style
+        /*---- Sidebar Left Top Style ----*/
         &-top {
             display: flex;
             flex-wrap: wrap;
