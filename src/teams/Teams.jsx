@@ -19,7 +19,7 @@ export default function Teams(props) {
                                 <h3 className="main-body-header-title mb-0">Teams</h3>
                             </Col>
                             <Col className="text-end">
-                                <Link to="../teamsform"><Button>Add Team</Button></Link>
+                                <Link to="../createteam"><Button>Create Team</Button></Link>
                             </Col>
                         </Row>
                     </div>

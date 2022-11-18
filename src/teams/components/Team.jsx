@@ -11,11 +11,12 @@ export default function Team() {
         { TeamName: "CS Team" },
         { TeamName: "Social Media Team" },
         { TeamName: "Design Team" },
-        { TeamName: "Media Team" }
+        { TeamName: "Media Team" },
+        { TeamName: "Accounts Team" }
     ];
     const renderTeam = (props, index) => {
         return (
-            <Col md="6" xl="4" className="mb-4">
+            <Col md="6" className="mb-4">
                 <Card key={index} className="card-style1 h-100">
                     <Card.Body>
                         <div className="card-options">
