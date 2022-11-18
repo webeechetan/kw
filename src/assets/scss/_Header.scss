@@ -1,15 +1,15 @@
-// Header Style
+/*---- Header Style ----*/
 .header {
     &-main {
         background-color: $white;
         &-wrap {
             display: flex;
         }
-        // Logo
+        /*---- Logo ----*/
         .logo {
             width: 300px;
             max-width: 100%;
-            padding: $spacing_sm;
+            padding: $spacing_xs;
             @include flex_center;
             span:not(:last-child) {
                 border-right: 1px solid $grey_xd;
@@ -20,12 +20,12 @@
                 max-width: 100px;
             }
         }
-        // Header Left Style
+        /*---- Header Left Style ----*/
         &-left {
             width: 300px;
             padding: 0 $spacing_sm;
         }
-        // Header Right Style
+        /*---- Header Right Style ----*/
         &-right {
             text-align: right;
             padding: 0 $spacing_sm;
@@ -34,7 +34,7 @@
             justify-content: space-between;
         }
     }
-    // Header
+    /*---- Header ----*/
     &-search {
         display: flex;
         flex-wrap: wrap;
@@ -44,12 +44,12 @@
             margin-left: 20px;
         }
     }
-    // Header Sidebar Icon
+    /*---- Header Sidebar Icon ----*/
     &-icon_bar {
         cursor: pointer;
     } 
 
-    // Invite Header
+    /*---- Invite Header ----*/
     &-invite {
         .logo {
             padding: $spacing_sm 0 0;
@@ -62,7 +62,7 @@
             text-align: center;
         }
     }
-    // Signup Header
+    /*---- Signup Header ----*/
     &-signup {
         padding: $spacing_sm 0 0;
         .logo {
@@ -70,10 +70,10 @@
         }
     }
 }
-// Search Style
+/*---- Search Style ----*/
 .search {
 
-    // Search Bar Style
+    /*---- Search Bar Style ----*/
     &-bar {
         display: flex;
         flex: 1;
@@ -81,12 +81,12 @@
         padding: 5px 20px;
         background-color: $white;
 
-        // Search Icon Style
+        /*---- Search Icon Style ----*/
         i, input.form-control {
             color: $text_light;
         }
         
-        // Form Input Style
+        /*---- Form Input Style ----*/
         input.form-control {
             border: none;
             background-color: transparent;

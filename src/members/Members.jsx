@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
-import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
-import PieChartOutlineIcon from '@mui/icons-material/PieChartOutline';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import { Container, Row, Col, Card,Dropdown, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import config from '../config';
 import axios from 'axios';
@@ -45,7 +45,7 @@ export default function Members() {
                                 <h3 className="main-body-header-title mb-0">Member</h3>
                             </Col>
                                 <Col className="text-end">
-                                    <Link to="../Membersform"><Button>Add Member</Button></Link>        
+                                    <Link to="../addmember"><Button>Add Member</Button></Link>        
                             </Col>
                         </Row>
                     </div>

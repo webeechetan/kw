@@ -1,41 +1,32 @@
-// Main Body Style
+/*---- Main Body Style ----*/
 .main-body {
     background-color: $dashboard_bg;
     display: flex;
     flex-wrap: wrap;
     
-    // Content Body Style
+    /*---- Content Body Style ----*/
     &-content {
         width: calc(100% - 300px);
-        padding: $spacing_md;
+        padding: $spacing_sm;
     }
 
-    // Body Header
+    /*---- Body Header ----*/
     &-header {
         margin-bottom: $spacing_sm;
         &-title {
             font-size: 1.8em;
         }
     }
-
-    // Card
-    &-card {
-        border: none;
-        border-radius: $border_radius_xs;
-        .card-body {
-            padding: $spacing_sm;
-        }
-    } 
 }
 
-// Box Item Style
+/*---- Box Item Style ---*/
 .box {
     &-item {
         @include box_item;
     }
 }
 
-// Welcome Box Style {
+/*---- Welcome Box Style ----*/
 .welcome-box {
     &-img {
         margin-top: -40px;
@@ -48,31 +39,32 @@
     }
 }
 
-// Avatar
+/*---- Avatar ----*/
 .avatar {
     &_email {
         margin-bottom: 0;
     }
 }
 
-// Teams
+/*---- Teams ----*/
 .team {
     &-member {
         width: 35px;
         height: 35px;
         border-radius: $border_radius;
-        background-color: $light;
-        border: 1px solid transparent;
+        background-color: #fff;
+        border: 1px solid $grey;
         color: $text_light;
         font-size: 0.7rem;
         font-weight: 500;
         letter-spacing: 1px;
         @include flex_center;
-        margin: $spacing_members;
+        margin-right: -10px;
         overflow: hidden;
         &:last-child {
-            background-color: transparent;
+            background-color: #fff;
             border-color: $grey;
+            margin-right: 0;
         }
         a {
             color: $brand;
@@ -81,18 +73,12 @@
             max-width: 100%;
         }
         &-group {
-            @include flex_justify_center;
+            @include flex;
         }
     }
 }
 
-/* --- Member --- */
-.icon{
-    &-group{
-        @include flex_space_between;
-    }
-}
-// Scrollbar
+/*---- Scrollbar ----*/
 .scrollbar {
     overflow: hidden;
     overflow-Y: auto;
@@ -106,11 +92,11 @@
     }
     &::-webkit-scrollbar-thumb {
         border-radius: $border_radius_xs;
-        background-color: $yellow;
+        background-color: $grey_xd;
     }
 }
 
-// Image
+/*---- Image ----*/
 .img {
     &-townhall {
         &-logo {
@@ -129,7 +115,7 @@
     }
 }
 
-// TODO
+/*---- TODO ----*/
 .todo {
     &-add {
         position: relative;
