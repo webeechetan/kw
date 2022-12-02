@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { Container, Row, Col, Button,Form, Spinner, Toast, ToastContainer} from 'react-bootstrap';
+import { Container, Row, Col, Button,Form, Spinner} from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { config } from '../../config';
 import Select from 'react-select';
 
 
-export default function AddMember() {
+export default function EditMember(props) {
+
+    const memberId = props.match.params.memberId;
 
     const history = useHistory();
     const [validated, setValidated] = React.useState(false);
@@ -16,7 +18,6 @@ export default function AddMember() {
     const [email , setEmail] = React.useState('');
     const [phone , setPhone] = React.useState('');
     const [address , setAddress] = React.useState('');
-    const [password , setPassword] = React.useState('');
     const [spinner , setSpinner] = React.useState(false);
     const [teams , setTeams] = React.useState([]);
     const [options , setOptions] = React.useState([]);
@@ -24,19 +25,12 @@ export default function AddMember() {
     const [teamIds, setTeamIds] = React.useState([]);
     const [memberImagePreview, setMemberImagePreview] = useState('https://thumbs.dreamstime.com/b/default-avatar-profile-vector-user-profile-default-avatar-profile-vector-user-profile-profile-179376714.jpg');
     const [memberImage, setMemberImage] = useState(null);
-    const [showAlert, setShowAlert] = useState(false);
-    const [alertMessages, setAlertMessages] = useState([]);
+
+
     useEffect(() => {
+        getMember();
         getTeams();
     }, []);
-
-    const changeHandler = e => {
-        let ids = [];
-        e.map((item) => {
-            ids.push(item.value);
-        });
-        setTeamIds(ids);
-      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -45,24 +39,85 @@ export default function AddMember() {
             e.stopPropagation();
         }
         setValidated(true);
-        addMember()
+        updateMember()
         .then((res) => {
             if(res.data.success){
                 history.push('/members');
             }
         }).catch((error) => {
-            if(error.response.data.message=="Validation Error"){
-                let messages = [];
-                for (const [key, value] of Object.entries(error.response.data.data)) {
-                    messages.push(value[0]);
-                }
-                setAlertMessages(messages);
-                setShowAlert(true);
-            }
-            setSpinner(false);
+            console.log(error);
         });
 
     };
+
+    async function updateMember() {
+        setSpinner(true);
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const formData = new FormData();
+        formData.append('_method', 'PATCH');
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('address', address);
+        formData.append('teams', JSON.stringify(teamIds));
+        if(memberImage){
+            formData.append('image', memberImage);
+        }
+        const res = await axios.post(`${config.api_url}/users/${memberId}`, formData,header);
+        setSpinner(false);
+        return res;
+    }
+
+    const getMember = async () => {
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/users/${memberId}`,header);
+        setName(res.data.data.name);
+        setEmail(res.data.data.email);
+        setPhone(res.data.data.phone);
+        setAddress(res.data.data.address);
+        setMemberImagePreview(res.data.data.image);
+        setTeamIds(res.data.data.teams.map((team) => team.id));
+        res.data.data.teams.map((item) => {
+            let team = {
+                value: item.id,
+                label: item.name
+            }
+            selectedTeams.push(team);
+        });
+        setSelectedTeams(selectedTeams);
+        
+    }
+
+    async function getTeams() {
+        setSpinner(true);
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/teams`,header);
+        setTeams(res.data.data);
+        let options = [];
+        res.data.data.map((item) => {
+            options.push({value: item.id, label: item.name});
+        });
+        setOptions(options);
+        setSpinner(false);
+    }
+
+    const handleTeamChange = (e) => {
+        let ids = [];
+        e.map((item) => {
+            ids.push(item.value);
+        });
+        setTeamIds(ids);
+        console.log(teamIds);
+    }
 
     const previwImage = (e) => {
         const file = e.target.files[0];
@@ -74,42 +129,6 @@ export default function AddMember() {
         reader.readAsDataURL(file);
     };
 
-
-    async function addMember() {
-        setSpinner(true);
-        let __token = localStorage.getItem('__token');
-        const header = {
-            headers: { Authorization: `Bearer ${__token}` }
-        };
-        const formData = new FormData();
-
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('phone', phone);
-        formData.append('address', address);
-        formData.append('password', password);
-        formData.append('teams',  JSON.stringify(teamIds));
-        formData.append('image', memberImage);
-
-        const res = await axios.post(`${config.api_url}/users`, formData,header);
-        setSpinner(false);
-        return res;
-    }
-
-    async function getTeams() {
-        let __token = localStorage.getItem('__token');
-        const header = {
-            headers: { Authorization: `Bearer ${__token}` }
-        };
-        const res = await axios.get(`${config.api_url}/teams`,header);
-        setTeams(res.data.data);
-        let res_options = [];
-        res.data.data.map((team) => {
-            res_options.push({value: team.id, label: team.name});
-        });
-        setOptions(res_options);
-        return res;
-    }
 
     return (
         <>
@@ -127,50 +146,28 @@ export default function AddMember() {
                         </Row>
                     </div>
                     {/* Users */}
-                    <ToastContainer position="top-end" className="p-3">
-                        <Toast show={showAlert} bg="danger" onClose={() => setShowAlert(false)}>
-                            <Toast.Header>
-                                <img
-                                src="holder.js/20x20?text=%20"
-                                className="rounded me-2"
-                                alt=""
-                                />
-                                <strong className="me-auto">Errors</strong>
-                                {/* <small>11 mins ago</small> */}
-                            </Toast.Header>
-                            <Toast.Body>
-                               {alertMessages.map((message,i) => {
-                                      return <p key={i}>{message}</p>
-                                 })}
-                            </Toast.Body>
-                        </Toast>
-                    </ToastContainer>
                    <Row>
                        <Col md="6" className='mx-auto'>
-                             <h3 className='main-body-header-title mb-3 text-center'>Add New Members</h3>
+                             <h3 className='main-body-header-title mb-3 text-center'>Edit Member</h3>
                                 <Form onSubmit={handleSubmit} encType='multipart/form-data'>
                                     <Form.Group className="mb-3" controlId="Form.Control">
-                                        <Form.Control type="name" placeholder="Enter Full Name" onChange={(e)=>{ setName(e.target.value) }} />
+                                        <Form.Control type="name" placeholder="Enter Full Name" value={name || ''} onChange={(e)=>{ setName(e.target.value) }} />
                                     </Form.Group> 
                                     <Form.Group className="mb-3" controlId="Form.Control">
-                                        <Form.Control type="email" placeholder="Enter Your Email" onChange={(e)=>{ setEmail(e.target.value) }} />
-                                    </Form.Group> 
-                                    <Form.Group className="mb-3" controlId="Form.Control">
-                                        <Form.Control type="password" placeholder="Enter Your Password" onChange={(e)=>{ setPassword(e.target.value) }} />
-                                    </Form.Group> 
+                                        <Form.Control type="email" placeholder="Enter Your Email" value={email || ''} onChange={(e)=>{ setEmail(e.target.value) }} />
+                                    </Form.Group>
                                     <Form.Group className="mb-3" controlId="Form.Control">
                                         <Form.Control type="number" placeholder="Enter Your Phone Number" onChange={(e)=>{ setPhone(e.target.value) }} />
                                     </Form.Group> 
                                     <Form.Group className="mb-3" controlId="Form.Control">
                                         <Form.Control as="textarea" placeholder="Enter Your Address" rows={3} onChange={(e)=>{ setAddress(e.target.value) }} />
                                     </Form.Group>
-                                    <Form.Group className="mb-3">
-                                        <Select options={options} isMulti  onChange={changeHandler} />
-                                    </Form.Group> 
-
                                     <Form.Group className="mb-3" controlId="Form.Control">
                                         <Form.Control type="file" placeholder="Image Upload" accept='images/*' onChange={previwImage} />
                                         <img src={memberImagePreview} height={120} />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3">
+                                        <Select options={options} isMulti  placeholder="Select Teams" defaultValue={selectedTeams} onChange={handleTeamChange}  />
                                     </Form.Group> 
 
                                     { spinner === true ?

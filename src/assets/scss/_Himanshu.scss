@@ -1,4 +1,4 @@
-/*---- Himanshu Style Here ----*/
+/---- Himanshu Style Here ----/
 .main{
     &-body{
         &-card{
@@ -13,6 +13,16 @@
         &-content{
             width: calc(100% - 250px);
             padding: 20px
+        }
+        &-content{
+            width: calc(100% - 250px);
+            padding: 20px
+        }
+        &-header{
+            background: $white;
+            padding: 20px;
+           
+        
         }
     }
  }

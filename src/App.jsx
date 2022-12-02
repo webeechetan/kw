@@ -17,6 +17,8 @@ import Members from './members/Members';
 import CreateTeam  from './teams/components/CreateTeam'
 import AddMember from './members/components/AddMember';
 import memberprofile from './members/components/MemberProfile';
+import EditMember from './members/components/EditMembers';
+import CreateProject from './projects/components/CreateProject';
 
 function App() {
   return (
@@ -39,8 +41,11 @@ function App() {
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />
             <Route exact path="/addmember" component={AddMember} />
-          <Route exact path="/createteam" component={CreateTeam} />
-          <Route exact path= "/memberprofile" component={memberprofile} />
+            <Route exact path="/createteam" component={CreateTeam} />
+            <Route exact path= "/memberprofile" component={memberprofile} />
+            <Route exact path= "/edit_member/:memberId" component={EditMember} />
+            <Route exact path="/create_project" component={CreateProject} />
+
           </Switch>
       </Router>
     </>
