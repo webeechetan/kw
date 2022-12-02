@@ -79,27 +79,40 @@ export default function Members(props) {
                                     <Col md="4" className="mb-4" key={member.id}>
                                         <Card className="card-style1">
                                             <Card.Body>
-                                            <div className="card-options">
-                                                <Dropdown align="end">
-                                                        <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                                        <Dropdown.Menu className="card-options-submenu">
-                                                        <Dropdown.Item ><Link to={{ 
-                                                            pathname: "/edit_member/"+member.id, 
-                                                            memberId: member.id,
-                                                            }}><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                            <Dropdown.Item onClick={ ()=>{ deleteMember(member.id) } }><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                                        </Dropdown.Menu>
-                                                </Dropdown>
+                                                <div className="card-options">
+                                                    <Dropdown align="end">
+                                                            <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                                                            <Dropdown.Menu className="card-options-submenu">
+                                                            <Dropdown.Item ><Link to={{ 
+                                                                pathname: "/edit_member/"+member.id, 
+                                                                memberId: member.id,
+                                                                }}><EditOutlinedIcon />Edit</Link></Dropdown.Item>
+                                                                <Dropdown.Item onClick={ ()=>{ deleteMember(member.id) } }><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
+                                                            </Dropdown.Menu>
+                                                    </Dropdown>
                                                 </div>
-                                                <div className="mb-3"><img className="img-fluid img-townhall-dp" src={member.image} alt="Team DP Logo" width="70" /></div>
-                                                    <Card.Title><a href="#">{member.name}</a></Card.Title>
-                                                    <Card.Text>UI/UX Desginer</Card.Text>
-                                                    <div className='team-name'>
-                                                        {member.teams.map((team) => (
-                                                             <Badge bg="primary" key={team.id}>{team.name}</Badge>
-                                                        ))}
-                                                    </div>
+                                                <div className='d-flex'>
+                                                    <div className="mb-3"><img className="img-fluid img-townhall-dp" src={member.image} alt="Team DP Logo" width="70" /></div>
+                                                        <div className="ms-4 mt-1">
+                                                            <Card.Title><a href="#">{member.name}</a></Card.Title>
+                                                            <Card.Text>UI/UX Desginer</Card.Text>
+                                                        </div>
+                                                        <div className='team-name'>
+                                                            {member.teams.map((team) => (
+                                                                    <Badge bg="primary" key={team.id}>{team.name}</Badge>
+                                                            ))}
+                                                        </div>
+                                                </div>  
+                                                <div className='ms-2'>
+                                                    <p className='mb-0'><CallOutlinedIcon className='pe-2 member-icon'/>070 2860 5375</p>
+                                                    <p className='mb-0 mt-2'><EmailOutlinedIcon className='pe-2 member-icon' />PhyllisGatlin@spy.com</p>
+                                                    <p className='mb-0 mt-2'><PlaceOutlinedIcon className='pe-2 member-icon'/>52 Ilchester MYBSTER 9WX</p>
+                                                </div>
                                             </Card.Body>
+                                            <div className='btn-group' role="group">
+                                                <Link to ="../memberprofile"><button type="button" className='btn btn-outline-light text-turncated'>View Profile</button></Link>
+                                                <button type="button" className=' btn btn-outline-light text-turncated'>View Task</button>
+                                           </div>
                                         </Card>                                    
                                     </Col> 
                                 ))}
