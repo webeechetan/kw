@@ -12,17 +12,22 @@ export default function Members(props) {
 
     const [members, setMembers] = useState([]);
 
-    const getMembers = () => {
-        axios.get(`${config.config.api_url}/users`,config.config.headers)
+    async function getMembers(){
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.config.api_url}/users`,header);
+        return res;
+    }
+
+    useEffect(() => {
+        getMembers()
         .then((res) => {
             setMembers(res.data.data);
         }).catch((error) => {
             console.log(error);
         });
-    }
-
-    useEffect(() => {
-        getMembers();
     }, []);
         return (
             <>
@@ -45,7 +50,25 @@ export default function Members(props) {
                             <Card className="main-body-card">
                         <Card.Body>
                             <Row>
-                               <Member />
+                                {members.map((member) => ( 
+                                    <Col md="4" className="mb-4" key={member.id}>
+                                        <Card className="card-style1">
+                                            <Card.Body>
+                                                <div className="mb-3"><img className="img-fluid img-townhall-dp" src={require("../assets/images/users/user.jpg")} alt="Team DP Logo" width="70" /></div>
+                                                    <Card.Title><a href="#">{member.name}</a></Card.Title>
+                                                    <Card.Text>UI/UX Desginer</Card.Text>
+                                            </Card.Body>
+                                            <Card.Footer className="card-footer-style1">
+                                                <div className="icon-group">
+                                                        <span><ChatBubbleOutlineIcon /></span>
+                                                        <span><PieChartOutlineIcon /></span>
+                                                        <span><PersonOutlineIcon /></span>                                                
+                                                </div>
+                                            </Card.Footer>
+                                        </Card>                                    
+                                    </Col> 
+                                ))}
+                                
                             </Row>
                         </Card.Body>
                     </Card>
