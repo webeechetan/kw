@@ -82,8 +82,8 @@ export default function AddMember() {
                     </div>
                     {/* Users */}
                    <Row>
-                       <Col md="6" className='mx-auto'>
-                             <h3 className='main-body-header-title mb-3 text-center'>Add New Members</h3>
+                       <Col md="6" className=''>
+                             <h3 className='main-body-header-title mb-3'>Add New Members</h3>
                             { spinner ==  true ? 
                                 <Spinner animation="grow" role="status" variant="warning" />
                                     :

@@ -24,7 +24,7 @@ export default function CreateTeam() {
                     {/* Users */}
                    <Row>
                        <Col md="6" className=''>
-                          <h3 className='main-body-header-title mb-3 text-center'>Add Team Name</h3>
+                          <h3 className='main-body-header-title mb-3 '>Add Team Name</h3>
                             <Form>
                                 <Form.Group className="mb-3" controlId="Form.Control">
                                    <Form.Control type="text" placeholder="Enter Team Name" />

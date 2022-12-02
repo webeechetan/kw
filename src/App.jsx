@@ -16,6 +16,7 @@ import InviteSignup from './InviteSignup';
 import Members from './members/Members';
 import CreateTeam  from './teams/components/CreateTeam'
 import AddMember from './members/components/AddMember';
+import memberprofile from './members/components/MemberProfile';
 
 function App() {
   return (
@@ -38,7 +39,8 @@ function App() {
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />
             <Route exact path="/addmember" component={AddMember} />
-            <Route exact path= "/createteam" component={CreateTeam} />
+          <Route exact path="/createteam" component={CreateTeam} />
+          <Route exact path= "/memberprofile" component={memberprofile} />
           </Switch>
       </Router>
     </>

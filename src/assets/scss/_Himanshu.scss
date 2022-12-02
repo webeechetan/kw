@@ -3,18 +3,160 @@
     &-body{
         &-card{
             background-color: $dashboard_bg ;
-            border: none;
-           
+            border: none;   
+         & >.card{
+            &-body{
+                padding: 0px;
+            }
+         }              
+        }
+        &-content{
+            width: calc(100% - 250px);
+            padding: 20px
         }
     }
  }
+ /*---- card title ----*/
+ .card {
+    &-style1 {        
+        .card {
+            &-title {
+                font-size: 1.3rem;   
+                margin-bottom: 7px;           
+            }
+            &-text{
+                font-size: 1rem;
+            }
+
+            &-header{
+                border-bottom: 0px;
+                &-tabs{
+                   .nav{
+                     &-link{
+                       background-color:$dashboard_bg ;
+                       color: #000;
+                       &.active{
+                        color: $brand;
+                        border-bottom: 1px solid $brand;
+                      }
+                     }
+                     
+                   } 
+                }
+            }
+           
+        }
+        .bg{
+            &-secondary{
+                background-color: #E2DED0 !important;
+                &:hover{
+                    background-color: $brand !important;
+                    color: $white;
+                }
+            }
+        }
+        .badge{
+            color: $dark;
+        }
+    } 
+}
+/*---- button ----*/
+.btn{
+  &-outline{
+   &-light{
+    color:#000;
+    padding: 0.5rem 2.86rem;
+    font-size: .8125rem;
+    border-radius: 0.25rem;
+   }
+  }
+ &-group{
+    margin-top: 0px;
+    display: inline-flex;
+ }
+}
  /*---- Image ----*/
-.img {
-   
+.img { 
     &-member {
         &-dp {
             width: 70px;
             border-radius: $border_radius;
         }
     }
+    &-profile{
+        background-color: rgba(248,56,144,.25);
+        margin: -20px -20px 23px -20px;
+        position: relative;
+        align-items: center;
+        &-dp{
+                width: 70px;
+                border-radius: $border_radius;
+                border: 1px solid #f6f6f6;
+                padding: 0.25rem;
+                background-color: $white;
+            }
+            & h5{
+                font-size: 1rem;
+            }
+        }
+        
+ 
 }
+/*---- Profile ----*/
+.profile{
+    &-content{
+       position: relative;
+       margin-top: -45px;
+    }
+    &-name{
+        font-size: 1.2rem;
+        margin-bottom: 7px;
+    }
+}
+.profile {
+    /* ---- Sidebar Menu Style ----*/
+    &-exp {
+        li {
+            position: relative;
+            &:not(:last-child) {
+                margin-bottom: 5px;
+            }
+            h6{
+                font-size: 1rem;
+            }
+            a {
+                color: #666;
+                font-weight: 600;
+                transition: $ease_05;
+                padding-top: 12px;
+                font-size: 0.9rem;
+                @include flex_align_center;
+
+                /*---- Sidebar Menu Icon Style ----*/
+                svg {
+                    margin-right: $spacing_sm;
+                    width: 0.8em;
+                }
+            }
+            span{
+                padding: 12px 35px;
+            }
+        }
+    }
+}
+/*---- Member-Icons ----*/ 
+.member{
+    &-icon{
+        color: $brand;
+    }
+}
+/*--- Project ----*/
+.project{
+    height: 3rem;
+    width: 3rem;
+    line-height: 3rem;
+    border-radius: 50%;
+    text-align: center;
+    
+}
+

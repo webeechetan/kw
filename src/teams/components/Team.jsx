@@ -17,7 +17,7 @@ export default function Team() {
     const renderTeam = (props, index) => {
         return (
             <Col md="6" className="mb-4">
-                <Card key={index} className="card-style1 h-100">
+                <Card className="card-style1 h-100">
                     <Card.Body>
                         <div className="card-options">
                             <Dropdown align="end">

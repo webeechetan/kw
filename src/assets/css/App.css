@@ -1743,9 +1743,129 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   background-color: #f6f5f5;
   border: none;
 }
+.main-body-card > .card-body {
+  padding: 0px;
+}
+.main-body-content {
+  width: calc(100% - 250px);
+  padding: 20px;
+}
+
+/*---- card title ----*/
+.card-style1 .card-title {
+  font-size: 1.3rem;
+  margin-bottom: 7px;
+}
+.card-style1 .card-text {
+  font-size: 1rem;
+}
+.card-style1 .card-header {
+  border-bottom: 0px;
+}
+.card-style1 .card-header-tabs .nav-link {
+  background-color: #f6f5f5;
+  color: #000;
+}
+.card-style1 .card-header-tabs .nav-link.active {
+  color: #f83890;
+  border-bottom: 1px solid #f83890;
+}
+.card-style1 .bg-secondary {
+  background-color: #E2DED0 !important;
+}
+.card-style1 .bg-secondary:hover {
+  background-color: #f83890 !important;
+  color: #fff;
+}
+.card-style1 .badge {
+  color: #191919;
+}
+
+/*---- button ----*/
+.btn-outline-light {
+  color: #000;
+  padding: 0.5rem 2.86rem;
+  font-size: 0.8125rem;
+  border-radius: 0.25rem;
+}
+.btn-group {
+  margin-top: 0px;
+  display: inline-flex;
+}
 
 /*---- Image ----*/
 .img-member-dp {
   width: 70px;
   border-radius: 50%;
+}
+.img-profile {
+  background-color: rgba(248, 56, 144, 0.25);
+  margin: -20px -20px 23px -20px;
+  position: relative;
+  align-items: center;
+}
+.img-profile-dp {
+  width: 70px;
+  border-radius: 50%;
+  border: 1px solid #f6f6f6;
+  padding: 0.25rem;
+  background-color: #fff;
+}
+.img-profile h5 {
+  font-size: 1rem;
+}
+
+/*---- Profile ----*/
+.profile-content {
+  position: relative;
+  margin-top: -45px;
+}
+.profile-name {
+  font-size: 1.2rem;
+  margin-bottom: 7px;
+}
+
+.profile {
+  /* ---- Sidebar Menu Style ----*/
+}
+.profile-exp li {
+  position: relative;
+}
+.profile-exp li:not(:last-child) {
+  margin-bottom: 5px;
+}
+.profile-exp li h6 {
+  font-size: 1rem;
+}
+.profile-exp li a {
+  color: #666;
+  font-weight: 600;
+  transition: all 0.5s ease;
+  padding-top: 12px;
+  font-size: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /*---- Sidebar Menu Icon Style ----*/
+}
+.profile-exp li a svg {
+  margin-right: 20px;
+  width: 0.8em;
+}
+.profile-exp li span {
+  padding: 12px 35px;
+}
+
+/*---- Member-Icons ----*/
+.member-icon {
+  color: #f83890;
+}
+
+/*--- Project ----*/
+.project {
+  height: 3rem;
+  width: 3rem;
+  line-height: 3rem;
+  border-radius: 50%;
+  text-align: center;
 }
