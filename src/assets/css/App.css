@@ -89,6 +89,7 @@ b, strong {
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
+  padding : 4px 5px;
 }
 
 /*---- Text Style ----*/
@@ -1748,4 +1749,9 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .img-member-dp {
   width: 70px;
   border-radius: 50%;
+}
+
+.team-name{
+  display: flex;
+  gap: 10px;
 }
