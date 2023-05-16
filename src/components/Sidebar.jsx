@@ -29,14 +29,15 @@ export default function LeftSidebar() {
                 <div className="sidebar-l-menu">
                     <ul className="list-none menu-sidebar">
                         <li><Link to="../dashboard" className="active"><HomeOutlinedIcon/> Dashboard</Link></li>
-                        <li><Link to="../teams"><PeopleAltOutlinedIcon/> Teams</Link></li>
-                        <li><Link to="../tasks" className=""><AssignmentOutlinedIcon /> Tasks</Link></li>
-                        <li><Link to="../members" className=""><GroupOutlinedIcon/> Members</Link></li>
-                        <li><Link to="../messages" className=""><MarkChatUnreadOutlinedIcon/> Messages</Link></li>
+                        <li><Link to="../clients"><PeopleAltOutlinedIcon/> Clients</Link></li>
                         <li><Link to="../projects" className=""><DashboardOutlinedIcon/> Projects</Link></li>
+                        <li><Link to="../teams"><PeopleAltOutlinedIcon/> Teams</Link></li>
+                        <li><Link to="../members" className=""><GroupOutlinedIcon/> Members</Link></li>
+                        <li><Link to="../tasks" className=""><AssignmentOutlinedIcon /> Tasks</Link></li>
+                        {/* <li><Link to="../messages" className=""><MarkChatUnreadOutlinedIcon/> Messages</Link></li>
                         <li><Link to="../calendar" className=""><EventNoteOutlinedIcon/> Calendar</Link></li>
                         <li><Link to="../calendar" className=""><WavesOutlinedIcon/> Water Cooler</Link></li>
-                        <li><Link to="../calendar" className=""><ManageAccountsOutlinedIcon/> My Account</Link></li>
+                        <li><Link to="../calendar" className=""><ManageAccountsOutlinedIcon/> My Account</Link></li> */}
                     </ul>
                 </div>
                 {/* Left Sidebar Menu End */}

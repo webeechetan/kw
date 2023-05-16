@@ -43,7 +43,7 @@ export default function Signup() {
     };
 
     async function signup (){
-       const res =  await axios.post(config.api_url+'/organization/register',{name,email,password});
+       const res =  await axios.post('http://localhost:8000/api/organization/register',{name,email,password});
        return res;
     };
     return (

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
-import { Container, Row, Col, Button,Form, Spinner} from 'react-bootstrap';
+import { Container, Row, Col, Button,Form, Spinner, Toast, ToastContainer} from 'react-bootstrap';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { config } from '../../config';
@@ -24,11 +24,16 @@ export default function CreateProject() {
     const [userOptions , setUserOptions] = React.useState([]);
     const [teamIds, setTeamIds] = React.useState([]);
     const [userIds, setUserIds] = React.useState([]);
+    const [clients, setClients] = React.useState([]);
+    const [client, setClient] = React.useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessages, setAlertMessages] = useState([]);
 
 
     useEffect(() => {
         getTeams();
         getUsers();
+        getClients();
     }, []);
     
     const TeamChangeHandler = e => {
@@ -63,6 +68,15 @@ export default function CreateProject() {
             console.log(res);
         }).catch((error) => {
             console.log(error);
+            if(error.response.data.message=="Validation Error"){
+                let messages = [];
+               for(let i in error.response.data.data){
+                     messages.push(error.response.data.data[i][0]);
+                }
+                setAlertMessages(messages);
+                setShowAlert(true);
+                setLoading(false);
+            }
         });
     };
 
@@ -76,7 +90,8 @@ export default function CreateProject() {
             name,
             description,
             teams:teamIds,
-            users:userIds
+            users:userIds,
+            client_id:client
         }
         const res = await axios.post(`${config.api_url}/projects`, data,header);
         setLoading(false);
@@ -117,6 +132,17 @@ export default function CreateProject() {
         return res;
     }
 
+    async function getClients() {
+        setLoading(true);
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/clients`,header);
+        setClients(res.data.data);
+        setLoading(false);
+        return res;
+    }
 
     return (
         <>
@@ -136,12 +162,38 @@ export default function CreateProject() {
                             </Col>
                         </Row>
                     </div>
+                    <ToastContainer position="top-end" className="p-3">
+                        <Toast show={showAlert} bg="danger" onClose={() => setShowAlert(false)}>
+                            <Toast.Header>
+                                <img
+                                src="holder.js/20x20?text=%20"
+                                className="rounded me-2"
+                                alt=""
+                                />
+                                <strong className="me-auto">Errors</strong>
+                                {/* <small>11 mins ago</small> */}
+                            </Toast.Header>
+                            <Toast.Body>
+                               {alertMessages.map((message,i) => {
+                                      return <p key={i}>{message}</p>
+                                 })}
+                            </Toast.Body>
+                        </Toast>
+                    </ToastContainer>
                    <Row>
                        <Col md="6" className='mx-auto'>
                              <h3 className='main-body-header-title mb-3 text-center'>Create New Project</h3>
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="Form.Control">
                                         <Form.Control type="name" placeholder="Project Name" onChange={(e)=>{ setName(e.target.value) }} />
+                                    </Form.Group> 
+                                    <Form.Group className="mb-3" >
+                                        <Form.Select placeholder="Select Client" onChange={(e)=>{ setClient(e.target.value) }} >
+                                            <option>Select Client</option>
+                                            {clients.map((item) => {
+                                                return <option key={client.id} value={item.id}>{item.name}</option>
+                                            })}
+                                        </Form.Select>
                                     </Form.Group> 
                                     <Form.Group className="mb-3" controlId="Form.Control">
                                         <CKEditor

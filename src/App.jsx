@@ -18,13 +18,14 @@ import CreateTeam  from './teams/components/CreateTeam'
 import AddMember from './members/components/AddMember';
 import EditMember from './members/components/EditMembers';
 import CreateProject from './projects/components/CreateProject';
+import Clients  from './clients/Clients';
+import AddClient from './clients/components/AddClient';
+import EditClient from './clients/components/EditClient';
 
 function App() {
   return (
     <>
-      <Router
-            basename={"/kw-dev/build"}
-        >
+      <Router>
           <Switch>
             <Route exact path="/" component={Signup} />
             <Route exact path="/signup" component={Signup} />
@@ -43,7 +44,10 @@ function App() {
             <Route exact path= "/createteam" component={CreateTeam} />
             <Route exact path= "/edit_member/:memberId" component={EditMember} />
             <Route exact path="/create_project" component={CreateProject} />
-
+            <Route exact path="/clients" component={Clients} />
+            <Route exact path="/create-client" component={AddClient} />
+            <Route exact path="/edit-client/:clientId" component={EditClient} />
+            
           </Switch>
       </Router>
     </>

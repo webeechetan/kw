@@ -99,6 +99,11 @@ export default function Members() {
                                                              <Badge bg="primary" key={team.id}>{team.name}</Badge>
                                                         ))}
                                                     </div>
+                                                    <div className='mt-3'>
+                                                            <Badge bg="primary" key={member.pending_tasks_count+member.id}>Pending { member.pending_tasks_count} </Badge>
+                                                            <Badge bg="warning" key={member.pending_tasks_count+member.id}>In Progress { member.in_progress_tasks_count}</Badge>
+                                                            <Badge bg="success" key={member.pending_tasks_count+member.id}>Completed { member.completed_tasks_count}</Badge>
+                                                    </div>
                                             </Card.Body>
                                         </Card>                                    
                                     </Col> 
