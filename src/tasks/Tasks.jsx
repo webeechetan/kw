@@ -7,14 +7,18 @@ import TaskManager from "../components/TaskManager";
 export default function Tasks() {
 
     return (
-        <div className="main-body">
+        <>
+            <Header />
+             <div className="main-body">
             <Sidebar />
             <div className="main-body-content">
                 <Container fluid>
-                    <Header />
+                   
                     <TaskManager />
                 </Container>
             </div>
         </div>
+        </>
+      
     );
 }

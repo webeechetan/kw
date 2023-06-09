@@ -84,11 +84,7 @@ export default function Clients(props) {
                         </Row>
                     </div>
                     {/* Users */}
-                    <Card className="main-body-card">
-                        <Card.Body>
-                            <Row>
-                                <Col md="12">
-                                    <Row>
+                    <Row>
                                         {clients.map((client) => (
                                         <Col md="4" className="mb-4" key={client.id}>
                                             <Card className="card-style1 h-100">
@@ -106,7 +102,7 @@ export default function Clients(props) {
                                                         </Dropdown>
                                                     </div>
                                                     <div className="mb-3"><img className="img-fluid img-team-dp" src={client.image } alt="Team DP Logo" width="200" /></div>
-                                                    <Card.Title><a href="#">{client.name}</a> </Card.Title>
+                                                    <Card.Title><Link to="../view-client">{client.name}</Link> </Card.Title>
                                                     <Card.Text className="mb-3">{client.description}</Card.Text>
                                                     <div className='team-name'>
                                                         {client.projects.map((project) => (
@@ -119,10 +115,6 @@ export default function Clients(props) {
                                         </Col>
                                         ))}
                                     </Row>
-                                </Col>
-                            </Row>
-                        </Card.Body>
-                    </Card>
                 </Container>
                 }
             </div>

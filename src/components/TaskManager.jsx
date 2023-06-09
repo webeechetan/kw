@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Form, Spinner, Toast, ToastContainer, ListGroup, Badge, Card, Modal } from "react-bootstrap";
+import { Container, Dropdown, Row, Col, Button, Form, Spinner, Toast, ToastContainer, ListGroup, Badge, Card, Modal } from "react-bootstrap";
 import Select from 'react-select';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { config } from "../config";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
 
 
 
@@ -189,15 +192,25 @@ export default function TaskManager(props) {
 
   return (
     
-    <div className="main-body">
+    <div className="task-body">
        { loading === true ?
                 <Col md="12" className='text-center mt-4'>
                     <Spinner as="span" animation="border" size="lg" role="status" aria-hidden="true" />
                 </Col> : 
-      <div className="main-body-content">
-        <div className="pull right">
-          <Button variant="primary" onClick={handleShow}>Add Task</Button>
-        </div>
+        <div className="task-body-content">
+            <div className="main-body-header mb-4">
+                  <Row className="align-items-center">
+                      <Col>
+                          <h4 className="main-body-header-title mb-0">My Tasks</h4>
+                      </Col>
+                      <Col className="text-end">
+                        <div className="pull right">
+                            <Button variant="primary" onClick={handleShow}>Add Task</Button>
+                        </div>
+                      </Col>
+                  </Row>
+            </div>
+        
         <ToastContainer position="top-end" className="p-3">
             <Toast show={showToast} bg="success" onClose={() => setShowToast(false)}>
                 <Toast.Header>
@@ -217,100 +230,135 @@ export default function TaskManager(props) {
 
         <Row className="mt-4" >
           <Col md="4">
-            <h3 className="main-body-header-title mb-0">Pending</h3>
+            <h6 className="main-body-header-title mb-0">Pending</h6>
             {pending.map((task) => (
-              <Card key={task.id} className="mt-1">
-                <Card.Body>
-                  <h6 className="d-flex justify-content-between align-items-start">{task.name} 
-                  { (task.priority === "high") ?
-                      <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
-                    (task.priority === "medium") ?
-                      <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
-                      <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
-                  }
-                  </h6>
-                  <hr />
-                  {task.description}
-                  <hr />
-                    <div className="div">
-                  { task.users.map((user) => (
-                      <Badge bg="info"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
-                  ))}
-                    </div>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div className="btn-group">
-                      <Button variant="primary" size="sm"> <EditIcon /></Button>
-                      <Button variant="danger" size="sm"> <DeleteIcon  onClick={ ()=>{ deleteTask(task.id) } } /></Button>
-                      <Button variant="warning" size="sm" title="Check To Start" onClick={ ()=>{ changeTaskStatusToInProgress(task.id) } } ><PendingActionsIcon /></Button>
-                    </div>
-                    <small className="text-muted">{task.dueDate}</small>
+              <Card key={task.id} className="card-style1 h-100 mb-4 mt-4">
+              <Card.Body>
+                  <div className="card-options">
+                      <Dropdown align="end">
+                          <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                          <Dropdown.Menu className="card-options-submenu">
+                          <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
+                                  <Dropdown.Item><DeleteOutlineOutlinedIcon onClick={() => { deleteTask(task.id) }} /> Delete</Dropdown.Item>
+                                  <Dropdown.Item><PendingActionsIcon title="Check To Start" onClick={ ()=>{ changeTaskStatusToInProgress(task.id) } } />Check To Start</Dropdown.Item>
+                          </Dropdown.Menu>
+                      </Dropdown>
                   </div>
-                </Card.Body>
-              </Card>
+                  <div className="mb-3 pe-5">
+                      <h6 className="d-flex justify-content-between align-items-start">{task.name}</h6>
+                  </div>
+                  <div className="task-description pb-2">
+                     {task.description}
+                  </div>
+                 
+                  
+                  <div className="d-flex justify-content-between">
+                    <div className="div">
+                              { task.users.map((user) => (
+                                  <Badge bg="primary"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
+                              ))}
+                    </div>
+                    <div>{task.dueDate}</div>
+                    { (task.priority === "high") ?
+                                <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
+                              (task.priority === "medium") ?
+                                <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
+                                <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
+                     }           
+                  </div>
+              </Card.Body>
+          </Card>
             ))}
           </Col>
-          
           <Col md="4">
-            <h3 className="main-body-header-title mb-0">In Progress</h3>
+            <h6 className="main-body-header-title mb-0">In Progress</h6>
             {inProgress.map((task) => (
-              <Card key={task.id} className="mt-1">
+             <Card key={task.id} className="card-style1 h-100 mt-4 mb-4">
                 <Card.Body>
-                  <h6 className="d-flex justify-content-between align-items-start">{task.name} 
-                  { (task.priority === "high") ?
-                      <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
-                    (task.priority === "medium") ?
-                      <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
-                      <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
-                  }
-                  </h6>
-                  <hr />
-                  {task.description}
-                  <hr />
-                  { task.users.map((user) => (
-                    <Badge bg="info"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
-                  ))}
-                  <div className="d-flex justify-content-between align-items-center">
-                  <div className="btn-group">
-                      <Button variant="primary" size="sm"> <EditIcon /></Button>
-                      <Button variant="danger" size="sm"> <DeleteIcon onClick={ ()=>{ deleteTask(task.id) } }/></Button>
-                      <Button variant="info" size="sm" title="Check To Complete" onClick={ ()=>{ changeTaskStatusToCompleted(task.id) } }><RadioButtonUncheckedIcon /></Button>
+                    <div className="card-options">
+                        <Dropdown align="end">
+                            <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                            <Dropdown.Menu className="card-options-submenu">
+                            <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
+                                    <Dropdown.Item><DeleteOutlineOutlinedIcon onClick={() => { deleteTask(task.id) }} /> Delete</Dropdown.Item>
+                                    <Dropdown.Item><RadioButtonUncheckedIcon title="Check To Complete" onClick={ ()=>{ changeTaskStatusToCompleted(task.id) } } />Check To Done</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </div>
-                    <small className="text-muted">{task.dueDate}</small>
-                  </div>
+                    <div className="mb-3 pe-5">
+                        <h6 className="d-flex justify-content-between align-items-start">{task.name} 
+                              
+                        </h6>
+                    </div>
+                    <div className="task-description pb-2">
+                        {task.description}
+                    </div>
+                    
+                    
+                      <div className="task-priority d-flex justify-content-between">
+                          <div className="div">
+                                  { task.users.map((user) => (
+                                      <Badge bg="primary"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
+                                  ))}
+                        </div>
+                          <div className="text-muted">{task.dueDate}</div>
+                      { (task.priority === "high") ?
+                                  <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
+                                (task.priority === "medium") ?
+                                  <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
+                                  <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
+                        }           
+                    </div>
+                
+                    
                 </Card.Body>
-              </Card>
+             </Card>
             ))}
           </Col>
 
           <Col md="4">
-            <h3 className="main-body-header-title mb-0">Completed</h3>
+            <h6 className="main-body-header-title mb-0">Completed</h6>
             {completed.map((task) => (
-              <Card key={task.id} className="mt-1">
-                <Card.Body>
-                  <h6 className="d-flex justify-content-between align-items-start">{task.name} 
-                  { (task.priority === "high") ?
-                      <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
-                    (task.priority === "medium") ?
-                      <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
-                      <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
-                  }
-                  </h6>
-                  <hr />
-                  {task.description}
-                  <hr />
-                  { task.users.map((user) => (
-                    <Badge bg="info"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
-                  ))}
-                  <div className="d-flex justify-content-between align-items-center">
-                  <div className="btn-group">
-                      <Button variant="primary" size="sm"> <EditIcon /></Button>
-                      <Button variant="danger" size="sm"> <DeleteIcon onClick={ ()=>{ deleteTask(task.id) } }/></Button>
-                      <Button variant="success" size="sm" title="Check To Complete"><CheckCircleOutlineIcon /></Button>
-                    </div>
-                    <small className="text-muted">{task.dueDate}</small>
+              <Card key={task.id} className="card-style1 h-100 mt-4 mb-4">
+              <Card.Body>
+                  <div className="card-options">
+                      <Dropdown align="end">
+                          <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                          <Dropdown.Menu className="card-options-submenu">
+                          <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
+                                  <Dropdown.Item><DeleteOutlineOutlinedIcon onClick={() => { deleteTask(task.id) }} /> Delete</Dropdown.Item>
+                                  <Dropdown.Item><CheckCircleOutlineIcon title="Check To Complete" onClick={ ()=>{ changeTaskStatusToCompleted(task.id) } } />Check To Done</Dropdown.Item>
+                          </Dropdown.Menu>
+                      </Dropdown>
                   </div>
-                </Card.Body>
-              </Card>
+                  <div className="mb-3 pe-5">
+                      <h6 className="d-flex justify-content-between align-items-start">{task.name} 
+                            
+                      </h6>
+                  </div>
+                  <div className="task-description pb-2">
+                      {task.description}
+                  </div>
+                  
+                  
+                    <div className="task-priority d-flex justify-content-between">
+                        <div className="div">
+                                { task.users.map((user) => (
+                                    <Badge bg="primary"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
+                                ))}
+                      </div>
+                        <div className="text-muted">{task.dueDate}</div>
+                    { (task.priority === "high") ?
+                                <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
+                              (task.priority === "medium") ?
+                                <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
+                                <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
+                      }           
+                  </div>
+              
+                  
+              </Card.Body>
+           </Card>
             ))}
           </Col>
         </Row>

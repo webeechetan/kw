@@ -2,6 +2,7 @@ $brand: #f83890;
 $secondary: #7407ff;
 $secondary_light: #FCFAFF;
 $dark: #191919;
+$orange:  #FF5E0E; 
 $yellow: #f7d306;
 $yellow_light: #fdf4c1;
 $orange_light: #FFFBFD;
@@ -74,6 +75,9 @@ $table_header_color: $secondary;
     }
     &-yellow {
         color: $yellow !important;
+    }
+    &-orange{
+        color: $orange !important;
     }
     &-link {
         text-decoration: underline;
