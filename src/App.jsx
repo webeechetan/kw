@@ -22,6 +22,7 @@ import Clients  from './clients/Clients';
 import AddClient from './clients/components/AddClient';
 import EditClient from './clients/components/EditClient';
 import ViewClient from './clients/components/ViewClient';
+import ViewProject from './projects/components/ViewProject';
 
 
 function App() {
@@ -49,7 +50,8 @@ function App() {
             <Route exact path="/clients" component={Clients} />
             <Route exact path="/create-client" component={AddClient} />
             <Route exact path="/edit-client/:clientId" component={EditClient} />
-            <Route exact path ="/view-client" component={ViewClient} />
+            <Route exact path ="/view-client/:clientId" component={ViewClient} />
+            <Route exact path ="/view-project/:projectId" component={ViewProject} />
           
             
           </Switch>
