@@ -45,6 +45,8 @@ export default function TaskManager(props) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [userOptions, setUserOptions] = useState([]);
+  const [clients , setClients] = useState([]);
+  const [projects , setProjects] = useState([]);
 
   // form state
   const [title, setTitle] = useState("");
@@ -53,10 +55,26 @@ export default function TaskManager(props) {
   const [priority, setPriority] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [userIds, setUserIds] = useState([]);
+  const [clientId, setClientId] = useState("");
+  const [projectId, setProjectId] = useState("");
+
+  // filter
+  const [filter, setFilter] = useState([
+    {
+      'status' : null,
+      'priority' : null,
+      'dueDate' : null,
+      'users' : null,
+      'client' : null,
+      'project' : null
+    }
+  ]);
 
   useState(() => {
     getUsers();
     getTasks();
+    getClients();
+    getProjects();
 
   }, []);
 
@@ -147,8 +165,10 @@ export default function TaskManager(props) {
       description: description,
       status: "assigned",
       priority: priority,
-      dueDate: dueDate,
+      due_date: dueDate,
       users: userIds,
+      client_id: clientId,
+      project_id: projectId
     }, header);
     // setToastMessage("Task added successfully");
     // setShowToast(true);
@@ -230,6 +250,34 @@ export default function TaskManager(props) {
     return res;
   }
 
+  async function getClients(){
+    setLoading(true);
+    let __token = localStorage.getItem('__token');
+    const header = {
+      headers: { Authorization: `Bearer ${__token}` }
+    };
+    const res = await axios.get(`${config.api_url}/clients`, header);
+    console.log(res.data.data);
+    setClients(res.data.data);
+    setLoading(false);
+    return res;
+  }
+
+  async function getProjects(){
+    setLoading(true);
+    let __token = localStorage.getItem('__token');
+    const header = {
+      headers: { Authorization: `Bearer ${__token}` }
+    };
+    const res = await axios.get(`${config.api_url}/projects`, header);
+    console.log(res.data.data);
+    setProjects(res.data.data);
+    setLoading(false);
+    return res;
+  }
+
+  
+
 
 
 
@@ -241,6 +289,32 @@ export default function TaskManager(props) {
             <Button variant="primary" onClick={handleShow}>Add Task</Button>
           </div>
         </Col>
+        <div className="col-md-2">
+            <Form.Select >
+              <option>Sort By Status</option>
+              <option value="assigned">Assigned</option>
+              <option value="accepted">Accepted</option>
+              <option value="in_progress">In Progrss</option>
+              <option value="in_review">In Review</option>
+              <option value="completed">Completed</option>
+            </Form.Select>
+          </div>
+          <div className="col-md-2">
+            <Form.Select>
+              <option>Sort By User</option>
+              {users.map((user) => (
+                <option value={user.id}>{user.name}</option>
+              ))}
+            </Form.Select>
+          </div>
+          <div className="col-md-2">
+            <Form.Select>
+              <option>Sort By Project</option>
+              {projects.map((project) => (
+                <option value={project.id}>{project.name}</option>
+              ))}
+            </Form.Select>
+          </div>
         <div className="tab-view mt-4">
           <Tabs defaultActiveKey="second">
             <Tab eventKey="first" title="List">
@@ -537,7 +611,7 @@ export default function TaskManager(props) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Create Task</Modal.Title>
         </Modal.Header>
         <Form onSubmit={addTask} method="POST">
           <Modal.Body>
@@ -583,6 +657,34 @@ export default function TaskManager(props) {
                     </Form.Group>
                   </Col>
                 </Row>
+
+                <Row>
+                  <Col md="12">
+                    <Form.Group className="mb-3" controlId="">
+                      <Form.Label>Client</Form.Label>
+                        <Form.Select size="sm" required onChange={ (e)=>{ setClientId(e.target.value)  } }>
+                          <option value="">Select Client</option>
+                          {clients.map((client, index) => (
+                            <option key={client.id} value={client.id}>{client.name}</option>
+                          ))}
+                        </Form.Select>
+                    </Form.Group>
+                  </Col>
+                </Row>
+
+                <Row>
+                  <Col md="12">
+                    <Form.Group className="mb-3" controlId="">
+                      <Form.Label>Project</Form.Label>
+                        <Form.Select size="sm" required onChange={ (e)=>{ setProjectId(e.target.value)  } }>
+                          <option value="">Select Project</option>
+                          {projects.map((project, index) => (
+                            <option key={project.id} value={project.id}>{project.name}</option>
+                          ))}
+                        </Form.Select>
+                    </Form.Group>
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
           </Modal.Body>
@@ -599,242 +701,4 @@ export default function TaskManager(props) {
 
     </>
   )
-
-  // return (
-
-  //   <div className="task-body">
-  //      { loading === true ?
-  //               <Col md="12" className='text-center mt-4'>
-  //                   <Spinner as="span" animation="border" size="lg" role="status" aria-hidden="true" />
-  //               </Col> : 
-  //       <div className="task-body-content">
-  //           <div className="main-body-header mb-4">
-  //                 <Row className="align-items-center">
-  //                     <Col>
-  //                         <h4 className="main-body-header-title mb-0">My Tasks</h4>
-  //                     </Col>
-  //                     <Col className="text-end">
-  //                       <div className="pull right">
-  //                           <Button variant="primary" onClick={handleShow}>Add Task</Button>
-  //                       </div>
-  //                     </Col>
-  //                 </Row>
-  //           </div>
-
-  //       <ToastContainer position="top-end" className="p-3">
-  //           <Toast show={showToast} bg="success" onClose={() => setShowToast(false)}>
-  //               <Toast.Header>
-  //                   <img
-  //                   src="holder.js/20x20?text=%20"
-  //                   className="rounded me-2"
-  //                   alt=""
-  //                   />
-  //                   <strong className="me-auto">Success</strong>
-  //                   {/* <small>11 mins ago</small> */}
-  //               </Toast.Header>
-  //               <Toast.Body>
-  //                   {toastMessage}
-  //               </Toast.Body>
-  //           </Toast>
-  //       </ToastContainer>
-
-  //       <Row className="mt-4" >
-  //         <Col md="4">
-  //           <h6 className="main-body-header-title mb-0">Pending</h6>
-  //           {pending.map((task) => (
-  //             <Card key={task.id} className="card-style1 h-100 mb-4 mt-4">
-  //             <Card.Body>
-  //                 <div className="card-options">
-  //                     <Dropdown align="end">
-  //                         <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-  //                         <Dropdown.Menu className="card-options-submenu">
-  //                         <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-  //                                 <Dropdown.Item><DeleteOutlineOutlinedIcon onClick={() => { deleteTask(task.id) }} /> Delete</Dropdown.Item>
-  //                                 <Dropdown.Item><PendingActionsIcon title="Check To Start" onClick={ ()=>{ changeTaskStatusToInProgress(task.id) } } />Check To Start</Dropdown.Item>
-  //                         </Dropdown.Menu>
-  //                     </Dropdown>
-  //                 </div>
-  //                 <div className="mb-3 pe-5">
-  //                     <h6 className="d-flex justify-content-between align-items-start">{task.name}</h6>
-  //                 </div>
-  //                 <div className="task-description pb-2">
-  //                    {task.description}
-  //                 </div>
-
-
-  //                 <div className="d-flex justify-content-between">
-  //                   <div className="div">
-  //                             { task.users.map((user) => (
-  //                                 <Badge bg="primary"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
-  //                             ))}
-  //                   </div>
-  //                   <div>{task.dueDate}</div>
-  //                   { (task.priority === "high") ?
-  //                               <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
-  //                             (task.priority === "medium") ?
-  //                               <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
-  //                               <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
-  //                    }           
-  //                 </div>
-  //             </Card.Body>
-  //         </Card>
-  //           ))}
-  //         </Col>
-  //         <Col md="4">
-  //           <h6 className="main-body-header-title mb-0">In Progress</h6>
-  //           {inProgress.map((task) => (
-  //            <Card key={task.id} className="card-style1 h-100 mt-4 mb-4">
-  //               <Card.Body>
-  //                   <div className="card-options">
-  //                       <Dropdown align="end">
-  //                           <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-  //                           <Dropdown.Menu className="card-options-submenu">
-  //                           <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-  //                                   <Dropdown.Item><DeleteOutlineOutlinedIcon onClick={() => { deleteTask(task.id) }} /> Delete</Dropdown.Item>
-  //                                   <Dropdown.Item><RadioButtonUncheckedIcon title="Check To Complete" onClick={ ()=>{ changeTaskStatusToCompleted(task.id) } } />Check To Done</Dropdown.Item>
-  //                           </Dropdown.Menu>
-  //                       </Dropdown>
-  //                   </div>
-  //                   <div className="mb-3 pe-5">
-  //                       <h6 className="d-flex justify-content-between align-items-start">{task.name} 
-
-  //                       </h6>
-  //                   </div>
-  //                   <div className="task-description pb-2">
-  //                       {task.description}
-  //                   </div>
-
-
-  //                     <div className="task-priority d-flex justify-content-between">
-  //                         <div className="div">
-  //                                 { task.users.map((user) => (
-  //                                     <Badge bg="primary"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
-  //                                 ))}
-  //                       </div>
-  //                         <div className="text-muted">{task.dueDate}</div>
-  //                     { (task.priority === "high") ?
-  //                                 <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
-  //                               (task.priority === "medium") ?
-  //                                 <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
-  //                                 <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
-  //                       }           
-  //                   </div>
-
-
-  //               </Card.Body>
-  //            </Card>
-  //           ))}
-  //         </Col>
-
-  //         <Col md="4">
-  //           <h6 className="main-body-header-title mb-0">Completed</h6>
-  //           {completed.map((task) => (
-  //             <Card key={task.id} className="card-style1 h-100 mt-4 mb-4">
-  //             <Card.Body>
-  //                 <div className="card-options">
-  //                     <Dropdown align="end">
-  //                         <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-  //                         <Dropdown.Menu className="card-options-submenu">
-  //                         <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-  //                                 <Dropdown.Item><DeleteOutlineOutlinedIcon onClick={() => { deleteTask(task.id) }} /> Delete</Dropdown.Item>
-  //                                 <Dropdown.Item><CheckCircleOutlineIcon title="Check To Complete" onClick={ ()=>{ changeTaskStatusToCompleted(task.id) } } />Check To Done</Dropdown.Item>
-  //                         </Dropdown.Menu>
-  //                     </Dropdown>
-  //                 </div>
-  //                 <div className="mb-3 pe-5">
-  //                     <h6 className="d-flex justify-content-between align-items-start">{task.name} 
-
-  //                     </h6>
-  //                 </div>
-  //                 <div className="task-description pb-2">
-  //                     {task.description}
-  //                 </div>
-
-
-  //                   <div className="task-priority d-flex justify-content-between">
-  //                       <div className="div">
-  //                               { task.users.map((user) => (
-  //                                   <Badge bg="primary"  pill key={user.id} className="mr-1 small">{user.name}</Badge>
-  //                               ))}
-  //                     </div>
-  //                       <div className="text-muted">{task.dueDate}</div>
-  //                   { (task.priority === "high") ?
-  //                               <Badge bg="danger" pill className="pull-right small">{task.priority}</Badge> :
-  //                             (task.priority === "medium") ?
-  //                               <Badge bg="warning" pill className="pull-right small">{task.priority}</Badge> :
-  //                               <Badge bg="success" pill className="pull-right small">{task.priority}</Badge>
-  //                     }           
-  //                 </div>
-
-
-  //             </Card.Body>
-  //          </Card>
-  //           ))}
-  //         </Col>
-  //       </Row>
-  //       <Modal show={show} onHide={handleClose}>
-  //         <Modal.Header closeButton>
-  //           <Modal.Title>Modal heading</Modal.Title>
-  //         </Modal.Header>
-  //         <Form onSubmit={addTask} method="POST">
-  //           <Modal.Body>
-  //             <Card>
-  //               <Card.Body>
-  //                 <Row>
-  //                   <Col md="4">
-  //                     <Form.Group className="mb-3" controlId="formBasicEmail">
-  //                       <Form.Label>Title</Form.Label>
-  //                       <Form.Control type="text" placeholder="Enter title" onChange={(e) => { setTitle(e.target.value) }} value={title} />
-  //                     </Form.Group>
-  //                   </Col>
-  //                   <Col md="4">
-  //                     <Form.Group className="mb-3" controlId="formBasicEmail">
-  //                       <Form.Label>Priority</Form.Label>
-  //                       <Form.Select aria-label="Default select example" onChange={(e) => { setPriority(e.target.value) }}>
-  //                         <option value="high">High</option>
-  //                         <option value="medium">Medium</option>
-  //                         <option value="low">Low</option>
-  //                       </Form.Select>
-  //                     </Form.Group>
-  //                   </Col>
-  //                   <Col md="4">
-  //                     <Form.Group className="mb-3" controlId="formBasicEmail">
-  //                       <Form.Label>Due Date</Form.Label>
-  //                       <Form.Control type="date" placeholder="Enter title" onChange={(e) => { setDueDate(e.target.value) }} />
-  //                     </Form.Group>
-  //                   </Col>
-  //                 </Row>
-  //                 <Row>
-  //                   <Col md="12">
-  //                     <Form.Group className="mb-3" controlId="formBasicEmail">
-  //                       <Form.Label>Description</Form.Label>
-  //                       <Form.Control as="textarea" rows={3} onChange={(e) => { setDescription(e.target.value) }} value={description} />
-  //                     </Form.Group>
-  //                   </Col>
-  //                 </Row>
-  //                 <Row>
-  //                   <Col md="12">
-  //                     <Form.Group className="mb-3" controlId="formBasicEmail">
-  //                       <Form.Label>Assign To</Form.Label>
-  //                       <Select options={userOptions} onChange={userChangeHandler} isMulti />
-  //                     </Form.Group>
-  //                   </Col>
-  //                 </Row>
-  //               </Card.Body>
-  //             </Card>
-  //           </Modal.Body>
-  //           <Modal.Footer>
-  //             <Button variant="secondary" onClick={handleClose}>
-  //               Close
-  //             </Button>
-  //             <Button variant="primary" type="submit">
-  //               Save Changes
-  //             </Button>
-  //           </Modal.Footer>
-  //         </Form>
-  //       </Modal>
-  //     </div>
-  //     }
-  //   </div >
-  // );
 }

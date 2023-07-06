@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import  user_image from '../assets/images/users/user.jpg'
-import { Container, Row, Col, Card, Button, Dropdown ,ProgressBar, Spinner} from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Dropdown ,ProgressBar, Spinner, Badge} from 'react-bootstrap';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
@@ -87,6 +87,8 @@ export default function Projects(props) {
                         </Row>
                     </div>
                     <Row className='pt-3'>
+
+                        {projects.map((project) => (
                         <Col md="4">
                            <Card>
                              <Card.Body>
@@ -100,13 +102,12 @@ export default function Projects(props) {
                                         </Dropdown>
                                     </div>
                                     <div className="mb-4 pe-5">
-                                        <h6 className='main-body-header-title'>Acma</h6>
+                                        <h6 className='main-body-header-title'>{project.client.name}/{project.name}</h6>
                                     </div>
                                     <div className="d-flex align-items-center mb-4">
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
+                                        {project.users.map((user) => (
+                                            <div key={user.id}><img className="img-fluid clients-image" src={user.image} alt="Kaykewalk chat User" /></div> 
+                                        ))}
                                     </div>
                                     <div className='d-flex gap-5 mb-4'>
                                         <div className='d-flex gap-2'>
@@ -121,12 +122,23 @@ export default function Projects(props) {
                                     <div className='d-flex gap-4 mb-4'>
                                         <div className='d-flex gap-2'>
                                             <div><PersonAddAltOutlinedIcon /></div>
-                                            <div>5 Members</div>
+                                            <div>{ project.users.length } Members</div>
                                         </div>
                                         <div className='d-flex gap-2'>
                                             <div><CommentOutlinedIcon  /></div>
                                             <div>10</div>
                                         </div>
+                                    </div>
+                                    <div className='mt-3'>
+                                        <Badge bg="primary" >Assigned 1 </Badge>
+                                        &nbsp;
+                                        <Badge bg="primary" >Accepted 1 </Badge>
+                                        &nbsp;
+                                        <Badge bg="warning">In Progress 1</Badge>
+                                        &nbsp;
+                                        <Badge className='mt-1' bg="warning" >In Review 1</Badge>
+                                        &nbsp;
+                                        <Badge bg="success" >Completed 1</Badge>
                                     </div>
                                     <div className='pe-2 ps-2 border-bottom mb-4'></div>
                                     <div className='d-flex justify-content-between mb-2'>
@@ -142,116 +154,7 @@ export default function Projects(props) {
                              </Card.Body>
                            </Card>
                         </Col>
-                        <Col md="4">
-                           <Card>
-                             <Card.Body>
-                                    <div className="card-options">
-                                        <Dropdown align="end">
-                                            <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                            <Dropdown.Menu className="card-options-submenu">
-                                            <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </div>
-                                    <div className="mb-4 pe-5">
-                                        <h6 className='main-body-header-title'>Acma</h6>
-                                    </div>
-                                    <div className="d-flex align-items-center mb-4">
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                    </div>
-                                    <div className='d-flex gap-5 mb-4'>
-                                        <div className='d-flex gap-2'>
-                                            <div><AttachFileIcon /></div>
-                                            <div>5 Attach</div>
-                                        </div>
-                                        <div className='d-flex gap-2' align="end">
-                                            <div><DateRangeOutlinedIcon  /></div>
-                                            <div>2 Month</div>
-                                        </div>
-                                    </div>
-                                    <div className='d-flex gap-4 mb-4'>
-                                        <div className='d-flex gap-2'>
-                                            <div><PersonAddAltOutlinedIcon /></div>
-                                            <div>5 Members</div>
-                                        </div>
-                                        <div className='d-flex gap-2'>
-                                            <div><CommentOutlinedIcon  /></div>
-                                            <div>10</div>
-                                        </div>
-                                    </div>
-                                    <div className='pe-2 ps-2 border-bottom mb-4'></div>
-                                    <div className='d-flex justify-content-between mb-2'>
-                                        <div><h6>Progress</h6></div>
-                                        <div className='btn-time'><AccessTimeOutlinedIcon /> 35 Days Left</div>
-                                    </div>
-                                    <div className='d-flex justify-content-between gap-2'>
-                                       
-                                        <ProgressBar variant="secondary" now={100} />
-                                        <ProgressBar variant="secondary" now={100} />
-                                        <ProgressBar variant="secondary" now={20} />
-                                    </div>
-                             </Card.Body>
-                           </Card>
-                        </Col>
-                        <Col md="4">
-                           <Card>
-                             <Card.Body>
-                                    <div className="card-options">
-                                        <Dropdown align="end">
-                                            <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                            <Dropdown.Menu className="card-options-submenu">
-                                            <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-                                    </div>
-                                    <div className="mb-4 pe-5">
-                                        <h6 className='main-body-header-title'>Acma</h6>
-                                    </div>
-                                    <div className="d-flex align-items-center mb-4">
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                            <div><img className="img-fluid clients-image" src={user_image} alt="Kaykewalk chat User" /></div> 
-                                    </div>
-                                    <div className='d-flex gap-5 mb-4'>
-                                        <div className='d-flex gap-2'>
-                                            <div><AttachFileIcon /></div>
-                                            <div>5 Attach</div>
-                                        </div>
-                                        <div className='d-flex gap-2' align="end">
-                                            <div><DateRangeOutlinedIcon  /></div>
-                                            <div>2 Month</div>
-                                        </div>
-                                    </div>
-                                    <div className='d-flex gap-4 mb-4'>
-                                        <div className='d-flex gap-2'>
-                                            <div><PersonAddAltOutlinedIcon /></div>
-                                            <div>5 Members</div>
-                                        </div>
-                                        <div className='d-flex gap-2'>
-                                            <div><CommentOutlinedIcon  /></div>
-                                            <div>10</div>
-                                        </div>
-                                    </div>
-                                    <div className='pe-2 ps-2 border-bottom mb-4'></div>
-                                    <div className='d-flex justify-content-between mb-2'>
-                                        <div><h6>Progress</h6></div>
-                                        <div className='btn-time'><AccessTimeOutlinedIcon /> 35 Days Left</div>
-                                    </div>
-                                    <div className='d-flex justify-content-between gap-2'>
-                                       
-                                        <ProgressBar variant="secondary" now={100} />
-                                        <ProgressBar variant="secondary" now={100} />
-                                        <ProgressBar variant="secondary" now={20} />
-                                    </div>
-                             </Card.Body>
-                           </Card>
-                        </Col>
+                        ))}
                     </Row>
                 </Container>
                 }

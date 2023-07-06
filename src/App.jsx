@@ -34,7 +34,7 @@ function App() {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/invite-signup" component={InviteSignup} />
-            <Route exact path="/invite" component={Invite} />
+            <Route exact path="/invite/:email" component={Invite} />
             <Route exact path="/dashboard" component={Dashboard} />
             <Route exact path="/users" component={Users} />
             <Route exact path="/teams" component={Teams} />
