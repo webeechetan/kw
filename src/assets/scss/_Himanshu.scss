@@ -1,95 +1,95 @@
-/*---- Himanshu Style Here ----*/
-.scrolling-wrapper{
-    overflow-x: auto;
-}
- /*---- Image ----*/
-.img {
+// /*---- Himanshu Style Here ----*/
+// .scrolling-wrapper{
+//     overflow-x: auto;
+// }
+//  /*---- Image ----*/
+// .img {
    
-    &-member {
-        &-dp {
-            width: 70px;
-            border-radius: $border_radius;
-        }
-    }
-}
-.clients{
-    &-image{
-       max-height: 60px;
-       border-radius: 50%;
-       margin-right: -30px;
-       box-shadow: 0 0 0 2px #fff;
-    }
-}
-.btn:first-child:active,.btn:first-child:focus{
-    border: none;
-    outline: none;
-}
-/*---- Indicator line ----*/
+//     &-member {
+//         &-dp {
+//             width: 70px;
+//             border-radius: $border_radius;
+//         }
+//     }
+// }
+// .clients{
+//     &-image{
+//        max-height: 60px;
+//        border-radius: 50%;
+//        margin-right: -30px;
+//        box-shadow: 0 0 0 2px #fff;
+//     }
+// }
+// .btn:first-child:active,.btn:first-child:focus{
+//     border: none;
+//     outline: none;
+// }
+// /*---- Indicator line ----*/
 
-.progress{
-    width: 100%;
-    height: 8px;
-    border-radius: 1px;
-}
+// .progress{
+//     width: 100%;
+//     height: 8px;
+//     border-radius: 1px;
+// }
 
-/*---- Nav Tabs ----*/
-.nav-tabs {
-	.nav-link {
-        background-color: transparent !important;
-        color: $secondary;
-        border: none;
-        padding-left: 1px;
-        padding-right: 0px;
-        margin-right: 30px;
+// /*---- Nav Tabs ----*/
+// .nav-tabs {
+// 	.nav-link {
+//         background-color: transparent !important;
+//         color: $secondary;
+//         border: none;
+//         padding-left: 1px;
+//         padding-right: 0px;
+//         margin-right: 30px;
        
-        &.active{
-            border-bottom: 3px solid $brand ;
-            border-top: none;
-            border-right: none;
-            border-left: none;
-            color: $secondary;
-        }
-	}
-}
+//         &.active{
+//             border-bottom: 3px solid $brand ;
+//             border-top: none;
+//             border-right: none;
+//             border-left: none;
+//             color: $secondary;
+//         }
+// 	}
+// }
 
-/*---- Table View ----*/
-.tab-view{
-    .tab-view-list{
-       table{
-         text-align: center;
-         cursor: pointer;
-         margin-bottom: 0px;
-       }
-       thead{
-        background: $grey;
-       }
-       tr:not(:first-child){
-        &:hover{
-            background: $grey;   
-        }
-       }
-       tr:last-child{
-          border-bottom: 3px solid $grey;
-       }
-    }
-}
-/*---- Task Button ----*/
-.btn-task{
-    background: $secondary;
-    padding: .5rem 1.4rem;
-    border-radius: 4px;
-    border: 1px solid $secondary;
-    a{
-        color: $white;
-    }
-}
-.btn-time{
-    background: $brand;
-    padding: .2rem .3rem;
-    border-radius: 4px;
-    border: 1px solid $brand;
-    color: $white;
-}
-.gap-4{
-    gap: 2rem !important;
-}
+// /*---- Table View ----*/
+// .tab-view{
+//     .tab-view-list{
+//        table{
+//          text-align: center;
+//          cursor: pointer;
+//          margin-bottom: 0px;
+//        }
+//        thead{
+//         background: $grey;
+//        }
+//        tr:not(:first-child){
+//         &:hover{
+//             background: $grey;   
+//         }
+//        }
+//        tr:last-child{
+//           border-bottom: 3px solid $grey;
+//        }
+//     }
+// }
+// /*---- Task Button ----*/
+// .btn-task{
+//     background: $secondary;
+//     padding: .5rem 1.4rem;
+//     border-radius: 4px;
+//     border: 1px solid $secondary;
+//     a{
+//         color: $white;
+//     }
+// }
+// .btn-time{
+//     background: $brand;
+//     padding: .2rem .3rem;
+//     border-radius: 4px;
+//     border: 1px solid $brand;
+//     color: $white;
+// }
+// .gap-4{
+//     gap: 2rem !important;
+// }

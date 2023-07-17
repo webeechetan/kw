@@ -8,11 +8,14 @@
     &-content {
         width: calc(100% - 300px);
         padding: $spacing_sm;
+        @media (max-width: 1440px) {
+            width: calc(100% - 200px);
+        }
     }
 
     /*---- Body Header ----*/
     &-header {
-        margin-bottom: $spacing_sm;
+        border-bottom: 1px solid $border_dark_grey;
         &-title {
             font-size: 1.8em;
         }
@@ -49,11 +52,11 @@
 /*---- Teams ----*/
 .team {
     &-member {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         border-radius: $border_radius;
         background-color: #fff;
-        border: 1px solid $grey;
+        border: 1px solid $border_dark_grey;
         color: $text_light;
         font-size: 0.7rem;
         font-weight: 500;
@@ -66,6 +69,23 @@
             border-color: $grey;
             margin-right: 0;
         }
+        &-bg {
+            &-secondary {
+                background-color: $secondary;
+                border-color: $secondary;
+                color: #fff;
+            }
+            &-yellow {
+                background-color: $yellow;
+                border-color: $yellow;
+                color: $dark;
+            }
+            &-orange {
+                background-color: $orange;
+                border-color: $orange;
+                color: #fff;
+            }
+        }
         a {
             color: $brand;
         }
@@ -74,6 +94,27 @@
         }
         &-group {
             @include flex;
+        }
+        &-full {
+            @include flex_align_center;
+            
+            &-list {
+                @include flex_align_center;
+                &:not(:last-child) {
+                    margin-right: $spacing_sm;
+                }
+                .team-member {
+                    margin-right: 10px;
+                }
+            }
+        }
+        &-remove {
+            padding: 0 10px;
+            cursor: pointer;
+            color: $text_light;
+            svg {
+                width: 18px;
+            }
         }
     }
 }
@@ -148,6 +189,285 @@
                     margin-right: $spacing_xs;
                 }
             }
+        }
+    }
+}
+
+/* ----- Tab Navigator Bar ----- */
+.tabNavigationBar {
+    &-tab {
+        display: flex;
+        flex-direction: inherit;
+        gap: 30px;
+    }
+    &-item {
+        padding: 15px 0;
+        font-weight: 600;
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+        &-active {
+            background-color: inherit;
+            color: $brand;
+            border-bottom: 1px solid $brand;
+        }
+        &:last-child {
+            border-radius: 0;
+        }
+    }
+}
+
+/* ----- Kanban ----- */
+.kanban {
+    &_bord {
+        &_body {
+            &_columns {
+                padding-top: $spacing_sm;
+                display: flex;
+                gap: $spacing_lg;
+
+                @media (max-width: 1440px) {
+                    gap: $spacing_md;
+                }
+            }
+        }
+        &_column {
+            &_title {
+                font-size: 20px;
+                color: $text_color;
+                &_btnAddTask {
+                    font-size: 13px;
+                    background-color: #fff;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    transition: $ease_03;
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                    }
+                    &:hover {
+                        color: $brand;
+                    }
+                }
+                &_wrap {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+    &_column {
+        &_task {
+            border: 2px solid #fff;
+            &:not(:last-child) {
+                margin-bottom: $spacing_sm;
+            }
+            .card-body {
+                padding: $spacing_xs $spacing_s;
+            }
+            &_name {
+                display: flex;
+                gap: $spacing_xs;
+                padding-right: $spacing_md;
+                svg {
+                    max-width: 18px;
+                }
+            }
+            &_bot {
+                display: flex;
+                justify-content: space-between;
+                margin-top: $spacing_xs;
+                padding-top: $spacing_xs;
+                border-top: 1px solid $border_grey;
+
+                .team-member {
+                    width: 26px;
+                    height: 26px;
+                    margin-right: -5px;
+                }
+            }
+            &_date {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 13px;
+                font-weight: 600;
+                transition: $ease_03;
+            }
+            &_complete_icon {
+                cursor: pointer;
+                transition: $ease_03;
+                &:hover {
+                    color: $success;
+                }
+            }
+            &_project_name {
+                margin-top: $spacing_xs;
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                color: $text-light;
+                svg {
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+            /* ----- Task Status ----- */
+            &_done {
+                border-color: $success_light;
+                .kanban_column_task {
+                    &_complete_icon {
+                        color: $success;
+                    }
+                    &_date {
+                        color: $success;
+                    }
+                }
+            }
+            &_overdue {
+                border-color: $danger_light;
+                .kanban_column_task {
+                    &_date {
+                        color: $danger;
+                    }
+                }
+            }
+            &_warning {
+                border-color: $warning_light;
+                .kanban_column_task {
+                    &_date {
+                        color: $warning;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* ----- Add Canvas ----- */
+.AddCanvas {
+    width: 991px;
+    height: 450px;
+    background-color: #fff;
+    margin: 50px auto;
+}
+
+/* ----- Add Task ----- */
+.AddTask {
+    &_head {
+        padding: $spacing_sm;
+        border-bottom: 1px solid $border_dark_grey;
+        &_btn_status {
+            display: flex;
+        }
+    }
+    &_title {
+        font-size: 26px;
+        padding: $spacing_xs 15px;
+        border: 1px solid $border_grey;
+        margin-left: -15px;
+    }
+    &_rulesOverview {
+        margin-top: $spacing_md;
+        &_item {
+            @include flex_align_center;
+            &:not(:last-child) {
+                margin-bottom: $spacing_md;
+            }
+            &_name {
+                min-width: 150px;
+                font-weight: 500;
+                font-size: 16px;
+            }
+        }
+    }
+    &_body {
+        padding: $spacing_sm;
+    }
+}
+
+.addRules {
+    &_date {
+        display: flex;
+        align-items: center;
+        &_icon {
+            margin-right: $spacing_xs;
+        }
+        &_text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+        &-remove {
+            margin-left: $spacing_s;
+            &:hover {
+                color: $danger;
+            }
+        }
+    }
+}
+
+/* ----- Filter Sort ----- */
+.filterSort {
+    &_wrap {
+        max-width: 450px;
+    }
+    &_body {
+        padding: $spacing_sm;
+        &-header {
+            font-size: 16px;
+        }
+        &_item {
+            &:not(:last-child) {
+                margin-bottom: $spacing_md;
+            }
+        }
+        &_btn {
+            &_group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: $spacing_xs;
+            }
+            &_action {
+                padding: 3px 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+                cursor: pointer;
+                transition: $ease_03;
+                display: flex;
+                align-items: center;
+
+                svg {
+                    width: 16px;
+                    height: 16px;
+                    color: $secondary;
+                    margin-right: 5px;
+                }
+
+                &:hover {
+                    color: $secondary;
+                    border-color: $secondary;
+                }
+            }
+        }
+    }
+}
+
+/* ----- Icon ----- */
+.icon {
+    &_rounded {
+        @include icon_style_round;
+        cursor: pointer;
+        color: $text_light;
+        transition: $ease_03;
+        font-size: 12px;
+        svg {
+            width: 18px;
+            height: 18px;
         }
     }
 }

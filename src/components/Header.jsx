@@ -33,7 +33,7 @@ export default function Header() {
                     <Navbar collapseOnSelect expand="lg">
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse className="justify-content-end">
-                            <Nav>
+                            <Nav className="align-items-center">
                                 <Nav.Link id="modal-search" href="#" onClick={() => setHeaderSearchShow(true)}><SearchOutlinedIcon/></Nav.Link>
                                 <NavDropdown title={<ChatBubbleOutlineOutlinedIcon/>} className="dropdown-chat dropdown-menu-end">
                                     <div className="dropdown-header">
@@ -124,10 +124,11 @@ export default function Header() {
                                         <Link to="../users" className="btn btn-primary w-100">View All</Link>
                                     </div>
                                 </NavDropdown>
-                                <NavDropdown title={<span><img className="img-fluid" src={require('../assets/images/users/user.jpg')} alt="Kaykewalk Admin User" /></span>} className="dropdown-account dropdown-menu-end">
+                                <NavDropdown title={<span><img className="img-fluid" src={require('../assets/images/profile-sidebar.png')} alt="Kaykewalk Admin User" /></span>} className="dropdown-account dropdown-menu-end">
                                     <div className="dropdown-header">
                                         <h6 className="mb-0 text-primary">John Deo</h6>
                                         <div className="text-muted mt-1 w-100">Web Designer</div>
+                                        <div className="text-muted mt-1 w-100">demo@dummyweb.com</div>
                                     </div>
                                     <div className="dropdown-menu-items">
                                         <NavDropdown.Item href="#" className="align-items-center">

@@ -2,6 +2,7 @@
 
 /*---- Font Family ----*/
 $main-font: 'Rubik', sans-serif;
+$jost: 'Jost', sans-serif;
 
 /*---- Transition Ease ----*/
 $ease_03: all 0.3s ease;
@@ -15,15 +16,18 @@ $border_radius_md: 20px;
 $border_radius_checkbox: 3px;
 
 /*---- Spacing ----*/
-$spacing_s: 5px;
 $spacing_xs: 10px;
+$spacing_s: 15px;
 $spacing_sm: 20px;
 $spacing_md: 30px;
 $spacing_lg: 50px;
 $spacing_xl: 70px;
 $spacing_xll: 90px;
+
 $spacing_btn: 0.5rem 1.4rem;
 $spacing_btn_sm: 0.3rem 1rem; 
+$spacing_btn_xs: 5px 10px;
+
 $spacing_sidenav_item: 12px 25px;
 $spacing_sidenav_btm: 12px 25px;
 $spacing_dropdown_item: 10px 15px;
@@ -56,6 +60,22 @@ $team_dp: 75px;
     overflow: hidden;
 }
 
+/* ----- Date Icon ----- */
+@mixin icon_style_round {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid $border_dark_grey;
+
+    svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 /*---- Box Item ----*/
 @mixin box_item {
     background: $white;
@@ -85,6 +105,12 @@ $team_dp: 75px;
 /*---- Flex Center ----*/
 @mixin flex_center {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+@mixin inline_flex_center {
+    display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;

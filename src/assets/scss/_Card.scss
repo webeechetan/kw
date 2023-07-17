@@ -122,7 +122,7 @@
     }
     &-options {
         position: absolute;
-        top: $spacing_sm;
+        top: $spacing_xs + 5px;
         right: $spacing_sm;
 
         &-submenu {

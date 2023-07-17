@@ -8,29 +8,36 @@ $yellow_light: #fdf4c1;
 $orange_light: #FFFBFD;
 $grey: #eee;
 $grey_xd: #ddd;
+
 $light: #f5f5f5;
 $text_light: #9c9c9c;
 $text_color: #191919;
 $text_form: $text_light;
+
 $sidebar_link_color: #717579;
 $white: #fff;
 $link_hover: #4c1c90;
 $dropdown_link_hover: #974eff;
 $dashboard_bg: #f6f5f5;
 $sidebar_active_bg_color: #f6f5f5;
+
 $border: $text_color;
 $border_light: #f5f5f5;
 $border_light2: #eee;
+$border_grey: #eee;
+$border_dark_grey: #ddd;
 $border_form: #ced4da;
+
 $bg_dropdown: $secondary;
 
 /*---- Actions ----*/
 $success: #48914d;
 $success_light: #dae9db;
-$danger: #fc534f;
+$danger: #ff0000;
 $danger_light: #fedddc;
-$warning: #fed73b;
+$warning: #e7bf1d;
 $warning_light: #fff7d8;
+$progress: #7407ff;
 
 /*---- Buttons Colors ----*/
 $primary_hover: $secondary;
@@ -76,8 +83,17 @@ $table_header_color: $secondary;
     &-yellow {
         color: $yellow !important;
     }
-    &-orange{
+    &-orange {
         color: $orange !important;
+    }
+    &-success {
+        color: $success !important;
+    }
+    &-warning {
+        color: $warning !important;
+    }
+    &-progress {
+        color: $progress !important;
     }
     &-link {
         text-decoration: underline;
