@@ -9,15 +9,14 @@ export default function Tasks() {
     return (
         <>
             <Header />
-             <div className="main-body">
-            <Sidebar />
-            <div className="main-body-content">
-                <Container fluid>
-                   
-                    <TaskManager />
-                </Container>
+                <div className="main-body">
+                <Sidebar />
+                <div className="main-body-content">
+                    <Container fluid>
+                        <TaskManager />
+                    </Container>
+                </div>
             </div>
-        </div>
         </>
       
     );

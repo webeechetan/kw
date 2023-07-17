@@ -10,20 +10,23 @@
             width: 300px;
             max-width: 100%;
             padding: $spacing_xs;
-            @include flex_center;
+            @include flex_align_center;
             span:not(:last-child) {
                 border-right: 1px solid $grey_xd;
                 padding-right: $spacing_xs;
                 margin-right: $spacing_xs;
             }
             img {
-                max-width: 100px;
+                max-width: 90px;
+                max-height: 35px;
             }
         }
         /*---- Header Left Style ----*/
         &-left {
             width: 300px;
             padding: 0 $spacing_sm;
+            display: flex;
+            align-items: center;
         }
         /*---- Header Right Style ----*/
         &-right {

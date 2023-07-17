@@ -10,7 +10,7 @@ import WavesOutlinedIcon from '@mui/icons-material/WavesOutlined';
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 
-export default function LeftSidebar() {
+export default function LeftSidebar() { 
     return (
         <>
             {/* Left Sidebar */}
@@ -18,20 +18,22 @@ export default function LeftSidebar() {
                 {/* Left Sidebar Top */}
                 <div className="sidebar-l-top">
                     {/* Dashboard Profile */}
-                    <div className="sidebar-profile">
+                    {/* <div className="sidebar-profile">
                         <div className="sidebar-profile-img"><img src={require('../assets/images/profile-sidebar.png')} alt="Kaykewalk Profile" /></div>
-                        <h3 className="sidebar-profile-title">John Due</h3>
-                        <a className="sidebar-profile-mail" href="{#}">demo@dummyweb.com</a>
-                    </div>
+                        <div className="sidebar-profile-info">
+                            <h3 className="sidebar-profile-title">John Due</h3>
+                            <a className="sidebar-profile-mail" href="{#}">demo@dummyweb.com</a>
+                        </div>
+                    </div> */}
                 </div>
                 {/* Left Sidebar Top End */}
                 {/* Left Sidebar Menu */}
                 <div className="sidebar-l-menu">
                     <ul className="list-none menu-sidebar">
                         <li><Link to="../dashboard" className="active"><HomeOutlinedIcon/> Dashboard</Link></li>
-                        <li><Link to="../clients"><PeopleAltOutlinedIcon/> Clients</Link></li>
+                        <li><Link to="../clients" className=""><PeopleAltOutlinedIcon/> Clients</Link></li>
                         <li><Link to="../projects" className=""><DashboardOutlinedIcon/> Projects</Link></li>
-                        <li><Link to="../teams"><PeopleAltOutlinedIcon/> Teams</Link></li>
+                        <li><Link to="../teams" className=""><PeopleAltOutlinedIcon/> Teams</Link></li>
                         <li><Link to="../members" className=""><GroupOutlinedIcon/> Members</Link></li>
                         <li><Link to="../tasks" className=""><AssignmentOutlinedIcon /> Tasks</Link></li>
                         {/* <li><Link to="../messages" className=""><MarkChatUnreadOutlinedIcon/> Messages</Link></li>
