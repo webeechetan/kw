@@ -74,4 +74,11 @@ input {
         -webkit-text-fill-color: $text_form;
     }
 }
+.add_input_style {
+    border: none;
+    padding: 0;
+    &:focus-visible, &:focus {
+        border: none;
+    }
+}
 /*---- Form Style End Here ----*/

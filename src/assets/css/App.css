@@ -248,6 +248,12 @@ ul.list-none {
   opacity: 0.2;
 }
 
+/* ----- Icon Svg ----- */
+svg.css-i4bv87-MuiSvgIcon-root {
+  width: 18px;
+  height: 18px;
+}
+
 /*---- Buttons Style Start Here ----*/
 .btn {
   padding: 0.5rem 1.4rem;
@@ -410,12 +416,23 @@ ul.list-none {
   width: 16px;
   height: 16px;
 }
-.btn_status:hover {
+.btn_status:hover, .btn_status.active {
   border-color: #f83890;
   color: #f83890;
 }
 .btn_status:not(:last-child) {
   margin-right: 20px;
+}
+.btn_link {
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-bottom: 1px solid #ddd;
+}
+.btn_link:hover {
+  color: #f83890;
+  border-color: #f83890;
 }
 
 /*---- Buttons Style End Here ----*/
@@ -882,6 +899,14 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   box-shadow: 0 0 0 50px #fff inset;
   -webkit-box-shadow: 0 0 0 50px #fff inset;
   -webkit-text-fill-color: #9c9c9c;
+}
+
+.add_input_style {
+  border: none;
+  padding: 0;
+}
+.add_input_style:focus-visible, .add_input_style:focus {
+  border: none;
 }
 
 /*---- Form Style End Here ----*/
@@ -1658,6 +1683,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   background-color: #f6f5f5;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
   /*---- Content Body Style ----*/
   /*---- Body Header ----*/
 }
@@ -1759,14 +1785,12 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 20px;
 }
 .team-member-full-list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-}
-.team-member-full-list:not(:last-child) {
-  margin-right: 20px;
 }
 .team-member-full-list .team-member {
   margin-right: 10px;
@@ -1989,44 +2013,60 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 
 /* ----- Add Canvas ----- */
 .AddCanvas {
-  width: 991px;
-  height: 450px;
+  width: 767px;
   background-color: #fff;
-  margin: 50px auto;
+  box-shadow: 0 3px 30px rgba(0, 0, 0, 0.07);
+  padding: 30px 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+}
+.AddCanvas_close {
+  position: absolute;
+  top: 15px;
+  right: 40px;
 }
 
 /* ----- Add Task ----- */
 .AddTask_head {
-  padding: 20px;
-  border-bottom: 1px solid #ddd;
+  padding: 0 30px;
 }
 .AddTask_head_btn_status {
   display: flex;
 }
 .AddTask_title {
   font-size: 26px;
-  padding: 10px 15px;
-  border: 1px solid #eee;
-  margin-left: -15px;
 }
 .AddTask_rulesOverview {
   margin-top: 30px;
 }
 .AddTask_rulesOverview_item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 150px 1fr;
 }
 .AddTask_rulesOverview_item:not(:last-child) {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 .AddTask_rulesOverview_item_name {
   min-width: 150px;
   font-weight: 500;
   font-size: 16px;
 }
+.AddTask_rulesOverview_item_rulesAction_wrap {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
 .AddTask_body {
-  padding: 20px;
+  padding: 30px;
+  margin-top: 20px;
+  height: calc(100% - 30px);
+  overflow-y: auto;
+  border-top: 1px solid #ddd;
+}
+.AddTask_des {
+  margin-top: 30px;
 }
 
 .addRules_date {
@@ -2043,8 +2083,11 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .addRules_date-remove {
   margin-left: 15px;
 }
-.addRules_date-remove:hover {
-  color: #ff0000;
+.addRules_project_icon {
+  margin-right: 10px;
+}
+.addRules_project-remove {
+  margin-left: 10px;
 }
 
 /* ----- Filter Sort ----- */
@@ -2105,6 +2148,18 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   height: 18px;
 }
 .icon_rounded svg {
+  width: 18px;
+  height: 18px;
+}
+.icon_remove {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  color: #9c9c9c;
+}
+.icon_remove:hover {
+  color: #ff0000;
+}
+.icon_remove svg {
   width: 18px;
   height: 18px;
 }

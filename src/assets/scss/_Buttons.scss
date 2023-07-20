@@ -166,13 +166,24 @@
             height: 16px;
         }
 
-        &:hover {
+        &:hover, &.active {
             border-color: $brand;
             color: $brand;
         }
 
         &:not(:last-child) {
             margin-right: $spacing_sm;
+        }
+    }
+    &_link {
+        transition: $ease_03;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        border-bottom: 1px solid $grey_xd;
+        &:hover {
+            color: $brand;
+            border-color: $brand;
         }
     }
 }

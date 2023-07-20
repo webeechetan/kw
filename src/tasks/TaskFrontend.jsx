@@ -14,13 +14,14 @@ import FormatListBulletedOutlinedIcon from '@mui/icons-material/FormatListBullet
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import AddTask from "./AddTask";
 
 export default function TasksFrontend() {
 
     return (
         <>
             <Header />
-                <div className="main-body">
+            <div className="main-body">
                 <Sidebar />
                 <div className="main-body-content">
                     <Container fluid>
@@ -376,8 +377,9 @@ export default function TasksFrontend() {
                                 </div>
                             </div>
                         </div>
-                    </Container>
+                    </Container>                    
                 </div>
+                <AddTask />
             </div>
         </>
       
