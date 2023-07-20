@@ -289,7 +289,7 @@ export default function TaskManager(props) {
             <Button variant="primary" onClick={handleShow}>Add Task</Button>
           </div>
         </Col>
-        <div className="col-md-2">
+        {/* <div className="col-md-2">
             <Form.Select >
               <option>Sort By Status</option>
               <option value="assigned">Assigned</option>
@@ -300,7 +300,7 @@ export default function TaskManager(props) {
             </Form.Select>
           </div>
           <div className="col-md-2">
-            <Form.Select>
+            <Form.Select>git a
               <option>Sort By User</option>
               {users.map((user) => (
                 <option value={user.id}>{user.name}</option>
@@ -314,7 +314,7 @@ export default function TaskManager(props) {
                 <option value={project.id}>{project.name}</option>
               ))}
             </Form.Select>
-          </div>
+          </div> */}
         <div className="tab-view mt-4">
           <Tabs defaultActiveKey="second">
             <Tab eventKey="first" title="List">
