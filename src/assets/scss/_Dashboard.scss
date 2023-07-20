@@ -3,6 +3,7 @@
     background-color: $dashboard_bg;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
     
     /*---- Content Body Style ----*/
     &-content {
@@ -97,12 +98,9 @@
         }
         &-full {
             @include flex_align_center;
-            
+            gap: $spacing_sm;
             &-list {
                 @include flex_align_center;
-                &:not(:last-child) {
-                    margin-right: $spacing_sm;
-                }
                 .team-member {
                     margin-right: 10px;
                 }
@@ -350,43 +348,61 @@
 
 /* ----- Add Canvas ----- */
 .AddCanvas {
-    width: 991px;
-    height: 450px;
+    width: 767px;
     background-color: #fff;
-    margin: 50px auto;
+    box-shadow: $box_shadow_light;
+    padding: $spacing_md 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    &_close {
+        position: absolute;
+        top: 15px;
+        right: 40px;
+    }
 }
 
 /* ----- Add Task ----- */
 .AddTask {
     &_head {
-        padding: $spacing_sm;
-        border-bottom: 1px solid $border_dark_grey;
+        padding: 0 $spacing_md;
         &_btn_status {
             display: flex;
         }
     }
     &_title {
         font-size: 26px;
-        padding: $spacing_xs 15px;
-        border: 1px solid $border_grey;
-        margin-left: -15px;
     }
     &_rulesOverview {
         margin-top: $spacing_md;
         &_item {
-            @include flex_align_center;
+            display: grid;
+            grid-template-columns: 150px 1fr;
             &:not(:last-child) {
-                margin-bottom: $spacing_md;
+                margin-bottom: $spacing_lg;
             }
             &_name {
                 min-width: 150px;
                 font-weight: 500;
                 font-size: 16px;
             }
+            &_rulesAction_wrap {
+                display: flex;
+                align-items: center;
+                gap: $spacing_md;
+            }
         }
     }
     &_body {
-        padding: $spacing_sm;
+        padding: $spacing_md;
+        margin-top: $spacing_sm;
+        height: calc(100% - 30px);
+        overflow-y: auto;
+        border-top: 1px solid $border_dark_grey;
+    }
+    &_des {
+        margin-top: $spacing_md;
     }
 }
 
@@ -403,9 +419,14 @@
         }
         &-remove {
             margin-left: $spacing_s;
-            &:hover {
-                color: $danger;
-            }
+        }
+    }
+    &_project {
+        &_icon {
+            margin-right: $spacing_xs;
+        }
+        &-remove {
+            margin-left: $spacing_xs;
         }
     }
 }
@@ -465,6 +486,18 @@
         color: $text_light;
         transition: $ease_03;
         font-size: 12px;
+        svg {
+            width: 18px;
+            height: 18px;
+        }
+    }
+    &_remove {
+        transition: $ease_03;
+        cursor: pointer;
+        color: $text_light;
+        &:hover {
+            color: $danger;
+        }
         svg {
             width: 18px;
             height: 18px;

@@ -20,6 +20,7 @@ import axios from 'axios';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from './ItemTypes';
+import AddTask from "./AddTask";
 
 export default function TasksFrontend(props) {
 
@@ -451,6 +452,7 @@ export default function TasksFrontend(props) {
                 </DndProvider>
             </Container>
         </div>
+        <AddTask />
     </div>
 </>
 
