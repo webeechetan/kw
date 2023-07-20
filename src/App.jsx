@@ -7,6 +7,7 @@ import Teams from './teams/Teams';
 import TeamInner from './teams/TeamInner';
 import Tasks from './tasks/Tasks';
 import TaskFrontend from './tasks/TaskFrontend';
+import TaskListView from './tasks/TaskListView';
 import AddTasks from './tasks/AddTask';
 import Messages from './messages/Messages';
 import Projects from './projects/Projects';
@@ -44,6 +45,7 @@ function App() {
             <Route exact path="/tasks" component={Tasks} />
             <Route exact path="/add-task" component={AddTasks} />
             <Route exact path="/task-frontend" component={TaskFrontend} />
+            <Route exact path="/task-list-view" component={TaskListView} />
             <Route exact path="/messages" component={Messages} />
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />

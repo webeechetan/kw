@@ -504,3 +504,38 @@
         }
     }
 }
+
+/* ----- Task List View ----- */
+.taskList {
+    &_head {
+        margin-top: $spacing_s;
+        background-color: $white;
+        &_col {
+            padding: $spacing_s $spacing_sm;
+            min-width: 150px;
+            text-align: center;
+            &_name {
+                flex: 1;
+                text-align: left;
+            }
+            &:not(:last-child) {
+                border-right: 1px solid $border_dark_grey;
+            }
+        }
+    }
+    &_row {
+        display: flex;
+    }
+    &_col {
+        padding: $spacing_s $spacing_sm;
+        min-width: 150px;
+        text-align: center;
+        &_name {
+            flex: 1;
+            text-align: left;
+        }
+        .btn_status {
+            display: block;
+        }
+    }
+}

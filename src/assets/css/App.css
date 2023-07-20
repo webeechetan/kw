@@ -2164,4 +2164,37 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   height: 18px;
 }
 
+/* ----- Task List View ----- */
+.taskList_head {
+  margin-top: 15px;
+  background-color: #fff;
+}
+.taskList_head_col {
+  padding: 15px 20px;
+  min-width: 150px;
+  text-align: center;
+}
+.taskList_head_col_name {
+  flex: 1;
+  text-align: left;
+}
+.taskList_head_col:not(:last-child) {
+  border-right: 1px solid #ddd;
+}
+.taskList_row {
+  display: flex;
+}
+.taskList_col {
+  padding: 15px 20px;
+  min-width: 150px;
+  text-align: center;
+}
+.taskList_col_name {
+  flex: 1;
+  text-align: left;
+}
+.taskList_col .btn_status {
+  display: block;
+}
+
 /*# sourceMappingURL=App.css.map */
