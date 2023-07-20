@@ -22,7 +22,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from './ItemTypes';
 import AddTask from "./AddTask";
 
-export default function TasksFrontend(props) {
+export default function TasksFrontend() {
 
     
   // modal state
@@ -31,7 +31,7 @@ export default function TasksFrontend(props) {
   const handleShow = () => setShow(true);
 
   // api data state
-  const [tasks, setTasks] = useState(props.tasks);
+  const [tasks, setTasks] = useState();
   const [pending, setPending] = useState([]);
   const [assigned, setAssigned] = useState([]);
   const [accepted, setAccepted] = useState([]);
@@ -148,7 +148,6 @@ export default function TasksFrontend(props) {
     setAccepted(res.data.data.filter((task) => task.status === "accepted"));
     setAssigned(res.data.data.filter((task) => task.status === "assigned"));
     setLoading(false);
-    console.log(completed);
     return res;
     
   }
@@ -366,7 +365,7 @@ export default function TasksFrontend(props) {
         <div ref={drop} className={`kanban_bord_column ${columnStatus}`}>
         <div className="kanban_bord_column_title_wrap">
             <div className="kanban_bord_column_title">{columnName}</div> 
-            <div><Link to="./add-task" className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
+            <div><Link onClick={ ()=>{ handleShow(true) } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
         </div>
         <div className="kanban_column_card_body">
             <div className="kanban_column_card">
@@ -452,7 +451,8 @@ export default function TasksFrontend(props) {
                 </DndProvider>
             </Container>
         </div>
-        <AddTask />
+        { show ? <AddTask show={show} handleClose={handleClose} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
+
     </div>
 </>
 
