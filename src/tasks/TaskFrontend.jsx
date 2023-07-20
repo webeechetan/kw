@@ -17,6 +17,9 @@ import { useHistory, Link } from "react-router-dom";
 import { config } from "../config";
 import Select from 'react-select';
 import axios from 'axios';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ItemTypes } from './ItemTypes';
 
 export default function TasksFrontend(props) {
 
@@ -69,7 +72,6 @@ export default function TasksFrontend(props) {
     getTasks();
     getClients();
     getProjects();
-
   }, []);
 
   const addTask = (e) => {
@@ -145,7 +147,9 @@ export default function TasksFrontend(props) {
     setAccepted(res.data.data.filter((task) => task.status === "accepted"));
     setAssigned(res.data.data.filter((task) => task.status === "assigned"));
     setLoading(false);
-
+    console.log(completed);
+    return res;
+    
   }
 
   async function saveTask() {
@@ -244,6 +248,21 @@ export default function TasksFrontend(props) {
     return res;
   }
 
+  async function changeTaskStatus(id,status){
+    setLoading(true);
+    let __token = localStorage.getItem('__token');
+    const header = {
+      headers: { Authorization: `Bearer ${__token}` }
+    };
+
+    const res = await axios.get(`${config.api_url}/changeTaskStatus/${id}/${status}`, header);
+    setToastMessage("Task status changed");
+    setShowToast(true);
+    getTasks();
+    setLoading(false);
+    return res;
+  }
+
   async function getClients(){
     setLoading(true);
     let __token = localStorage.getItem('__token');
@@ -251,7 +270,6 @@ export default function TasksFrontend(props) {
       headers: { Authorization: `Bearer ${__token}` }
     };
     const res = await axios.get(`${config.api_url}/clients`, header);
-    console.log(res.data.data);
     setClients(res.data.data);
     setLoading(false);
     return res;
@@ -264,258 +282,178 @@ export default function TasksFrontend(props) {
       headers: { Authorization: `Bearer ${__token}` }
     };
     const res = await axios.get(`${config.api_url}/projects`, header);
-    console.log(res.data.data);
     setProjects(res.data.data);
     setLoading(false);
     return res;
   }
 
+
+  const TaskCard = ({ task }) => {
+    const [{ isDragging }, drag] = useDrag({
+        type: ItemTypes.TASK,
+        item: { task: task },
+        collect: (monitor) => ({
+            isDragging: !!monitor.isDragging(),
+        }),
+    });
+  
     return (
-        <>
-            <Header />
-                <div className="main-body">
-                <Sidebar />
-                <div className="main-body-content">
-                    <Container fluid>
-                        <div className="main-body-header pb-0">
-                            <Row className="align-items-center">
-                                <Col>
-                                    <h3 className="main-body-header-title mb-0">All Tasks</h3>
-                                    <div className="tabNavigationBar-tab">
-                                        <Link className="tabNavigationBar-item" to="#"><FormatListBulletedOutlinedIcon /> List</Link>
-                                        <Link className="tabNavigationBar-item tabNavigationBar-item-active" to="#"> <ViewWeekOutlinedIcon /> Board</Link>
-                                    </div>
-                                </Col>
-                                <Col className="text-end">
-                                    <Dropdown className="dropdown-menu-end">
-                                        <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            <div className="filterSort_wrap">
-                                                <div className="filterSort_body">
-                                                    <div className="filterSort_body_item">
-                                                        <h2 className="filterSort_body-header">Quick Filter</h2>
-                                                        <div className="filterSort_body_btn_group">
-                                                            <span className="filterSort_body_btn_action">Incomplete tasks</span>
-                                                            <span className="filterSort_body_btn_action">Completed tasks</span>
-                                                            <span className="filterSort_body_btn_action">My tasks</span>
-                                                            <span className="filterSort_body_btn_action">Due this week</span>
-                                                            <span className="filterSort_body_btn_action">Due next week</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="filterSort_body_item">
-                                                        <h2 className="filterSort_body-header">Sort By Assignee</h2>
-                                                        <div className="filterSort_body_btn_group">
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Rakesh Roshan</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> John Cena</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> The Rock</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Chetan Kumar</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Vikram Ahuja</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Col>
-                            </Row>
-                        </div>
-                        <div className="kanban_bord">
-                            {/* ----- Bord KanBan View ----- */}
-                            <div className="kanban_bord_body">
-                                <div className="kanban_bord_scrollbar">
-                                    <div className="kanban_bord_body_columns">
+      <Card  ref={drag} className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`}>
+      <Card.Body>
+          <div className="card-options">
+              <Dropdown align="end">
+                  <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
+                      <Dropdown.Menu className="card-options-submenu">
+                          <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
+                          <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
+                      </Dropdown.Menu>
+              </Dropdown>
+          </div>
+          <div className="kanban_column_task_name">
+              <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
+              <div className="kanban_column_task_name_text">
+                  <div>{task.name}</div>
+                  <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Acma Web</div>
+              </div>
+          </div>
+          <div className="kanban_column_task_bot">
+              <div className="kanban_column_task_actions">
+                  <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>22 Jan</span></Link>
+              </div>
 
-                                        {/* ----- Assigned -----  */}
-                                        <div className="kanban_bord_column">
-                                            <div className="kanban_bord_column_title_wrap">
-                                                <div className="kanban_bord_column_title">Assigned</div> 
-                                                <div><Link to="./add-task" className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
-                                            </div>
-                                            <div className="kanban_column_card_body">
-                                                <div className="kanban_column_card">
-                                                    {assigned.map((task, index) => (
-                                                    <Card className="kanban_column_task kanban_column_task_overdue h-100" key={task.id}>
-                                                        <Card.Body>
-                                                            <div className="card-options">
-                                                                <Dropdown align="end">
-                                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                                                        <Dropdown.Menu className="card-options-submenu">
-                                                                            <Dropdown.Item ><Link to=""><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                                            <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                                                        </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-                                                            <div className="kanban_column_task_name">
-                                                                <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
-                                                                <div className="kanban_column_task_name_text">
-                                                                    <div>{task.name}</div>
-                                                                    <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Acma Web</div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="kanban_column_task_bot">
-                                                                <div className="kanban_column_task_actions">
-                                                                    <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>22 Jan</span></Link>
-                                                                </div>
-                                                                <div className="team-member-group">
-                                                                    <span className="team-member">RK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                                    <span className="team-member">JK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
-                                                                    <span className="team-member"><a href="#">+6</a></span>
-                                                                </div>
-                                                            </div>
-                                                        </Card.Body>
-                                                    </Card>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                        {/* ----- In Progress -----  */}
-                                        <div className="kanban_bord_column">
-                                            <div className="kanban_bord_column_title_wrap">
-                                                <div className="kanban_bord_column_title">In Progress</div> 
-                                                <div><Link className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
-                                            </div>
-                                            <div className="kanban_column_card_body">
-                                                <div className="kanban_column_card">
-                                                    {inProgress.map((task, index) => (
-                                                    <Card className="kanban_column_task h-100">
-                                                        <Card.Body>
-                                                            <div className="card-options">
-                                                                <Dropdown align="end">
-                                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                                                        <Dropdown.Menu className="card-options-submenu">
-                                                                            <Dropdown.Item ><Link to="#"><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                                            <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                                                        </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-                                                            <div className="kanban_column_task_name">
-                                                                <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
-                                                                <div className="kanban_column_task_name_text">
-                                                                    <div>{task.name}</div>
-                                                                    <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Webeesocial</div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="kanban_column_task_bot">
-                                                                <div className="kanban_column_task_actions">
-                                                                    <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>12 Aug</span></Link>
-                                                                </div>
-                                                                <div className="team-member-group">
-                                                                    <span className="team-member">RK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                                    <span className="team-member">JK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
-                                                                    <span className="team-member"><a href="#">+6</a></span>
-                                                                </div>
-                                                            </div>
-                                                        </Card.Body>
-                                                    </Card>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
+              <div className="team-member-group">
+                {task.users.map((user) => (
+                    <span key={"user_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
+                ))}
+                  <span className="team-member"><a href="#">+6</a></span>
+              </div>
+          </div>
+      </Card.Body>
+    </Card>
+    );
+  };
 
-                                        {/* ----- In Review -----  */}
-                                        <div className="kanban_bord_column">
-                                            <div className="kanban_bord_column_title_wrap">
-                                                <div className="kanban_bord_column_title">In Review</div> 
-                                                <div><Link className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
-                                            </div>
-                                            <div className="kanban_column_card_body">
-                                                <div className="kanban_column_card">
-                                                    {inReview.map((task, index) => (
-                                                    <Card className="kanban_column_task h-100">
-                                                        <Card.Body>
-                                                            <div className="card-options">
-                                                                <Dropdown align="end">
-                                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                                                        <Dropdown.Menu className="card-options-submenu">
-                                                                            <Dropdown.Item ><Link to="#"><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                                            <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                                                        </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-                                                            <div className="kanban_column_task_name">
-                                                                <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
-                                                                <div className="kanban_column_task_name_text">
-                                                                    <div>{task.name}</div>
-                                                                    <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Euler</div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="kanban_column_task_bot">
-                                                                <div className="kanban_column_task_actions">
-                                                                    <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>12 Aug</span></Link>
-                                                                </div>
-                                                                <div className="team-member-group">
-                                                                    <span className="team-member">RK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                                    <span className="team-member">JK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
-                                                                    <span className="team-member"><a href="#">+6</a></span>
-                                                                </div>
-                                                            </div>
-                                                        </Card.Body>
-                                                    </Card>
-                                                    ))}
+  const TaskColumn = ({ tasks, columnStatus, columnName }) => {
+    const [{ isOver }, drop] = useDrop({
+      accept: ItemTypes.TASK,
+      drop: (item, monitor) => {
+        let status = columnName;
+        if(status == "Assigned"){
+            status = "assigned";
+        }else if(status == "Accepted"){
+            status = "accepted";
+        }else if(status == "In Review"){
+            status = "in_review";
+        }else if(status == "Completed"){
+            status = "completed";
+        }
+
+        const didDrop = monitor.didDrop();
+        if (didDrop) {
+          return;
+        }
+        if (item.task.status !== columnStatus) {
+            changeTaskStatus(item.task.id,status);
+        }
+      },
+      collect: (monitor) => ({
+        isOver: !!monitor.isOver(),
+      }),
+    });
+
+    return (
+        <div ref={drop} className={`kanban_bord_column ${columnStatus}`}>
+        <div className="kanban_bord_column_title_wrap">
+            <div className="kanban_bord_column_title">{columnName}</div> 
+            <div><Link to="./add-task" className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
+        </div>
+        <div className="kanban_column_card_body">
+            <div className="kanban_column_card">
+                {tasks.map((task) => (
+                    <TaskCard key={task.id} task={task} />
+                ))}
+            </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+   
+    <>
+    <Header />
+        <div className="main-body">
+        <Sidebar />
+        <div className="main-body-content">
+            <Container fluid>
+                <div className="main-body-header pb-0">
+                    <Row className="align-items-center">
+                        <Col>
+                            <h3 className="main-body-header-title mb-0">All Tasks</h3>
+                            <div className="tabNavigationBar-tab">
+                                <Link className="tabNavigationBar-item" to="#"><FormatListBulletedOutlinedIcon /> List</Link>
+                                <Link className="tabNavigationBar-item tabNavigationBar-item-active" to="#"> <ViewWeekOutlinedIcon /> Board</Link>
+                            </div>
+                        </Col>
+                        <Col className="text-end">
+                            <Dropdown className="dropdown-menu-end">
+                                <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <div className="filterSort_wrap">
+                                        <div className="filterSort_body">
+                                            <div className="filterSort_body_item">
+                                                <h2 className="filterSort_body-header">Quick Filter</h2>
+                                                <div className="filterSort_body_btn_group">
+                                                    <span className="filterSort_body_btn_action">Incomplete tasks</span>
+                                                    <span className="filterSort_body_btn_action">Completed tasks</span>
+                                                    <span className="filterSort_body_btn_action">My tasks</span>
+                                                    <span className="filterSort_body_btn_action">Due this week</span>
+                                                    <span className="filterSort_body_btn_action">Due next week</span>
                                                 </div>
                                             </div>
-                                        </div>
-
-                                        {/* ----- Completed -----  */}
-                                        <div className="kanban_bord_column">
-                                            <div className="kanban_bord_column_title_wrap">
-                                                <div className="kanban_bord_column_title">Completed</div> 
-                                                <div><Link className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
-                                            </div>
-                                            <div className="kanban_column_card_body">
-                                                <div className="kanban_column_card">
-                                                    {completed.map((task, index) => (
-                                                    <Card className="kanban_column_task kanban_column_task_done h-100">
-                                                        <Card.Body>
-                                                            <div className="card-options">
-                                                                <Dropdown align="end">
-                                                                    <Dropdown.Toggle variant="options"><MoreHorizOutlinedIcon /></Dropdown.Toggle>
-                                                                        <Dropdown.Menu className="card-options-submenu">
-                                                                            <Dropdown.Item ><Link to="#"><EditOutlinedIcon />Edit</Link></Dropdown.Item>
-                                                                            <Dropdown.Item><DeleteOutlineOutlinedIcon /> Delete</Dropdown.Item>
-                                                                        </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-                                                            <div className="kanban_column_task_name">
-                                                                <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
-                                                                <div className="kanban_column_task_name_text">
-                                                                    <div>{task.name}</div>
-                                                                    <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Sleep Nation</div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="kanban_column_task_bot">
-                                                                <div className="kanban_column_task_actions">
-                                                                    <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>12 Aug</span></Link>
-                                                                </div>
-                                                                <div className="team-member-group">
-                                                                    <span className="team-member">RK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                                    <span className="team-member">JK</span>
-                                                                    <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
-                                                                    <span className="team-member"><a href="#">+6</a></span>
-                                                                </div>
-                                                            </div>
-                                                        </Card.Body>
-                                                    </Card>
-                                                    ))}
+                                            <div className="filterSort_body_item">
+                                                <h2 className="filterSort_body-header">Sort By Assignee</h2>
+                                                <div className="filterSort_body_btn_group">
+                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Rakesh Roshan</span>
+                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> John Cena</span>
+                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> The Rock</span>
+                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Chetan Kumar</span>
+                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Vikram Ahuja</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                    </Row>
+                </div>
+                <DndProvider backend={HTML5Backend}>
+                <div className="kanban_bord">
+                    {/* ----- Bord KanBan View ----- */}
+                    <div className="kanban_bord_body">
+                        <div className="kanban_bord_scrollbar">
+                            <div className="kanban_bord_body_columns">
+
+                                {/* ----- Assigned -----  */}
+                                <TaskColumn tasks={assigned} columnStatus="kanban_bord_column_assigned" columnName="Assigned" />
+                                {/* Accepted */}
+                                <TaskColumn tasks={accepted} columnStatus="kanban_bord_column_accepted" columnName="Accepted" />
+                                {/* In Review */}
+                                <TaskColumn tasks={inReview} columnStatus="kanban_bord_column_in_review" columnName="In Review" />
+                                {/* completed */}
+                                <TaskColumn tasks={completed} columnStatus="kanban_bord_column_completed" columnName="Completed" />
+                            
                             </div>
                         </div>
-                    </Container>
+                    </div>
                 </div>
-            </div>
-        </>
-      
-    )
+                </DndProvider>
+            </Container>
+        </div>
+    </div>
+</>
+
+  );
+
 }
