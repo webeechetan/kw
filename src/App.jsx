@@ -6,6 +6,8 @@ import Users from './users/Users';
 import Teams from './teams/Teams';
 import TeamInner from './teams/TeamInner';
 import Tasks from './tasks/Tasks';
+import TaskFrontend from './tasks/TaskFrontend';
+import AddTasks from './tasks/AddTask';
 import Messages from './messages/Messages';
 import Projects from './projects/Projects';
 import Dashboard from './Dashboard';
@@ -39,7 +41,9 @@ function App() {
             <Route exact path="/users" component={Users} />
             <Route exact path="/teams" component={Teams} />
             <Route exact path="/team-inner" component={TeamInner} />
-            <Route exact path="/tasks" component={Tasks} />
+            <Route exact path="/tasks" component={TaskFrontend} />
+            <Route exact path="/add-task" component={AddTasks} />
+            <Route exact path="/task-frontend" component={TaskFrontend} />
             <Route exact path="/messages" component={Messages} />
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />
@@ -52,8 +56,6 @@ function App() {
             <Route exact path="/edit-client/:clientId" component={EditClient} />
             <Route exact path ="/view-client/:clientId" component={ViewClient} />
             <Route exact path ="/view-project/:projectId" component={ViewProject} />
-          
-            
           </Switch>
       </Router>
     </>

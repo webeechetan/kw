@@ -4,7 +4,24 @@
     font-size: 0.9rem;
     font-weight: 400;
     transition: $ease_05;
+    svg {
+        max-width: 18px;
+        max-width: 18px; 
+    }
     &-icon {
+        &-task {
+            &-action {
+                @include inline_flex_center;
+                width: 26px;
+                height: 26px;
+                border: 1px solid $border_dark_grey;
+                border-radius: $border_radius;
+
+                svg {
+                    max-width: 18px;
+                }
+            }
+        }
         &-rounded {
             width: 35px;
             height: 35px;
@@ -110,13 +127,64 @@
     /*---- Options ----*/
     &-options {
         padding: 0;
+        border: 1px solid $border_grey;
         &:after {
             display: none;
         }
         &:hover {
             color: $brand;
         }
-        
+    }
+
+    /* ----- Filter Sort ----- */
+    &-filterSort {
+        background-color: transparent;
+        color: $secondary;
+        border-color: $secondary;
+        padding: 5px 10px;
+        border-radius: 4px;
+
+        &:after {
+            display: none;
+        }
+
+        svg {
+            max-width: 20px;
+            max-height: 20px;
+        }
+    }
+
+    /* ----- Button Status ----- */
+    &_status {
+        border: 1px solid $border_dark_grey;
+        border-radius: $border_radius_xs;
+        padding: $spacing_btn_xs;
+        transition: $ease_03;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &:hover, &.active {
+            border-color: $brand;
+            color: $brand;
+        }
+
+        &:not(:last-child) {
+            margin-right: $spacing_sm;
+        }
+    }
+    &_link {
+        transition: $ease_03;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        border-bottom: 1px solid $grey_xd;
+        &:hover {
+            color: $brand;
+            border-color: $brand;
+        }
     }
 }
 /*---- Buttons Style End Here ----*/

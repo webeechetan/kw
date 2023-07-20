@@ -16,8 +16,6 @@
             flex-wrap: wrap;
             flex-direction: column;
             flex: 1;
-            padding: $spacing_xs;
-            text-align: center;
              
             img {
                 width: 150px;
@@ -26,7 +24,7 @@
         }
 
         @media (max-width: 1440px) {
-            width: 250px;
+            width: 200px;
         }
 
         &-btm {
@@ -38,6 +36,9 @@
     }
 
     &-profile {
+        display: flex;
+        flex-wrap: wrap;
+        gap: $spacing_sm;
         &-img {
             img {
                 max-width: 40px;

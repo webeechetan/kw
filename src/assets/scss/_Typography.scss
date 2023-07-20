@@ -1,6 +1,6 @@
 /*---- Body Style ----*/
 body {
-    font-family: $main-font;
+    font-family: $jost;
     font-weight: 400;
     color: $text_color;
     margin: 0;
@@ -167,4 +167,10 @@ ul {
     top: 0;
     left: 0;
     opacity: 0.2;
+}
+
+/* ----- Icon Svg ----- */
+svg.css-i4bv87-MuiSvgIcon-root {
+    width: 18px;
+    height: 18px;
 }
