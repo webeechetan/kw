@@ -1,53 +1,138 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined';
 import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import { WithContext as ReactTags } from 'react-tag-input';
+import { config } from "../config";
+import axios from 'axios';
 
 export default function AddTask(props) {
-    const [visible, setVisible] = useState('AddCanvasShow');
+
+    
+
+    const closeAddTask = () => {
+        props.handleClose();
+    }
+
+    const [users, setUsers] = useState([]);
+    const [userSuggestions, setUserSuggestions] = useState([]);
+    const [tags, setTags] = React.useState([]);
+
+    const KeyCodes = {
+    comma: 188,
+    enter: 13
+    };
+    
+    const delimiters = [KeyCodes.comma, KeyCodes.enter];
+      
+
+    const handleDelete = i => {
+    setTags(tags.filter((tag, index) => index !== i));
+    };
+
+    const handleAddition = tag => {
+    setTags([...tags, tag]);
+    };
+
+    const handleDrag = (tag, currPos, newPos) => {
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    setTags(newTags);
+    };
+
+    const handleTagClick = index => {
+    console.log('The tag at index ' + index + ' was clicked');
+    };
+
+
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    async function getUsers(){
+        let __token = localStorage.getItem('__token');
+        const header = {
+        headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/users`, header);
+        setUsers(res.data.data);
+        let suggestions = [];
+        res.data.data.map((item) => {
+            suggestions.push({ id: item.id.toString(), text: item.name });
+        });
+        setUserSuggestions(suggestions);
+        console.log(userSuggestions);
+        return res;
+    }
+
+
+
+
+
+
     return (
         <>
-            <div className={`AddCanvas ${visible}`}>
+            <div className="AddCanvas">
                 <div className="AddTask_head">
                     <div className="AddTask_head_btn_status">
                         <Link className="btn_status"><EventRepeatOutlinedIcon /> In Progress</Link>
                         <Link className="btn_status"><GradingOutlinedIcon /> In Review</Link>
                         <Link className="btn_status"><CheckOutlinedIcon /> Completed</Link>
                     </div>
-                    <div className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
+                    <div  onClick={ ()=>{ 
+                        closeAddTask()
+                     } }  className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
-                        <input className="form-control add_input_style AddTask_title" type="text" value="Header style need to fix and add some reference for user login" placeholder="Type your task..." />
+                        <input className="form-control add_input_style AddTask_title" type="text" placeholder="Type your task..." />
                         <div className="AddTask_rulesOverview">
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Assigned to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <div className="team-member-full">
-                                        <div className="team-member-full-list">
-                                            <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                            <span className="team-member_text">Shubham Sharma</span>
-                                            <span className="team-member-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="team-member-full-list">
-                                            <span className="team-member team-member-bg-secondary">AK</span>
-                                            <span className="team-member_text">Abhishek Kumar</span>
-                                            <span className="team-member-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="team-member-full-list">
-                                            <span className="team-member team-member-bg-yellow">HS</span>
-                                            <span className="team-member_text">Himanshu Sharma</span>
-                                            <span className="team-member-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="team-member-full-list">
-                                            <span className="team-member team-member-bg-orange">AJ</span>
-                                            <span className="team-member_text">Ajay</span>
-                                            <span className="team-member-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add More</Link></div>
+                                <ReactTags
+                                    suggestions={userSuggestions}
+                                    delimiters={delimiters}
+                                    handleDelete={handleDelete}
+                                    handleAddition={handleAddition}
+                                    handleDrag={handleDrag}
+                                    handleTagClick={handleTagClick}
+                                    inputFieldPosition="bottom"
+                                    autocomplete
+                                    className="form-control"
+                                    name="tags"
+                                    placeholder="Type to add members"
+                                    classNames={{
+                                        tags: 'tagsClass',
+                                        tagInput: 'tagInputClass',
+                                        tagInputField: 'form-control',
+                                        selected: 'selectedClass',
+                                        tag: 'tagClass',
+                                        remove: 'removeClass',
+                                        suggestions: 'suggestionsClass',
+                                        activeSuggestion: 'activeSuggestionClass',
+                                        editTagInput: 'editTagInputClass',
+                                        editTagInputField: 'editTagInputField',
+                                        clearAll: 'clearAllClass',
+                                      }}
+                                    />
+                                    <div className="team-member-full mt-3">
+                                        {tags.map((tag, index) => (
+                                            <div className="team-member-full-list" key={'tag_'+index}>
+                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
+                                                <span className="team-member_text">{tag.text}</span>
+                                                <span className="team-member-remove icon_remove" onClick={ () => {handleDelete(index);} }><CloseOutlinedIcon /></span>
+                                            </div>
+                                        ))}
+                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add More</Link></div> */}
                                     </div>
                                 </div>
                             </div>
