@@ -1900,7 +1900,8 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 /* ----- Kanban ----- */
 .kanban_bord_body_columns {
   padding-top: 20px;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 50px;
 }
 @media (max-width: 1440px) {
@@ -2162,6 +2163,39 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .icon_remove svg {
   width: 18px;
   height: 18px;
+}
+
+/* ----- Task List View ----- */
+.taskList_head {
+  margin-top: 15px;
+  background-color: #fff;
+}
+.taskList_head_col {
+  padding: 15px 20px;
+  min-width: 150px;
+  text-align: center;
+}
+.taskList_head_col_name {
+  flex: 1;
+  text-align: left;
+}
+.taskList_head_col:not(:last-child) {
+  border-right: 1px solid #ddd;
+}
+.taskList_row {
+  display: flex;
+}
+.taskList_col {
+  padding: 15px 20px;
+  min-width: 150px;
+  text-align: center;
+}
+.taskList_col_name {
+  flex: 1;
+  text-align: left;
+}
+.taskList_col .btn_status {
+  display: block;
 }
 
 /*# sourceMappingURL=App.css.map */
