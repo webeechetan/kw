@@ -44,8 +44,8 @@ function App() {
             <Route exact path="/team-inner" component={TeamInner} />
             <Route exact path="/tasks" component={TaskFrontend} />
             <Route exact path="/add-task" component={AddTasks} />
-            <Route exact path="/task-frontend" component={TaskFrontend} />
-            <Route exact path="/task-list-view" component={TaskListView} />
+            <Route exact path="/task-board" component={TaskFrontend} />
+            <Route exact path="/task-list" component={TaskListView} />
             <Route exact path="/messages" component={Messages} />
             <Route exact path="/projects" component={Projects} />
             <Route exact path="/members" component={Members} />

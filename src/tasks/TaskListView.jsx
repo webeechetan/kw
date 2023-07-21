@@ -27,8 +27,8 @@ export default function TasksListView() {
                                 <Col>
                                     <h3 className="main-body-header-title mb-0">All Tasks</h3>
                                     <div className="tabNavigationBar-tab">
-                                        <Link className="tabNavigationBar-item tabNavigationBar-item-active" to="#"><FormatListBulletedOutlinedIcon /> List</Link>
-                                        <Link className="tabNavigationBar-item" to="#"> <ViewWeekOutlinedIcon /> Board</Link>
+                                        <Link className="tabNavigationBar-item tabNavigationBar-item-active"><FormatListBulletedOutlinedIcon /> List</Link>
+                                        <Link className="tabNavigationBar-item" to="task-board"> <ViewWeekOutlinedIcon /> Board</Link>
                                     </div>
                                 </Col>
                                 <Col className="text-end">
@@ -70,6 +70,7 @@ export default function TasksListView() {
                                 <div className="taskList_head">
                                     <div className="taskList_row">
                                         <div className="taskList_head_col taskList_head_col_name">Task Name</div>
+                                        <div className="taskList_head_col">Project</div>
                                         <div className="taskList_head_col">Assignee</div>
                                         <div className="taskList_head_col">Notify</div>
                                         <div className="taskList_head_col">Due Date</div>

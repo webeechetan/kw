@@ -222,7 +222,8 @@
         &_body {
             &_columns {
                 padding-top: $spacing_sm;
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
                 gap: $spacing_lg;
 
                 @media (max-width: 1440px) {
