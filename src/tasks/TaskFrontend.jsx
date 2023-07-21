@@ -21,6 +21,7 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from './ItemTypes';
 import AddTask from "./AddTask";
+import { set } from "date-fns";
 
 export default function TasksFrontend() {
 
@@ -318,14 +319,23 @@ export default function TasksFrontend() {
           </div>
           <div className="kanban_column_task_bot">
               <div className="kanban_column_task_actions">
-                  <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>22 Jan</span></Link>
+                  <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>{task.due_date}</span></Link>
               </div>
 
               <div className="team-member-group">
-                {task.users.map((user) => (
+                {task.users.map((user,index) => (
+                    index < 2 &&
                     <span key={"user_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
                 ))}
-                  <span className="team-member"><a href="#">+6</a></span>
+                {
+                    task.users.length > 2 &&
+                
+                <span className="team-member">
+                    <a href="#">
+                        +{ task.users.length - 2}
+                    </a>
+                </span>
+                }
               </div>
           </div>
       </Card.Body>
@@ -334,6 +344,7 @@ export default function TasksFrontend() {
   };
 
   const TaskColumn = ({ tasks, columnStatus, columnName }) => {
+ 
     const [{ isOver }, drop] = useDrop({
       accept: ItemTypes.TASK,
       drop: (item, monitor) => {
@@ -347,7 +358,7 @@ export default function TasksFrontend() {
         }else if(status == "Completed"){
             status = "completed";
         }
-
+        setStatus(status);
         const didDrop = monitor.didDrop();
         if (didDrop) {
           return;
@@ -365,7 +376,7 @@ export default function TasksFrontend() {
         <div ref={drop} className={`kanban_bord_column ${columnStatus}`}>
         <div className="kanban_bord_column_title_wrap">
             <div className="kanban_bord_column_title">{columnName}</div> 
-            <div><Link onClick={ ()=>{ handleShow(true) } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</Link></div>    
+            <div onClick={ ()=>{ handleShow(true); setStatus(columnName); } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</div>    
         </div>
         <div className="kanban_column_card_body">
             <div className="kanban_column_card">
@@ -436,13 +447,13 @@ export default function TasksFrontend() {
                             <div className="kanban_bord_body_columns">
 
                                 {/* ----- Assigned -----  */}
-                                <TaskColumn tasks={assigned} columnStatus="kanban_bord_column_assigned" columnName="Assigned" />
+                                <TaskColumn tasks={assigned} key={'task_assigned'} columnStatus="kanban_bord_column_assigned" columnName="Assigned" />
                                 {/* Accepted */}
-                                <TaskColumn tasks={accepted} columnStatus="kanban_bord_column_accepted" columnName="Accepted" />
+                                <TaskColumn tasks={accepted} key={'task_accepted'} columnStatus="kanban_bord_column_accepted" columnName="Accepted" />
                                 {/* In Review */}
-                                <TaskColumn tasks={inReview} columnStatus="kanban_bord_column_in_review" columnName="In Review" />
+                                <TaskColumn tasks={inReview} key={'task_in_review'} columnStatus="kanban_bord_column_in_review" columnName="In Review" />
                                 {/* completed */}
-                                <TaskColumn tasks={completed} columnStatus="kanban_bord_column_completed" columnName="Completed" />
+                                <TaskColumn tasks={completed} key={'task_completed'} columnStatus="kanban_bord_column_completed" columnName="Completed" />
                             
                             </div>
                         </div>
@@ -451,7 +462,7 @@ export default function TasksFrontend() {
                 </DndProvider>
             </Container>
         </div>
-        { show ? <AddTask show={show} handleClose={handleClose} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
+        { show ? <AddTask show={show} handleClose={handleClose} status={status} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
 
     </div>
 </>

@@ -1,75 +1,121 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component, forwardRef } from "react";
 import { Link } from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined';
 import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 import { WithContext as ReactTags } from 'react-tag-input';
 import { config } from "../config";
 import axios from 'axios';
+import Select from 'react-select';
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { async } from "q";
+
+
 
 export default function AddTask(props) {
 
-    
+    let status = props.status;
+    console.log(status);
+
 
     const closeAddTask = () => {
         props.handleClose();
     }
 
     const [users, setUsers] = useState([]);
-    const [userSuggestions, setUserSuggestions] = useState([]);
-    const [tags, setTags] = React.useState([]);
+    const [userOptions, setUserOptions] = useState([]);
+    const [startDate, setStartDate] = useState(new Date());
+    const [projects, setProjects] = useState([]);
+    const [project, setProject] = useState({name:'WS'});
+    const [userIds, setUserIds] = useState([]);
+    const [notifyIds, setNotifyIds] = useState([]);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
 
-    const KeyCodes = {
-    comma: 188,
-    enter: 13
-    };
-    
-    const delimiters = [KeyCodes.comma, KeyCodes.enter];
-      
+    const userChangeHandler = e => {
 
-    const handleDelete = i => {
-    setTags(tags.filter((tag, index) => index !== i));
-    };
+        let ids = [];
+        e.map((item) => {
+          ids.push(item.value);
+        });
+        setUserIds(ids);
+      };
 
-    const handleAddition = tag => {
-    setTags([...tags, tag]);
-    };
-
-    const handleDrag = (tag, currPos, newPos) => {
-    const newTags = tags.slice();
-
-    newTags.splice(currPos, 1);
-    newTags.splice(newPos, 0, tag);
-
-    // re-render
-    setTags(newTags);
+    const notifyChangeHandler = e => {
+        let ids = [];
+        e.map((item) => {
+            ids.push(item.value);
+        });
+        setNotifyIds(ids);
     };
 
-    const handleTagClick = index => {
-    console.log('The tag at index ' + index + ' was clicked');
-    };
-
+    const DatePickerCustomInput = forwardRef(({ value, onClick }, ref) => (
+        <div className="addRules addRules_date">
+            <span className="addRules_date_icon icon_rounded" onClick={onClick} ref={ref}><DateRangeOutlinedIcon /></span>
+            <span className="addRules_date_text text-warning">{value}</span>
+        </div>
+    ));
 
 
     useEffect(() => {
         getUsers();
+        getProjects();
     }, []);
 
-    async function getUsers(){
+
+    async function getUsers() {
         let __token = localStorage.getItem('__token');
         const header = {
-        headers: { Authorization: `Bearer ${__token}` }
+            headers: { Authorization: `Bearer ${__token}` }
         };
         const res = await axios.get(`${config.api_url}/users`, header);
         setUsers(res.data.data);
-        let suggestions = [];
+        let options = [];
+
         res.data.data.map((item) => {
-            suggestions.push({ id: item.id.toString(), text: item.name });
+            options.push({ value: item.id, label:item.name });
         });
-        setUserSuggestions(suggestions);
-        console.log(userSuggestions);
+        setUserOptions(options);
+        return res;
+    }
+
+    async function getProjects() {
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/projects`, header);
+        setProjects(res.data.data);
+        return res;
+        
+    }
+
+    async function saveTask() {
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.post(`${config.api_url}/tasks`, {   
+            name: title,
+            description: description,
+            project_id: project.id,
+            users: userIds,
+            notify_to: notifyIds,
+            due_date: startDate,
+            status: 'assigned'
+        }, header);
+
+        if(res.data.success){
+            props.handleClose();
+        }
         return res;
     }
 
@@ -87,104 +133,90 @@ export default function AddTask(props) {
                         <Link className="btn_status"><GradingOutlinedIcon /> In Review</Link>
                         <Link className="btn_status"><CheckOutlinedIcon /> Completed</Link>
                     </div>
-                    <div  onClick={ ()=>{ 
+                    <div onClick={() => {
                         closeAddTask()
-                     } }  className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
+                    }} className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
-                        <input className="form-control add_input_style AddTask_title" type="text" placeholder="Type your task..." />
+                        <input className="form-control add_input_style AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" placeholder="Type your task..." />
                         <div className="AddTask_rulesOverview">
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Assigned to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                <ReactTags
-                                    suggestions={userSuggestions}
-                                    delimiters={delimiters}
-                                    handleDelete={handleDelete}
-                                    handleAddition={handleAddition}
-                                    handleDrag={handleDrag}
-                                    handleTagClick={handleTagClick}
-                                    inputFieldPosition="bottom"
-                                    autocomplete
-                                    className="form-control"
-                                    name="tags"
-                                    placeholder="Type to add members"
-                                    classNames={{
-                                        tags: 'tagsClass',
-                                        tagInput: 'tagInputClass',
-                                        tagInputField: 'form-control',
-                                        selected: 'selectedClass',
-                                        tag: 'tagClass',
-                                        remove: 'removeClass',
-                                        suggestions: 'suggestionsClass',
-                                        activeSuggestion: 'activeSuggestionClass',
-                                        editTagInput: 'editTagInputClass',
-                                        editTagInputField: 'editTagInputField',
-                                        clearAll: 'clearAllClass',
-                                      }}
-                                    />
-                                    <div className="team-member-full mt-3">
-                                        {tags.map((tag, index) => (
-                                            <div className="team-member-full-list" key={'tag_'+index}>
-                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                <span className="team-member_text">{tag.text}</span>
-                                                <span className="team-member-remove icon_remove" onClick={ () => {handleDelete(index);} }><CloseOutlinedIcon /></span>
-                                            </div>
-                                        ))}
-                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add More</Link></div> */}
-                                    </div>
+                                    <Select 
+                                        options={userOptions} 
+                                        isMulti 
+                                        onChange={userChangeHandler}
+                                        />
                                 </div>
                             </div>
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Notify to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <div className="team-member-full">
-                                        <div className="team-member-full-list">
-                                            <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                            <span className="team-member_text">Rakesh Kumar</span>
-                                            <span className="team-member-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="team-member-full-list">
-                                            <span className="team-member team-member-bg-secondary">DK</span>
-                                            <span className="team-member_text">Dinesh Kumar</span>
-                                            <span className="team-member-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add More</Link></div>
-                                    </div>
+                                    <Select options={userOptions} isMulti onChange={notifyChangeHandler} />
+
                                 </div>
                             </div>
-                            <div className="AddTask_rulesOverview_item">
-                                <div className="AddTask_rulesOverview_item_name">Due Date</div>
-                                <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        <div className="addRules addRules_date">
-                                            <span className="addRules_date_icon icon_rounded"><DateRangeOutlinedIcon /></span>
-                                            <span className="addRules_date_text text-warning">15 July, 2023</span>
-                                            <span className="addRules_date-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Date</Link></div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Project</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        <div className="addRules addRules_project">
+                                        {/* <div className="addRules addRules_project">
                                             <span className="addRules_project_icon icon_rounded">WS</span>
                                             <span className="addRules_project_text">Webeesocial India</span>
                                             <span className="addRules_project-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Project</Link></div>
+                                        </div> */}
+                                        <NavDropdown title={<span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>} className="dropdown-chat dropdown-menu-end">
+                                            <div className="dropdown-header">
+                                                <h6 className="mb-0">Projects</h6>
+                                            </div>
+                                            <div className="dropdown-menu-items">
+                                            {projects.map((project, index) => (
+                                                    <NavDropdown.Item onClick={ ()=>{ setProject(project) } }>
+                                                        <div>
+                                                            <span>{project.name}</span>
+                                                            <div className="small text-muted">{project.client.name}</div>
+                                                            <div className="small text-muted mt-1"></div>
+                                                        </div>
+                                                    </NavDropdown.Item>
+                                               ))}
+                                            </div>
+                                        </NavDropdown>
+                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Project</Link></div> */}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="AddTask_rulesOverview_item">
+                                <div className="AddTask_rulesOverview_item_name">Due Date</div>
+                                <div className="AddTask_rulesOverview_item_rulesAction">
+                                    <div className="AddTask_rulesOverview_item_rulesAction_wrap">
+                                        <DatePicker
+                                            selected={startDate}
+                                            onChange={(date) => setStartDate(date)}
+                                            customInput={
+                                                <DatePickerCustomInput />
+                                            }
+                                        />
+                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Date</Link></div> */}
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                         <div className="AddTask_des">
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
-                            <textarea className="form-control add_input_style" placeholder="Type Description..." name="" id="" cols="30" rows="5"></textarea>
+                            <SunEditor 
+                                onChange={(content) => { setDescription(content) }}
+                            />
                         </div>
+
+                        <button className="btn btn-primary mt-3" onClick={saveTask}>
+                            Save
+                        </button>
+
                     </div>
                 </div>
             </div>

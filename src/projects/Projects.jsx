@@ -104,11 +104,13 @@ export default function Projects(props) {
                                     <div className="mb-4 pe-5">
                                         <h6 className='main-body-header-title'>{project.client.name}/{project.name}</h6>
                                     </div>
-                                    <div className="d-flex align-items-center mb-4">
+                                    <div class="team-member-group">
                                         {project.users.map((user) => (
-                                            <div key={user.id}><img className="img-fluid clients-image" src={user.image} alt="Kaykewalk chat User" /></div> 
+                                            <span class="team-member">
+                                                <img src={user.image} alt="User" />
+                                            </span>
                                         ))}
-                                    </div>
+                                        </div>
                                     <div className='d-flex gap-5 mb-4'>
                                         <div className='d-flex gap-2'>
                                             <div><AttachFileIcon /></div>
