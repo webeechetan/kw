@@ -391,8 +391,8 @@ export default function TasksFrontend() {
                         <Col>
                             <h3 className="main-body-header-title mb-0">All Tasks</h3>
                             <div className="tabNavigationBar-tab">
-                                <Link className="tabNavigationBar-item" to="#"><FormatListBulletedOutlinedIcon /> List</Link>
-                                <Link className="tabNavigationBar-item tabNavigationBar-item-active" to="#"> <ViewWeekOutlinedIcon /> Board</Link>
+                                <Link className="tabNavigationBar-item" to="task-list"><FormatListBulletedOutlinedIcon /> List</Link>
+                                <div className="tabNavigationBar-item tabNavigationBar-item-active"> <ViewWeekOutlinedIcon /> Board</div>
                             </div>
                         </Col>
                         <Col className="text-end">

@@ -222,7 +222,8 @@
         &_body {
             &_columns {
                 padding-top: $spacing_sm;
-                display: flex;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
                 gap: $spacing_lg;
 
                 @media (max-width: 1440px) {
@@ -501,6 +502,41 @@
         svg {
             width: 18px;
             height: 18px;
+        }
+    }
+}
+
+/* ----- Task List View ----- */
+.taskList {
+    &_head {
+        margin-top: $spacing_s;
+        background-color: $white;
+        &_col {
+            padding: $spacing_s $spacing_sm;
+            min-width: 150px;
+            text-align: center;
+            &_name {
+                flex: 1;
+                text-align: left;
+            }
+            &:not(:last-child) {
+                border-right: 1px solid $border_dark_grey;
+            }
+        }
+    }
+    &_row {
+        display: flex;
+    }
+    &_col {
+        padding: $spacing_s $spacing_sm;
+        min-width: 150px;
+        text-align: center;
+        &_name {
+            flex: 1;
+            text-align: left;
+        }
+        .btn_status {
+            display: block;
         }
     }
 }
