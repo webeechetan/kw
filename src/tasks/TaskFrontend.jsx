@@ -299,7 +299,7 @@ export default function TasksFrontend() {
     });
   
     return (
-      <Card  ref={drag} className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`}>
+      <Card  ref={drag} className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`} onClick={handleShow}>
       <Card.Body>
           <div className="card-options">
               <Dropdown align="end">
@@ -325,7 +325,7 @@ export default function TasksFrontend() {
               <div className="team-member-group">
                 {task.users.map((user,index) => (
                     index < 2 &&
-                    <span key={"user_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
+                    <span title={user.name} key={"user_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
                 ))}
                 {
                     task.users.length > 2 &&
@@ -425,11 +425,9 @@ export default function TasksFrontend() {
                                             <div className="filterSort_body_item">
                                                 <h2 className="filterSort_body-header">Sort By Assignee</h2>
                                                 <div className="filterSort_body_btn_group">
-                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Rakesh Roshan</span>
-                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> John Cena</span>
-                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> The Rock</span>
-                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Chetan Kumar</span>
-                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Vikram Ahuja</span>
+                                                    {users.map((user) => (
+                                                    <span key={"user_filter"+user.id} className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon />{user.name}</span>
+                                                    ))}
                                                 </div>
                                             </div>
                                         </div>
