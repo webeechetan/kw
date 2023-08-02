@@ -510,30 +510,45 @@
 .taskList {
     &_head {
         margin-top: $spacing_s;
-        background-color: $white;
         &_col {
             padding: $spacing_s $spacing_sm;
             min-width: 150px;
             text-align: center;
+            color: $white;
+            text-transform: uppercase;
+            background-color: $secondary;
             &_name {
                 flex: 1;
                 text-align: left;
-            }
-            &:not(:last-child) {
-                border-right: 1px solid $border_dark_grey;
             }
         }
     }
     &_row {
         display: flex;
+        grid-gap: 3px;
+        &:not(:last-child) {
+            margin-bottom: 6px;
+        }
     }
     &_col {
-        padding: $spacing_s $spacing_sm;
+        padding: $spacing_xs $spacing_sm;
         min-width: 150px;
-        text-align: center;
-        &_name {
+        background-color: $white;
+        &:not(.taskList_col_title) {
+            text-align: center;
+            @include flex_center;
+        }
+        &_title {
             flex: 1;
-            text-align: left;
+            display: flex;
+            &_complete_icon {
+                margin-right: $spacing_xs;
+                cursor: pointer;
+                transition: $ease_03;
+                &:hover, &.active {
+                    color: $success;
+                }
+            }
         }
         .btn_status {
             display: block;
