@@ -167,7 +167,13 @@ export default function EditMember(props) {
                                         <img src={memberImagePreview} height={120} />
                                     </Form.Group> 
                                     <Form.Group className="mb-3">
-                                        <Select options={options} isMulti  placeholder="Select Teams" defaultValue={selectedTeams} onChange={handleTeamChange}  />
+                                        <Select 
+                                            options={options} 
+                                            isMulti  
+                                            placeholder="Select Teams" 
+                                            defaultValue={selectedTeams} 
+                                            onChange={handleTeamChange}  
+                                        />
                                     </Form.Group> 
 
                                     { spinner === true ?

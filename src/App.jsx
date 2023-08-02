@@ -26,6 +26,7 @@ import AddClient from './clients/components/AddClient';
 import EditClient from './clients/components/EditClient';
 import ViewClient from './clients/components/ViewClient';
 import ViewProject from './projects/components/ViewProject';
+import EditTask from './tasks/EditTask';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route exact path="/team-inner" component={TeamInner} />
             <Route exact path="/tasks" component={TaskFrontend} />
             <Route exact path="/add-task" component={AddTasks} />
+            <Route exact path="/edit-task/:taskId" component={EditTask} />
             <Route exact path="/task-board" component={TaskFrontend} />
             <Route exact path="/task-list" component={TaskListView} />
             <Route exact path="/messages" component={Messages} />

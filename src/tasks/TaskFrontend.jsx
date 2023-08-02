@@ -22,6 +22,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { ItemTypes } from './ItemTypes';
 import AddTask from "./AddTask";
 import { set } from "date-fns";
+import EditTask from "./EditTask";
 
 export default function TasksFrontend() {
 
@@ -30,6 +31,10 @@ export default function TasksFrontend() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [editShow, setEditShow] = useState(false);
+  const handleEditClose = () => setEditShow(false);
+  const handleEditShow = () => setEditShow(true);
+  const [taskIdForEdit, setTaskIdForEdit] = useState(1);
 
   // api data state
   const [tasks, setTasks] = useState();
@@ -299,7 +304,7 @@ export default function TasksFrontend() {
     });
   
     return (
-      <Card  ref={drag} className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`} onClick={handleShow}>
+      <Card  ref={drag} className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`}>
       <Card.Body>
           <div className="card-options">
               <Dropdown align="end">
@@ -313,7 +318,7 @@ export default function TasksFrontend() {
           <div className="kanban_column_task_name">
               <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
               <div className="kanban_column_task_name_text">
-                  <div>{task.name}</div>
+                  <div onClick={ ()=>{ setEditShow(true); setTaskIdForEdit(task.id); }}>{task.name}</div>
                   <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Acma Web</div>
               </div>
           </div>
@@ -461,7 +466,8 @@ export default function TasksFrontend() {
             </Container>
         </div>
         { show ? <AddTask show={show} handleClose={handleClose} status={status} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
-
+        { editShow ? <EditTask id={taskIdForEdit} show={show} handleEditClose={handleEditClose} status={status} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
+                                                      
     </div>
 </>
 

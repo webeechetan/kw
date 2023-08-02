@@ -16,19 +16,15 @@ import 'suneditor/dist/css/suneditor.min.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { async } from "q";
+import { Update } from "@mui/icons-material";
 
 
 
-export default function AddTask(props) {
+export default function EditTask(props) {
 
-    let status = props.status;
-    console.log(status);
-
-
-    const closeAddTask = () => {
-        props.handleClose();
+    const closeEditk = () => {
+        props.handleEditClose();
     }
-
 
     const [users, setUsers] = useState([]);
     const [userOptions, setUserOptions] = useState([]);
@@ -39,6 +35,11 @@ export default function AddTask(props) {
     const [notifyIds, setNotifyIds] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [task, setTask] = useState({});
+    const [selectedUsers, setSelectedUsers] = useState([]);
+    const [selectedNotifyUsers, setSelectedNotifyUsers] = useState([]);
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState('');
 
     const userChangeHandler = e => {
 
@@ -64,10 +65,37 @@ export default function AddTask(props) {
         </div>
     ));
 
+    async function getTask() {
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/tasks/${props.id}`, header);
+        setTask(res.data.data);
+        console.log(res.data.data);
+        res.data.data.users.map((item) => {
+            let user = {
+                value: item.id,
+                label: item.name
+            }
+            userIds.push(item.id);
+            selectedUsers.push(user);
+        });
+        setUserIds(userIds);
+        setSelectedUsers(selectedUsers);
+        setTitle(res.data.data.name);
+        setDescription(res.data.data.description);
+        setProject(res.data.data.project);
+        setStartDate(new Date(res.data.data.due_date));
+        return res;
+    }
+
 
     useEffect(() => {
+        getTask();
         getUsers();
         getProjects();
+        getComments();
     }, []);
 
 
@@ -98,23 +126,53 @@ export default function AddTask(props) {
         
     }
 
-    async function saveTask() {
+    async function UpdateTask() {
         let __token = localStorage.getItem('__token');
         const header = {
             headers: { Authorization: `Bearer ${__token}` }
         };
-        const res = await axios.post(`${config.api_url}/tasks`, {   
+        
+        const res = await axios.put(`${config.api_url}/tasks/${props.id}`, {   
             name: title,
             description: description,
             project_id: project.id,
             users: userIds,
             notify_to: notifyIds,
-            due_date: startDate,
-            status: 'assigned'
+            due_date: startDate
         }, header);
+        console.log(res);
 
         if(res.data.success){
-            props.handleClose();
+            closeEditk();
+            props.handleEditClose();
+        }
+        return res;
+    }
+
+
+    async function getComments(){
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.get(`${config.api_url}/tasks/${props.id}/comments`, header);
+        console.log(res);
+        setComments(res.data.data);
+        return res;
+    }
+
+    async function addComment(){
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const res = await axios.post(`${config.api_url}/tasks/${props.id}/comments`, {
+            comment: comment
+        }, header);
+        console.log(res);
+        if(res.data.success){
+            getComments();
+            setComment('');
         }
         return res;
     }
@@ -134,12 +192,12 @@ export default function AddTask(props) {
                         <Link className="btn_status"><CheckOutlinedIcon /> Completed</Link>
                     </div>
                     <div onClick={() => {
-                        closeAddTask()
+                        closeEditk()
                     }} className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
-                        <input className="form-control add_input_style AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" placeholder="Type your task..." />
+                        <input className="form-control add_input_style AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" defaultValue={task.name} placeholder="Type your task..." />
                         <div className="AddTask_rulesOverview">
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Assigned to</div>
@@ -148,13 +206,19 @@ export default function AddTask(props) {
                                         options={userOptions} 
                                         isMulti 
                                         onChange={userChangeHandler}
-                                        />
+                                        defaultValue={selectedUsers}
+                                    />
                                 </div>
                             </div>
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Notify to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <Select options={userOptions} isMulti onChange={notifyChangeHandler} />
+                                    <Select 
+                                        options={userOptions} 
+                                        isMulti 
+                                        onChange={notifyChangeHandler}
+                                        defaultValue={selectedUsers}
+                                        />
 
                                 </div>
                             </div>
@@ -210,13 +274,46 @@ export default function AddTask(props) {
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
                             <SunEditor 
                                 onChange={(content) => { setDescription(content) }}
+                                setContents={description}
                             />
                         </div>
 
-                        <button className="btn btn-primary mt-3" onClick={saveTask}>
+                        <button className="btn btn-primary mt-3" onClick={UpdateTask}>
                             Save
                         </button>
 
+
+                        <hr />
+                        <h5>Comments</h5>
+                        <div className="mt-4">
+                            <div className="mb-4">
+                                <textarea className="form-control" placeholder="Write a comment..." rows="3" onChange={ (e)=>{ setComment(e.target.value) } }>
+                                    {comment}
+                                </textarea>
+                            </div>
+                            <div className="d-flex">
+                                <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Comment</button>
+                            </div>
+                        </div>
+                        <hr />
+                        <h5>Activity</h5>
+                        <div className="mt-4">
+                            {comments.map((comment, index) => (
+                                <div className="d-flex mt-3" key={"comment"+comment.id}>
+                                    <div className="me-3">
+                                        <img src={comment.user.image} className="rounded-circle" width="40" alt="..." />
+                                    </div>
+                                    <div className="flex-grow-1">
+                                        <div className="mb-2">
+                                            <strong>{comment.user.name}</strong> commented on <strong>{task.name}</strong>
+                                        </div>
+                                        <div>{comment.comment}</div>
+                                        <div className="small text-muted">{comment.created_at}</div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
