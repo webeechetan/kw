@@ -304,7 +304,11 @@ export default function TasksFrontend() {
     });
   
     return (
-      <Card  ref={drag} className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`}>
+      <Card  
+      ref={drag} 
+      className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`}
+      bg={isDragging ? 'warning' : ''}
+      >
       <Card.Body>
           <div className="card-options">
               <Dropdown align="end">
@@ -378,18 +382,32 @@ export default function TasksFrontend() {
     });
 
     return (
-        <div ref={drop} className={`kanban_bord_column ${columnStatus}`}>
-        <div className="kanban_bord_column_title_wrap">
-            <div className="kanban_bord_column_title">{columnName}</div> 
-            <div onClick={ ()=>{ handleShow(true); setStatus(columnName); } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</div>    
-        </div>
-        <div className="kanban_column_card_body">
-            <div className="kanban_column_card">
-                {tasks.map((task) => (
-                    <TaskCard key={task.id} task={task} />
-                ))}
-            </div>
-        </div>
+        <div 
+          ref={drop} 
+          className={`kanban_bord_column ${columnStatus}` }
+          >
+          <div className="kanban_bord_column_title_wrap">
+              <div className="kanban_bord_column_title">{columnName}</div> 
+              <div onClick={ ()=>{ handleShow(true); setStatus(columnName); } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</div>    
+          </div>
+          <div className="kanban_column_card_body">
+              <div className="kanban_column_card">
+                {isOver && 
+                  <Card className={`kanban_column_task kanban_column_task_overdue h-100 bg-primary`}>
+                    <Card.Body>
+                      <div className="kanban_column_task_name">
+                          <div className="kanban_column_task_name_text">
+                              <div className="kanban_column_task_name_text">Drop here</div>
+                          </div>
+                      </div>
+                    </Card.Body>
+                  </Card> 
+                  }
+                  {tasks.map((task) => (
+                      <TaskCard key={task.id} task={task} />
+                  ))}
+              </div>
+          </div>
       </div>
     );
   };
