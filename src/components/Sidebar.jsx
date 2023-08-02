@@ -46,7 +46,7 @@ export default function LeftSidebar() {
                 {/* Left Bottom Section */}
                 <div className="sidebar-l-btm">
                     <img src={require('../assets/images/logo.png')} width="150" alt="Kaykewalk Profile" />
-                    <p className="mb-0 mt-3">Copyright © 2022, Kaykewalk, All Rights Reserved.</p>
+                    <p className="mb-0 mt-3">Copyright © 2023, Kaykewalk, All Rights Reserved.</p>
                 </div>
             </aside>
         </>

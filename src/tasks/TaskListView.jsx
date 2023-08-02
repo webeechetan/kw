@@ -79,13 +79,44 @@ export default function TasksListView() {
                                 </div>
                                 <div className="taskList_item">
                                     <div className="taskList_row">
-                                        <div className="taskList_col taskList_col_name">
-                                            <div className="kanban_column_task_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
-                                            <div className="kanban_column_task_name_text">
+                                        <div className="taskList_col taskList_col_title">
+                                            <div className="taskList_col_title_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
+                                            <div className="taskList_col_title_text">
                                                 <div>Header style need to fix and add some reference for user login</div>
-                                                <div className="kanban_column_task_project_name"><InsertDriveFileOutlinedIcon /> Acma Web</div>
                                             </div>
                                         </div>
+                                        <div className="taskList_col"><div className="d-flex align-items-center justify-content-center"><InsertDriveFileOutlinedIcon /> <span className="ms-1">Acma Web</span></div></div>
+                                        <div className="taskList_col">
+                                            <div className="team-member-group">
+                                                <span className="team-member">RK</span>
+                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
+                                                <span className="team-member">JK</span>
+                                                <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
+                                                <span className="team-member"><a href="#">+6</a></span>
+                                            </div>
+                                        </div>
+                                        <div className="taskList_col">
+                                            <div className="team-member-group">
+                                                <span className="team-member">RK</span>
+                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
+                                                <span className="team-member">JK</span>
+                                            </div>
+                                        </div>
+                                        <div className="taskList_col">
+                                            <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>22 Jan</span></Link>
+                                        </div>
+                                        <div className="taskList_col">
+                                            <Link className="btn_status active"><EventRepeatOutlinedIcon /> In Progress</Link>
+                                        </div>
+                                    </div>
+                                    <div className="taskList_row">
+                                        <div className="taskList_col taskList_col_title">
+                                            <div className="taskList_col_title_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
+                                            <div className="taskList_col_title_text">
+                                                <div>Header style need to fix and add some reference for user login Header style need to fix and add some reference for user login</div>
+                                            </div>
+                                        </div>
+                                        <div className="taskList_col"><div className="d-flex align-items-center justify-content-center"><InsertDriveFileOutlinedIcon /> <span className="ms-1">Acma Web</span></div></div>
                                         <div className="taskList_col">
                                             <div className="team-member-group">
                                                 <span className="team-member">RK</span>

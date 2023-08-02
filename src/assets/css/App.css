@@ -2168,31 +2168,49 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 /* ----- Task List View ----- */
 .taskList_head {
   margin-top: 15px;
-  background-color: #fff;
 }
 .taskList_head_col {
   padding: 15px 20px;
   min-width: 150px;
   text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: #7407ff;
 }
 .taskList_head_col_name {
   flex: 1;
   text-align: left;
 }
-.taskList_head_col:not(:last-child) {
-  border-right: 1px solid #ddd;
-}
 .taskList_row {
   display: flex;
+  grid-gap: 3px;
+}
+.taskList_row:not(:last-child) {
+  margin-bottom: 6px;
 }
 .taskList_col {
-  padding: 15px 20px;
+  padding: 10px 20px;
   min-width: 150px;
-  text-align: center;
+  background-color: #fff;
 }
-.taskList_col_name {
+.taskList_col:not(.taskList_col_title) {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.taskList_col_title {
   flex: 1;
-  text-align: left;
+  display: flex;
+}
+.taskList_col_title_complete_icon {
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.taskList_col_title_complete_icon:hover, .taskList_col_title_complete_icon.active {
+  color: #48914d;
 }
 .taskList_col .btn_status {
   display: block;
