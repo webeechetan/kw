@@ -287,9 +287,10 @@ export default function EditTask(props) {
                         <h5>Comments</h5>
                         <div className="mt-4">
                             <div className="mb-4">
-                                <textarea className="form-control" placeholder="Write a comment..." rows="3" onChange={ (e)=>{ setComment(e.target.value) } }>
-                                    {comment}
-                                </textarea>
+                            <SunEditor 
+                                onChange={(content) => { setComment(content) }}
+                                setContents={comment}
+                            />
                             </div>
                             <div className="d-flex">
                                 <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Comment</button>
@@ -307,7 +308,7 @@ export default function EditTask(props) {
                                         <div className="mb-2">
                                             <strong>{comment.user.name}</strong> commented on <strong>{task.name}</strong>
                                         </div>
-                                        <div>{comment.comment}</div>
+                                        <div dangerouslySetInnerHTML={{ __html: comment.comment }}></div>
                                         <div className="small text-muted">{comment.created_at}</div>
                                     </div>
                                     <hr />
