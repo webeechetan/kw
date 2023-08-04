@@ -23,14 +23,14 @@ import { Update } from "@mui/icons-material";
 export default function EditTask(props) {
 
     const closeEditk = () => {
-        props.handleEditClose();
+        props.handleEditClose(true);
     }
 
     const [users, setUsers] = useState([]);
     const [userOptions, setUserOptions] = useState([]);
     const [startDate, setStartDate] = useState(new Date());
     const [projects, setProjects] = useState([]);
-    const [project, setProject] = useState({name:'WS'});
+    const [project, setProject] = useState({name:'WSS'});
     const [userIds, setUserIds] = useState([]);
     const [notifyIds, setNotifyIds] = useState([]);
     const [title, setTitle] = useState('');

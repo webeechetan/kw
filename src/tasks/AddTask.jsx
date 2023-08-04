@@ -7,6 +7,9 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { Dropdown} from "react-bootstrap";
+import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 
 import { config } from "../config";
 import axios from 'axios';
@@ -163,15 +166,12 @@ export default function AddTask(props) {
                                 <div className="AddTask_rulesOverview_item_name">Project</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        {/* <div className="addRules addRules_project">
+                                        <div className="addRules addRules_project">
                                             <span className="addRules_project_icon icon_rounded">WS</span>
                                             <span className="addRules_project_text">Webeesocial India</span>
                                             <span className="addRules_project-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div> */}
+                                        </div>
                                         <NavDropdown title={<span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>} className="dropdown-chat dropdown-menu-end">
-                                            <div className="dropdown-header">
-                                                <h6 className="mb-0">Projects</h6>
-                                            </div>
                                             <div className="dropdown-menu-items">
                                             {projects.map((project, index) => (
                                                     <NavDropdown.Item onClick={ ()=>{ setProject(project) } }>
@@ -185,6 +185,18 @@ export default function AddTask(props) {
                                             </div>
                                         </NavDropdown>
                                         {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Project</Link></div> */}
+                                        <Dropdown className="modal_add dropdown-menu-end">
+                                            <Dropdown.Toggle className="modal_add-btn">Add Project</Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                <div className="modal_add-body">
+                                                    <div className="modal_add-search"><input className="form-control" type="text" placeholder="Search..."/></div>
+                                                    <div className="modal_add-wrap">
+                                                        <div></div>
+                                                    </div>
+                                                </div>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+
                                     </div>
                                 </div>
                             </div>

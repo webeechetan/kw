@@ -23,12 +23,13 @@ import { ItemTypes } from './ItemTypes';
 import AddTask from "./AddTask";
 import { set } from "date-fns";
 import EditTask from "./EditTask";
+import moment from 'moment';
 
 export default function TasksFrontend() {
 
     
   // modal state
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [editShow, setEditShow] = useState(false);
@@ -302,11 +303,31 @@ export default function TasksFrontend() {
             isDragging: !!monitor.isDragging(),
         }),
     });
+
+    let card_bg_color = "";
+    let task_due_date = task.due_date;
+    let today_date = moment().format("YYYY-MM-DD");
+    task_due_date = moment(task_due_date).format("YYYY-MM-DD");
+    if(task.status !== "completed"){
+      if (task_due_date === today_date) {
+        card_bg_color = "warning"; // Due today
+      } else if (task_due_date < today_date) {
+          card_bg_color = "overdue"; // Overdue
+      } else {
+          card_bg_color = ""; // Not overdue and not due today
+      }
+    }else{
+      card_bg_color = "done"; // Completed
+    }
+    
+
+
+    
   
     return (
       <Card  
       ref={drag} 
-      className={`kanban_column_task kanban_column_task_overdue h-100 ${isDragging ? 'dragging' : ''}`}
+      className={`kanban_column_task kanban_column_task_${card_bg_color} h-100 ${isDragging ? 'dragging' : ''}`}
       bg={isDragging ? 'warning' : ''}
       >
       <Card.Body>
@@ -328,7 +349,14 @@ export default function TasksFrontend() {
           </div>
           <div className="kanban_column_task_bot">
               <div className="kanban_column_task_actions">
-                  <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>{task.due_date}</span></Link>
+                  <Link className="kanban_column_task_date" to="#">
+                    <span className="btn-icon-task-action">
+                      <DateRangeOutlinedIcon />
+                      </span> 
+                    <span>
+                      { moment(task.due_date).format('DD MMM YYYY')}
+                    </span>
+                  </Link>
               </div>
 
               <div className="team-member-group">
@@ -402,7 +430,7 @@ export default function TasksFrontend() {
                       </div>
                     </Card.Body>
                   </Card> 
-                  }
+                }
                   {tasks.map((task) => (
                       <TaskCard key={task.id} task={task} />
                   ))}

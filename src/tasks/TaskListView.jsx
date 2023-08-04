@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { Container, Row, Col, ListGroup, Dropdown, Card } from "react-bootstrap";
@@ -11,9 +11,33 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined';
-import AddTask from "./AddTask";
+import EditTask from "./EditTask";
+import axios from "axios";
+import { config } from "../config";
 
 export default function TasksListView() {
+
+    const [tasks, setTasks] = useState([]);
+    const [selectedTask, setSelectedTask] = useState(null);
+    const [editShow, setEditShow] = useState(false);
+    const handleEditClose = () => setEditShow(false);
+    const handleEditShow = () => setEditShow(true);
+
+    async function getTasks() {
+        let __token = localStorage.getItem('__token');
+        const header = {
+            headers: { Authorization: `Bearer ${__token}` }
+        };
+        const response = await axios.get(`${config.api_url}/tasks`, header);
+        if (response.data.success === true) {
+            setTasks(response.data.data);
+        }
+    }
+
+
+    useEffect(() => {
+        getTasks();
+    });
 
     return (
         <>
@@ -78,74 +102,43 @@ export default function TasksListView() {
                                     </div>
                                 </div>
                                 <div className="taskList_item">
-                                    <div className="taskList_row">
+                                    { tasks.map((task, index) => (
+                                    <div className="taskList_row" key={"task_list_"+task.id} onClick={ ()=>{ setSelectedTask(task); setEditShow(true); } }>
                                         <div className="taskList_col taskList_col_title">
                                             <div className="taskList_col_title_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
                                             <div className="taskList_col_title_text">
-                                                <div>Header style need to fix and add some reference for user login</div>
+                                                <div>{task.name}</div>
                                             </div>
                                         </div>
                                         <div className="taskList_col"><div className="d-flex align-items-center justify-content-center"><InsertDriveFileOutlinedIcon /> <span className="ms-1">Acma Web</span></div></div>
                                         <div className="taskList_col">
                                             <div className="team-member-group">
-                                                <span className="team-member">RK</span>
-                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                <span className="team-member">JK</span>
-                                                <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
-                                                <span className="team-member"><a href="#">+6</a></span>
+                                                {task.users.map((user, index) => (
+                                                <span key={"assigned_memebr_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
+                                                ))}
                                             </div>
                                         </div>
                                         <div className="taskList_col">
                                             <div className="team-member-group">
-                                                <span className="team-member">RK</span>
-                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                <span className="team-member">JK</span>
+                                                {task.users.map((user, index) => (
+                                                <span key={"assigned_memebr_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
+                                                ))}
                                             </div>
                                         </div>
                                         <div className="taskList_col">
-                                            <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>22 Jan</span></Link>
+                                            <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>{task.due_date}</span></Link>
                                         </div>
                                         <div className="taskList_col">
                                             <Link className="btn_status active"><EventRepeatOutlinedIcon /> In Progress</Link>
                                         </div>
                                     </div>
-                                    <div className="taskList_row">
-                                        <div className="taskList_col taskList_col_title">
-                                            <div className="taskList_col_title_complete_icon"><CheckCircleOutlineOutlinedIcon /></div>
-                                            <div className="taskList_col_title_text">
-                                                <div>Header style need to fix and add some reference for user login Header style need to fix and add some reference for user login</div>
-                                            </div>
-                                        </div>
-                                        <div className="taskList_col"><div className="d-flex align-items-center justify-content-center"><InsertDriveFileOutlinedIcon /> <span className="ms-1">Acma Web</span></div></div>
-                                        <div className="taskList_col">
-                                            <div className="team-member-group">
-                                                <span className="team-member">RK</span>
-                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                <span className="team-member">JK</span>
-                                                <span className="team-member"><img src={require("../assets/images/users/avatar2.jpg")} alt="User" /></span>
-                                                <span className="team-member"><a href="#">+6</a></span>
-                                            </div>
-                                        </div>
-                                        <div className="taskList_col">
-                                            <div className="team-member-group">
-                                                <span className="team-member">RK</span>
-                                                <span className="team-member"><img src={require("../assets/images/users/user.jpg")} alt="User" /></span>
-                                                <span className="team-member">JK</span>
-                                            </div>
-                                        </div>
-                                        <div className="taskList_col">
-                                            <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>22 Jan</span></Link>
-                                        </div>
-                                        <div className="taskList_col">
-                                            <Link className="btn_status active"><EventRepeatOutlinedIcon /> In Progress</Link>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
+                        { editShow && <EditTask show={handleEditShow} handleEditClose={handleEditClose} id={selectedTask.id} />}
                     </Container>                    
                 </div>
-                {/* <AddTask /> */}
             </div>
         </>
       
