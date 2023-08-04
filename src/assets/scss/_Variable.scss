@@ -61,6 +61,14 @@ $team_dp: 75px;
     overflow: hidden;
 }
 
+@mixin user_assignee {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: $light;
+    overflow: hidden;
+}
+
 /* ----- Date Icon ----- */
 @mixin icon_style_round {
     display: inline-flex;

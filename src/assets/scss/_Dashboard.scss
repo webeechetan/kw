@@ -432,6 +432,49 @@
     }
 }
 
+/* ----- Assignee ----- */
+.add_assignee {
+    display: flex;
+    align-items: center;
+    grid-gap: $spacing_xs;
+    cursor: pointer;
+    
+    &-img {
+        @include user_assignee;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+    &-name {
+        color: $text-light;
+        transition: $ease_03;
+        
+        &:hover {
+            color: $text_color;
+        }
+        span {
+            display: flex;
+            font-size: 13px;
+            color: $secondary;
+        }
+    }
+}
+
+/* ----- React Select Box ----- */
+#react-select-3-listbox {
+    padding: $spacing_sm;
+    box-shadow: none;
+    border: 1px solid $grey;
+} 
+div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+div.css-1hb7zxy-IndicatorsContainer {
+    display: none;
+}
 /* ----- Filter Sort ----- */
 .filterSort {
     &_wrap {

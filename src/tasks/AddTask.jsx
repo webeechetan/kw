@@ -91,11 +91,9 @@ export default function AddTask(props) {
             options.push({
                 value: item.id,
                 label: (
-                    <div className="user-option">
-                        <img src={item.image} alt={item.name} className="user-avatar" />
-                        <div>
-                            <div className="user-name">{item.name}</div>
-                        </div>
+                    <div className="add_assignee">
+                        <div className="add_assignee-img"><img src={item.image} alt={item.name} className="user-avatar" /></div>
+                        <div className="add_assignee-name">{item.name} <span>{item.email}</span></div>
                     </div>
                 ),
             });
