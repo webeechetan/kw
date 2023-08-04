@@ -80,8 +80,22 @@ export default function AddTask(props) {
         setUsers(res.data.data);
         let options = [];
 
+        // res.data.data.map((item) => {
+        //     options.push({ value: item.id, label:item.name });
+        // });
+
         res.data.data.map((item) => {
-            options.push({ value: item.id, label:item.name });
+            options.push({
+                value: item.id,
+                label: (
+                    <div className="user-option">
+                        <img src={item.image} alt={item.name} className="user-avatar" />
+                        <div>
+                            <div className="user-name">{item.name}</div>
+                        </div>
+                    </div>
+                ),
+            });
         });
         setUserOptions(options);
         return res;
@@ -120,6 +134,11 @@ export default function AddTask(props) {
     }
 
 
+    const CustomOption = ({ innerProps, label }) => (
+        <div {...innerProps} className="custom-option">
+            {label}
+        </div>
+    );
 
 
 
@@ -148,6 +167,7 @@ export default function AddTask(props) {
                                         options={userOptions} 
                                         isMulti 
                                         onChange={userChangeHandler}
+                                        components={{ Option: CustomOption }}
                                         />
                                 </div>
                             </div>

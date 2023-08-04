@@ -2217,3 +2217,18 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 }
 
 /*# sourceMappingURL=App.css.map */
+.user-option {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.custom-option {
+  padding: 8px;
+}
