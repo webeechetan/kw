@@ -76,7 +76,8 @@ export default function EditTask(props) {
         res.data.data.users.map((item) => {
             let user = {
                 value: item.id,
-                label: item.name
+                label: item.name,
+                image : item.image,
             }
             userIds.push(item.id);
             selectedUsers.push(user);
@@ -109,7 +110,11 @@ export default function EditTask(props) {
         let options = [];
 
         res.data.data.map((item) => {
-            options.push({ value: item.id, label:item.name });
+            options.push({
+                value: item.id,
+                label: item.name,
+                image : item.image,
+            });
         });
         setUserOptions(options);
         return res;
@@ -207,6 +212,18 @@ export default function EditTask(props) {
                                         isMulti 
                                         onChange={userChangeHandler}
                                         defaultValue={selectedUsers}
+                                        formatOptionLabel={
+                                            ({ value, label, image }) => (
+                                                <div className="add_assignee">
+                                                    <div className="add_assignee-img">
+                                                        <img src={image} alt={label} />
+                                                    </div>
+                                                    <div className="add_assignee-name">
+                                                        {label}
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
                                     />
                                 </div>
                             </div>
@@ -218,6 +235,18 @@ export default function EditTask(props) {
                                         isMulti 
                                         onChange={notifyChangeHandler}
                                         defaultValue={selectedUsers}
+                                        formatOptionLabel={
+                                            ({ value, label, image }) => (
+                                                <div className="add_assignee">
+                                                    <div className="add_assignee-img">
+                                                        <img src={image} alt={label} />
+                                                    </div>
+                                                    <div className="add_assignee-name">
+                                                        {label}
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
                                         />
 
                                 </div>

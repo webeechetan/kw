@@ -32,6 +32,44 @@ export default function AddTask(props) {
         props.handleClose();
     }
 
+    let galleryImages = [
+        {
+          "albumId": 1,
+          "id": 1,
+          "title": "accusamus beatae ad facilis cum similique qui sunt",
+          "url": "https://via.placeholder.com/600/92c952",
+          "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+        },
+        {
+          "albumId": 1,
+          "id": 2,
+          "title": "reprehenderit est deserunt velit ipsam",
+          "url": "https://via.placeholder.com/600/771796",
+          "thumbnailUrl": "https://via.placeholder.com/150/771796"
+        },
+        {
+          "albumId": 1,
+          "id": 3,
+          "title": "officia porro iure quia iusto qui ipsa ut modi",
+          "url": "https://via.placeholder.com/600/24f355",
+          "thumbnailUrl": "https://via.placeholder.com/150/24f355"
+        },
+        {
+          "albumId": 1,
+          "id": 4,
+          "title": "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
+          "url": "https://via.placeholder.com/600/d32776",
+          "thumbnailUrl": "https://via.placeholder.com/150/d32776"
+        },
+        {
+          "albumId": 1,
+          "id": 5,
+          "title": "natus nisi omnis corporis facere molestiae rerum in",
+          "url": "https://via.placeholder.com/600/f66b97",
+          "thumbnailUrl": "https://via.placeholder.com/150/f66b97"
+        },
+    ];
+
 
     const [users, setUsers] = useState([]);
     const [userOptions, setUserOptions] = useState([]);
@@ -42,6 +80,7 @@ export default function AddTask(props) {
     const [notifyIds, setNotifyIds] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [editor, setEditor] = useState(false);
 
     const userChangeHandler = e => {
 
@@ -62,8 +101,8 @@ export default function AddTask(props) {
 
     const DatePickerCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="addRules addRules_date">
-            <span className="addRules_date_icon icon_rounded" onClick={onClick} ref={ref}><DateRangeOutlinedIcon /></span>
-            <span className="addRules_date_text text-warning">{value}</span>
+            <span className="addRules_date_text text-warning">{value}</span> &nbsp;&nbsp;&nbsp;&nbsp;
+            <span className="addRules_date_icon icon_rounded " onClick={onClick} ref={ref}><DateRangeOutlinedIcon /></span>
         </div>
     ));
 
@@ -90,12 +129,8 @@ export default function AddTask(props) {
         res.data.data.map((item) => {
             options.push({
                 value: item.id,
-                label: (
-                    <div className="add_assignee">
-                        <div className="add_assignee-img"><img src={item.image} alt={item.name} className="user-avatar" /></div>
-                        <div className="add_assignee-name">{item.name} <span>{item.email}</span></div>
-                    </div>
-                ),
+                label: item.name,
+                image : item.image,
             });
         });
         setUserOptions(options);
@@ -134,15 +169,26 @@ export default function AddTask(props) {
         return res;
     }
 
+    const handleImageUpload = (targetImgElement, index, state, imageInfo, remainingFilesCount) => {
+        console.log(targetImgElement, index, state, imageInfo, remainingFilesCount);
+        let header = {
+            headers: { Authorization: `Bearer ${localStorage.getItem('__token')}` },
+            'Content-Type': 'multipart/form-data'
+        }
+        let formData = new FormData();
+        formData.append('image', JSON.stringify(imageInfo));
+        axios.post(`${config.api_url}/uploadImage`, formData, header)
+            .then(res => {
+                console.log(res.data.data);
+                let editorState = state;
+                editorState[index].src = res.data.data;
+                setEditor(editorState);
+            }
+            )
+            .catch(err => console.log(err))
 
-    const CustomOption = ({ innerProps, label }) => (
-        <div {...innerProps} className="custom-option">
-            {label}
-        </div>
-    );
-
-
-
+    }
+    
 
     return (
         <>
@@ -168,14 +214,41 @@ export default function AddTask(props) {
                                         options={userOptions} 
                                         isMulti 
                                         onChange={userChangeHandler}
-                                        components={{ Option: CustomOption }}
+                                        formatOptionLabel={
+                                            ({ value, label, image }) => (
+                                                <div className="add_assignee">
+                                                    <div className="add_assignee-img">
+                                                        <img src={image} alt={label} />
+                                                    </div>
+                                                    <div className="add_assignee-name">
+                                                        {label}
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
                                         />
                                 </div>
                             </div>
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Notify to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <Select options={userOptions} isMulti onChange={notifyChangeHandler} />
+                                    <Select 
+                                    options={userOptions} 
+                                    isMulti 
+                                    onChange={notifyChangeHandler} 
+                                    formatOptionLabel={
+                                        ({ value, label, image }) => (
+                                            <div className="add_assignee">
+                                                <div className="add_assignee-img">
+                                                    <img src={image} alt={label} />
+                                                </div>
+                                                <div className="add_assignee-name">
+                                                    {label}
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                    />
 
                                 </div>
                             </div>
@@ -185,11 +258,12 @@ export default function AddTask(props) {
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
                                         <div className="addRules addRules_project">
-                                            <span className="addRules_project_icon icon_rounded">WS</span>
-                                            <span className="addRules_project_text">Webeesocial India</span>
+                                            <span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>
+                                            <span className="addRules_project_text">{ project.name }</span>
                                             <span className="addRules_project-remove icon_remove"><CloseOutlinedIcon /></span>
                                         </div>
                                         <NavDropdown title={<span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>} className="dropdown-chat dropdown-menu-end">
+                                            
                                             <div className="dropdown-menu-items">
                                             {projects.map((project, index) => (
                                                     <NavDropdown.Item onClick={ ()=>{ setProject(project) } }>
@@ -202,19 +276,6 @@ export default function AddTask(props) {
                                                ))}
                                             </div>
                                         </NavDropdown>
-                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Project</Link></div> */}
-                                        <Dropdown className="modal_add dropdown-menu-end">
-                                            <Dropdown.Toggle className="modal_add-btn">Add Project</Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <div className="modal_add-body">
-                                                    <div className="modal_add-search"><input className="form-control" type="text" placeholder="Search..."/></div>
-                                                    <div className="modal_add-wrap">
-                                                        <div></div>
-                                                    </div>
-                                                </div>
-                                            </Dropdown.Menu>
-                                        </Dropdown>
-
                                     </div>
                                 </div>
                             </div>
@@ -238,9 +299,32 @@ export default function AddTask(props) {
 
                         <div className="AddTask_des">
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
+                            <div onClick={ ()=>{ setEditor(true) } }>
+                                { !description && <div className="text-muted"> { !editor && <span>Add a more detailed description...</span> }</div> }
+                            </div>
+                            {editor && (
                             <SunEditor 
                                 onChange={(content) => { setDescription(content) }}
+                                setOptions={{
+                                    height: 100,
+                                    buttonList: [
+                                        ['undo', 'redo'],
+                                        ['font', 'fontSize', 'formatBlock'],
+                                        ['paragraphStyle', 'blockquote'],
+                                        ['bold', 'underline', 'italic', 'strike'],
+                                        ['fontColor', 'hiliteColor', 'textStyle'],
+                                        ['outdent', 'indent'],
+                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
+                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+                                        ['fullScreen', 'showBlocks', 'codeView'],
+                                        [ 'print'],
+                                    ],
+                                }}
+                                imageUploadUrl={`${config.api_url}/uploadImage`}
+                                onImageUpload={handleImageUpload}
                             />
+                            )}
                         </div>
 
                         <button className="btn btn-primary mt-3" onClick={saveTask}>
