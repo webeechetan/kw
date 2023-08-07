@@ -24,12 +24,13 @@ import AddTask from "./AddTask";
 import { set } from "date-fns";
 import EditTask from "./EditTask";
 import moment from 'moment';
+import Skeleton from '@mui/material/Skeleton';
 
 export default function TasksFrontend() {
 
     
   // modal state
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [editShow, setEditShow] = useState(false);
@@ -48,7 +49,7 @@ export default function TasksFrontend() {
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [userOptions, setUserOptions] = useState([]);
   const [clients , setClients] = useState([]);
   const [projects , setProjects] = useState([]);
@@ -256,7 +257,7 @@ export default function TasksFrontend() {
   }
 
   async function changeTaskStatus(id,status){
-    setLoading(true);
+    // setLoading(true);
     let __token = localStorage.getItem('__token');
     const header = {
       headers: { Authorization: `Bearer ${__token}` }
@@ -420,6 +421,13 @@ export default function TasksFrontend() {
           </div>
           <div className="kanban_column_card_body">
               <div className="kanban_column_card">
+                {loading && 
+                <div>
+                  <Skeleton />
+                  <Skeleton animation="wave" />
+                  <Skeleton animation={false} />
+                </div>
+                }
                 {isOver && 
                   <Card className={`kanban_column_task kanban_column_task_overdue h-100 bg-primary`}>
                     <Card.Body>
@@ -488,13 +496,13 @@ export default function TasksFrontend() {
                         </Col>
                     </Row>
                 </div>
+                
                 <DndProvider backend={HTML5Backend}>
                 <div className="kanban_bord">
                     {/* ----- Bord KanBan View ----- */}
                     <div className="kanban_bord_body">
                         <div className="kanban_bord_scrollbar">
-                            <div className="kanban_bord_body_columns">
-
+                            <div className="kanban_bord_body_columns"> 
                                 {/* ----- Assigned -----  */}
                                 <TaskColumn tasks={assigned} key={'task_assigned'} columnStatus="kanban_bord_column_assigned" columnName="Assigned" />
                                 {/* Accepted */}

@@ -226,6 +226,7 @@ export default function AddTask(props) {
                                                 </div>
                                             )
                                         }
+                                        menuIsOpen={true}
                                         />
                                 </div>
                             </div>
