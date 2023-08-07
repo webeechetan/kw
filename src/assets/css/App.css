@@ -2047,7 +2047,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   grid-template-columns: 150px 1fr;
 }
 .AddTask_rulesOverview_item:not(:last-child) {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .AddTask_rulesOverview_item_name {
   min-width: 150px;
@@ -2117,16 +2117,20 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   color: #191919;
 }
 .add_assignee-name span {
-  display: flex;
   font-size: 13px;
+  border: 1px solid #eee;
   color: #7407ff;
+  padding: 0 7px;
+  border-radius: 30px;
 }
 
 /* ----- React Select Box ----- */
+.custom-select-option:not(:last-child) {
+  margin-bottom: 10px;
+}
+
 #react-select-3-listbox {
-  padding: 20px;
   box-shadow: none;
-  border: 1px solid #eee;
 }
 
 div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
@@ -2134,9 +2138,63 @@ div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
   outline: none;
   box-shadow: none;
 }
-
 div.css-1hb7zxy-IndicatorsContainer {
   display: none;
+}
+div.css-wsp0cs-MultiValueGeneric {
+  font-size: inherit;
+}
+div.css-wsp0cs-MultiValueGeneric .add_assignee-name span {
+  display: none;
+}
+div.css-1p3m7a8-multiValue {
+  background-color: transparent;
+}
+div.css-qbdosj-Input {
+  cursor: text;
+}
+div.css-12a83d4-MultiValueRemove:hover {
+  background-color: transparent;
+}
+div.css-1fdsijx-ValueContainer {
+  padding: 0;
+}
+
+/* ----- React Date Picker ----- */
+div.react-datepicker {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: "Jost", sans-serif;
+  z-index: 9999;
+}
+div.react-datepicker__header {
+  background-color: transparent;
+  padding: 15px;
+  border: none;
+}
+div.react-datepicker__current-month {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 22px;
+  color: #f83890;
+}
+div.react-datepicker__navigation {
+  top: 25px !important;
+}
+div.react-datepicker__day-name, div.react-datepicker__day, div.react-datepicker__time-name {
+  width: 35px;
+  height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+}
+div.react-datepicker__day-name {
+  background-color: #f5f5f5;
 }
 
 /* ----- Filter Sort ----- */

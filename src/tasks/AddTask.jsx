@@ -136,7 +136,7 @@ export default function AddTask(props) {
 
 
     const CustomOption = ({ innerProps, label }) => (
-        <div {...innerProps} className="custom-option">
+        <div {...innerProps} className="custom-select-option">
             {label}
         </div>
     );

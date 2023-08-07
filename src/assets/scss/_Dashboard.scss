@@ -381,7 +381,7 @@
             display: grid;
             grid-template-columns: 150px 1fr;
             &:not(:last-child) {
-                margin-bottom: $spacing_lg;
+                margin-bottom: $spacing_md;
             }
             &_name {
                 min-width: 150px;
@@ -454,26 +454,91 @@
             color: $text_color;
         }
         span {
-            display: flex;
             font-size: 13px;
+            border: 1px solid $grey;
             color: $secondary;
+            padding: 0 7px;
+            border-radius: $border_radius_rounded;
         }
     }
 }
 
 /* ----- React Select Box ----- */
-#react-select-3-listbox {
-    padding: $spacing_sm;
-    box-shadow: none;
-    border: 1px solid $grey;
-} 
-div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
-    border: none;
-    outline: none;
-    box-shadow: none;
+.custom-select-option {
+    &:not(:last-child) {
+        margin-bottom: 10px;
+    }
 }
-div.css-1hb7zxy-IndicatorsContainer {
-    display: none;
+#react-select-3 {
+    &-listbox {
+        box-shadow: none;
+    }
+}
+
+div.css {
+    &-13cymwt-control, &-t3ipsp-control, &-t3ipsp-control:hover {
+        border: none;
+        outline: none;
+        box-shadow: none;
+    }    
+    &-1hb7zxy-IndicatorsContainer {
+        display: none;
+    }
+    &-wsp0cs-MultiValueGeneric {
+        font-size: inherit;
+        .add_assignee-name span {
+            display: none;
+        }
+    }
+    &-1p3m7a8-multiValue {
+        background-color: transparent;
+    }
+    &-qbdosj-Input {
+        cursor: text;
+    }
+    &-12a83d4-MultiValueRemove:hover {
+        background-color: transparent;
+    }
+    &-1fdsijx-ValueContainer {
+        padding: 0;
+    }
+}
+
+/* ----- React Date Picker ----- */
+div.react-datepicker {
+    border: 1px solid $border_dark_grey;
+    border-radius: $border_radius_xs;
+    font-family: $jost;
+    z-index: 9999;
+    &__header {
+        background-color: transparent;
+        padding: $spacing_s;
+        border: none;
+    }
+    &__current-month {
+        display: inline-block;
+        padding: $spacing_xs $spacing_sm;
+        border-radius: $border_radius_xs;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 22px;
+        color: $brand;
+    }
+    &__navigation {
+        top: 25px !important;
+    }
+    &__day-name, &__day, &__time-name {
+        width: 35px;
+        height: 35px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: $border-radius_rounded;
+    }
+    &__day-name {
+        background-color: $light;
+    }
 }
 /* ----- Filter Sort ----- */
 .filterSort {
