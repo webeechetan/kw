@@ -67,6 +67,8 @@
 /*---- Flex Align End ----*/
 /*---- Flex Direction Column ----*/
 /*---- Rounded Box ----*/
+/* ----- Scrollbar ----- */
+/* ----- Draging ----- */
 /*---- Body Style ----*/
 body {
   font-family: "Jost", sans-serif;
@@ -1937,6 +1939,10 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   border: 2px solid #fff;
   /* ----- Task Status ----- */
 }
+.kanban_column_task.dragging {
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
+  opacity: 0.2;
+}
 .kanban_column_task:not(:last-child) {
   margin-bottom: 20px;
 }
@@ -2061,34 +2067,30 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 }
 .AddTask_body {
   padding: 30px;
+  padding-bottom: 80px;
   margin-top: 20px;
   height: calc(100% - 30px);
   overflow-y: auto;
   border-top: 1px solid #ddd;
+  position: relative;
 }
 .AddTask_des {
   margin-top: 30px;
 }
 
-.addRules_date {
+.addRules {
   display: flex;
   align-items: center;
+  grid-gap: 10px;
 }
-.addRules_date_icon {
-  margin-right: 10px;
-}
-.addRules_date_text {
+.addRules_text {
   font-size: 16px;
-  font-weight: 500;
 }
-.addRules_date-remove {
-  margin-left: 15px;
-}
-.addRules_project_icon {
-  margin-right: 10px;
-}
-.addRules_project-remove {
+.addRules_remove {
   margin-left: 10px;
+}
+.addRules-date .addRules-date {
+  font-weight: 500;
 }
 
 /* ----- Assignee ----- */
@@ -2114,23 +2116,42 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   transition: all 0.3s ease;
 }
 .add_assignee-name:hover {
-  color: #191919;
+  color: #f83890;
 }
 .add_assignee-name span {
   font-size: 13px;
   border: 1px solid #eee;
   color: #7407ff;
   padding: 0 7px;
-  border-radius: 30px;
+  border-radius: 4px;
 }
 
 /* ----- React Select Box ----- */
-.custom-select-option:not(:last-child) {
-  margin-bottom: 10px;
-}
-
 #react-select-3-listbox {
   box-shadow: none;
+  border: 1px solid #eee;
+  width: auto;
+  border-radius: 10px;
+  padding: 20px;
+}
+#react-select-3-listbox > div::-webkit-scrollbar-track, #react-select-3-listbox > div::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: none;
+  border-radius: 7px;
+  background-color: #f5f5f5;
+}
+#react-select-3-listbox > div::-webkit-scrollbar-thumb {
+  background-color: #fdf4c1;
+}
+#react-select-3-listbox > div::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+#react-select-3-listbox > div > div {
+  padding: 0;
+  background-color: transparent;
+}
+#react-select-3-listbox > div > div:not(:last-child) {
+  margin-bottom: 10px;
 }
 
 div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
@@ -2159,6 +2180,15 @@ div.css-12a83d4-MultiValueRemove:hover {
 div.css-1fdsijx-ValueContainer {
   padding: 0;
 }
+div.css-d7l1ni-option, div.css-10wo9uf-option {
+  background-color: transparent;
+}
+div.css-3w2yfm-ValueContainer, div.css-wsp0cs-MultiValueGeneric, div.css-1p3m7a8-multiValue {
+  padding: 0;
+}
+div.css-12a83d4-MultiValueRemove {
+  margin-left: 5px;
+}
 
 /* ----- React Date Picker ----- */
 div.react-datepicker {
@@ -2183,7 +2213,7 @@ div.react-datepicker__current-month {
   color: #f83890;
 }
 div.react-datepicker__navigation {
-  top: 25px !important;
+  transform: translateY(28px);
 }
 div.react-datepicker__day-name, div.react-datepicker__day, div.react-datepicker__time-name {
   width: 35px;
@@ -2195,6 +2225,13 @@ div.react-datepicker__day-name, div.react-datepicker__day, div.react-datepicker_
 }
 div.react-datepicker__day-name {
   background-color: #f5f5f5;
+}
+div.react-datepicker__day--selected {
+  background-color: #f83890;
+  border-radius: 50%;
+}
+div.react-datepicker__day:hover {
+  border-radius: 50%;
 }
 
 /* ----- Filter Sort ----- */
@@ -2320,6 +2357,65 @@ div.react-datepicker__day-name {
 }
 .taskList_col .btn_status {
   display: block;
+}
+
+/* ----- Drop Area ----- */
+.drop_area {
+  width: 100%;
+  min-height: 100px;
+  border: 2px dashed #ddd;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: #9c9c9c;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.drop_area.drop_area_active {
+  border-color: #dae9db;
+  color: #48914d;
+}
+
+/* ----- Item Submit ----- */
+.item_submit {
+  margin-top: 20px;
+  position: absolute;
+  right: 0;
+  border-top: 1px solid #eee;
+  width: 100%;
+  text-align: right;
+  padding: 20px;
+}
+.item_submit button {
+  min-width: 130px;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+/* ----- Sun Editor ----- */
+div.sun-editor {
+  font-family: "Jost", sans-serif;
+  border-color: #eee;
+}
+div.sun-editor .se-resizing-bar {
+  display: none;
+}
+div.sun-editor .se-toolbar {
+  outline: none;
+  border-bottom: 1px solid #eee;
+  background-color: #fff;
+}
+div.sun-editor .se-btn-tray {
+  padding: 5px;
+}
+div.sun-editor .se-btn-module-border {
+  border: none;
+}
+div.sun-editor .se-wrapper-inner {
+  font-family: "Jost", sans-serif;
 }
 
 /*# sourceMappingURL=App.css.map */

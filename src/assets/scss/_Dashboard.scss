@@ -261,6 +261,9 @@
     &_column {
         &_task {
             border: 2px solid #fff;
+            &.dragging {
+                @include draging_item;
+            }
             &:not(:last-child) {
                 margin-bottom: $spacing_sm;
             }
@@ -397,10 +400,12 @@
     }
     &_body {
         padding: $spacing_md;
+        padding-bottom: 80px;
         margin-top: $spacing_sm;
         height: calc(100% - 30px);
         overflow-y: auto;
         border-top: 1px solid $border_dark_grey;
+        position: relative;
     }
     &_des {
         margin-top: $spacing_md;
@@ -408,26 +413,18 @@
 }
 
 .addRules {
-    &_date {
-        display: flex;
-        align-items: center;
-        &_icon {
-            margin-right: $spacing_xs;
-        }
-        &_text {
-            font-size: 16px;
-            font-weight: 500;
-        }
-        &-remove {
-            margin-left: $spacing_s;
-        }
+    display: flex;
+    align-items: center;
+    grid-gap: $spacing_xs;
+    &_text {
+        font-size: 16px;
     }
-    &_project {
-        &_icon {
-            margin-right: $spacing_xs;
-        }
-        &-remove {
-            margin-left: $spacing_xs;
+    &_remove {
+        margin-left: $spacing_xs;
+    }
+    &-date {
+        .addRules-date {
+            font-weight: 500;
         }
     }
 }
@@ -451,27 +448,36 @@
         transition: $ease_03;
         
         &:hover {
-            color: $text_color;
+            color: $brand;
         }
         span {
             font-size: 13px;
             border: 1px solid $grey;
             color: $secondary;
             padding: 0 7px;
-            border-radius: $border_radius_rounded;
+            border-radius: $border_radius_xs;
         }
     }
 }
 
 /* ----- React Select Box ----- */
-.custom-select-option {
-    &:not(:last-child) {
-        margin-bottom: 10px;
-    }
-}
 #react-select-3 {
     &-listbox {
         box-shadow: none;
+        border: 1px solid $border_grey;
+        width: auto;
+        border-radius: $border_radius_sm;
+        padding: $spacing_sm;
+        > div {
+            @include custom_scrollbar;
+            > div {
+                padding: 0;
+                background-color: transparent;
+                &:not(:last-child) {
+                    margin-bottom: 10px;
+                }
+            }
+        }
     }
 }
 
@@ -502,6 +508,18 @@ div.css {
     &-1fdsijx-ValueContainer {
         padding: 0;
     }
+    &-d7l1ni, &-10wo9uf {
+        &-option {
+            background-color: transparent;
+            
+        }
+    }
+    &-3w2yfm-ValueContainer, &-wsp0cs-MultiValueGeneric, &-1p3m7a8-multiValue {
+        padding: 0;
+    }
+    &-12a83d4-MultiValueRemove {
+        margin-left: 5px;
+    }
 }
 
 /* ----- React Date Picker ----- */
@@ -526,7 +544,7 @@ div.react-datepicker {
         color: $brand;
     }
     &__navigation {
-        top: 25px !important;
+        transform: translateY(28px);
     }
     &__day-name, &__day, &__time-name {
         width: 35px;
@@ -536,8 +554,17 @@ div.react-datepicker {
         justify-content: center;
         border-radius: $border-radius_rounded;
     }
-    &__day-name {
-        background-color: $light;
+    &__day {
+        &-name {
+            background-color: $light;
+        }
+        &--selected {
+            background-color: $brand;
+            border-radius: $border_radius;
+        }
+        &:hover {
+            border-radius: $border_radius;
+        }
     }
 }
 /* ----- Filter Sort ----- */
@@ -660,6 +687,54 @@ div.react-datepicker {
         }
         .btn_status {
             display: block;
+        }
+    }
+}
+
+/* ----- Drop Area ----- */
+.drop_area {
+    @include drop_area;
+}
+
+/* ----- Item Submit ----- */
+.item_submit {
+    margin-top: $spacing_sm;
+    position: absolute;
+    right: 0;
+    border-top: 1px solid $border_grey;
+    width: 100%;
+    text-align: right;
+    padding: $spacing_sm;
+    button {
+        min-width: 130px;
+        text-transform: uppercase;
+        font-size: 16px;
+    }
+}
+
+/* ----- Sun Editor ----- */
+div.sun-editor {
+    font-family: $jost;
+    border-color: $grey;
+    .se {
+        &-resizing-bar {
+            display: none;
+        }
+        &-toolbar {
+            outline: none;
+            border-bottom: 1px solid $grey;
+            background-color: #fff;
+        }
+        &-btn {
+            &-tray {
+                padding: 5px;
+            }
+            &-module-border {
+                border: none;
+            }
+        }
+        &-wrapper-inner {
+            font-family: $jost;
         }
     }
 }

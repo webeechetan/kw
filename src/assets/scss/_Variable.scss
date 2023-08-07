@@ -160,3 +160,41 @@ $team_dp: 75px;
     border-radius: $border_radius_xs;
     @include flex_center;
 }
+
+/* ----- Scrollbar ----- */
+@mixin custom_scrollbar {
+    &::-webkit-scrollbar-track, &::-webkit-scrollbar-thumb {
+        -webkit-box-shadow: none;
+        border-radius: 7px;
+        background-color: $light;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: $scrollbar_color;
+    }
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+    }
+}
+
+/* ----- Draging ----- */
+@mixin draging_item {
+    box-shadow: 0 0 50px rgba(0,0,0,0.2);
+    opacity: 0.2;
+}
+
+@mixin drop_area {
+    width: 100%;
+    min-height: 100px;
+    border: 2px dashed $border_dark_grey;
+    @include flex_center;
+    border-radius: $border_radius_xs;
+    color: $text_light;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    &.drop_area_active {
+        border-color: $success_light;
+        color: $success;
+    }
+}
