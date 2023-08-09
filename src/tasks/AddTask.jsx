@@ -100,9 +100,13 @@ export default function AddTask(props) {
     };
 
     const DatePickerCustomInput = forwardRef(({ value, onClick }, ref) => (
-        <div className="addRules addRules_date">
-            <span className="addRules_date_text text-warning">{value}</span> &nbsp;&nbsp;&nbsp;&nbsp;
-            <span className="addRules_date_icon icon_rounded " onClick={onClick} ref={ref}><DateRangeOutlinedIcon /></span>
+        <div className="addRules addRules-date">
+            <span className="icon_rounded " ><DateRangeOutlinedIcon /></span>
+            <Link className="addRules_text text-warning">{value}</Link>
+            <Link className="addRules_text btn_link" onClick={onClick} ref={ref}>
+                
+                Add Date
+            </Link>
         </div>
     ));
 
@@ -130,7 +134,8 @@ export default function AddTask(props) {
             options.push({
                 value: item.id,
                 label: item.name,
-                image : item.image,
+                image: item.image,
+                email: item.email
             });
         });
         setUserOptions(options);
@@ -188,7 +193,6 @@ export default function AddTask(props) {
             .catch(err => console.log(err))
 
     }
-    
 
     return (
         <>
@@ -205,7 +209,7 @@ export default function AddTask(props) {
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
-                        <input className="form-control add_input_style AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" placeholder="Type your task..." />
+                        <input className="form-control add_input_style AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" placeholder="Type your task here..." />
                         <div className="AddTask_rulesOverview">
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Assigned to</div>
@@ -215,19 +219,18 @@ export default function AddTask(props) {
                                         isMulti 
                                         onChange={userChangeHandler}
                                         formatOptionLabel={
-                                            ({ value, label, image }) => (
+                                            ({ value, label, image, email }) => (
                                                 <div className="add_assignee">
                                                     <div className="add_assignee-img">
                                                         <img src={image} alt={label} />
                                                     </div>
                                                     <div className="add_assignee-name">
-                                                        {label}
+                                                        {label} <span>{email}</span>
                                                     </div>
                                                 </div>
                                             )
                                         }
-                                        menuIsOpen={true}
-                                        />
+                                    />
                                 </div>
                             </div>
                             <div className="AddTask_rulesOverview_item">
@@ -260,8 +263,8 @@ export default function AddTask(props) {
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
                                         <div className="addRules addRules_project">
                                             <span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>
-                                            <span className="addRules_project_text">{ project.name }</span>
-                                            <span className="addRules_project-remove icon_remove"><CloseOutlinedIcon /></span>
+                                            <span className="addRules_text">{ project.name }</span>
+                                            <span className="addRules_remove icon_remove"><CloseOutlinedIcon /></span>
                                         </div>
                                         <NavDropdown title={<span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>} className="dropdown-chat dropdown-menu-end">
                                             
@@ -285,14 +288,18 @@ export default function AddTask(props) {
                                 <div className="AddTask_rulesOverview_item_name">Due Date</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        <DatePicker
-                                            selected={startDate}
-                                            onChange={(date) => setStartDate(date)}
-                                            customInput={
-                                                <DatePickerCustomInput />
-                                            }
-                                        />
-                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Date</Link></div> */}
+                                        
+                                        <div className="AddTask_rulesOverview_item_add">
+                                            <div className="addRules">
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                    customInput={
+                                                        <DatePickerCustomInput />
+                                                    }
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -301,7 +308,7 @@ export default function AddTask(props) {
                         <div className="AddTask_des">
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
                             <div onClick={ ()=>{ setEditor(true) } }>
-                                { !description && <div className="text-muted"> { !editor && <span>Add a more detailed description...</span> }</div> }
+                                { !description && <div className="text-muted"> { !editor && <span>Add more detailed description...</span> }</div> }
                             </div>
                             {editor && (
                             <SunEditor 
@@ -327,11 +334,7 @@ export default function AddTask(props) {
                             />
                             )}
                         </div>
-
-                        <button className="btn btn-primary mt-3" onClick={saveTask}>
-                            Save
-                        </button>
-
+                        <div className="item_submit"><button className="btn btn-primary" onClick={saveTask}>Submit</button></div>
                     </div>
                 </div>
             </div>

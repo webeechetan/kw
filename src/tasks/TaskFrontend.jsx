@@ -329,7 +329,7 @@ export default function TasksFrontend() {
       <Card  
       ref={drag} 
       className={`kanban_column_task kanban_column_task_${card_bg_color} h-100 ${isDragging ? 'dragging' : ''}`}
-      bg={isDragging ? 'warning' : ''}
+      // bg={isDragging ? 'warning' : ''}
       >
       <Card.Body>
           <div className="card-options">
@@ -429,15 +429,9 @@ export default function TasksFrontend() {
                 </div>
                 }
                 {isOver && 
-                  <Card className={`kanban_column_task kanban_column_task_overdue h-100 bg-primary`}>
-                    <Card.Body>
-                      <div className="kanban_column_task_name">
-                          <div className="kanban_column_task_name_text">
-                              <div className="kanban_column_task_name_text">Drop here</div>
-                          </div>
-                      </div>
-                    </Card.Body>
-                  </Card> 
+                  <div className="drop_area">
+                    <div>Drop here</div>
+                  </div>
                 }
                   {tasks.map((task) => (
                       <TaskCard key={task.id} task={task} />

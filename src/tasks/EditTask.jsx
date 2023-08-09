@@ -40,6 +40,7 @@ export default function EditTask(props) {
     const [selectedNotifyUsers, setSelectedNotifyUsers] = useState([]);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
+    const [editor, setEditor] = useState(false);
 
     const userChangeHandler = e => {
 
@@ -301,19 +302,16 @@ export default function EditTask(props) {
 
                         <div className="AddTask_des">
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
-                            <SunEditor 
+                            {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <span>{description}</span></div>}
+                            {editor && <SunEditor
                                 onChange={(content) => { setDescription(content) }}
                                 setContents={description}
-                            />
+                            />}
                         </div>
 
-                        <button className="btn btn-primary mt-3" onClick={UpdateTask}>
-                            Save
-                        </button>
+                        <button className="btn btn-primary mt-3" onClick={UpdateTask}>Update</button>
 
-
-                        <hr />
-                        <h5>Comments</h5>
+                        <h5 className="mt-5">Comments</h5>
                         <div className="mt-4">
                             <div className="mb-4">
                             <SunEditor 
@@ -325,8 +323,7 @@ export default function EditTask(props) {
                                 <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Comment</button>
                             </div>
                         </div>
-                        <hr />
-                        <h5>Activity</h5>
+                        <h5 className="mt-5">Activity</h5>
                         <div className="mt-4">
                             {comments.map((comment, index) => (
                                 <div className="d-flex mt-3" key={"comment"+comment.id}>
