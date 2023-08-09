@@ -129,7 +129,10 @@ export default function TasksListView() {
                                             <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>{task.due_date}</span></Link>
                                         </div>
                                         <div className="taskList_col">
-                                            <Link className="btn_status active"><EventRepeatOutlinedIcon /> In Progress</Link>
+                                            {task.status === 'completed' && <Link className="btn_status completed"><CheckCircleOutlineOutlinedIcon /> Completed</Link>}
+                                            {task.status === 'assigned' && <Link className="btn_status active"><EventRepeatOutlinedIcon /> Assigned</Link>}
+                                            {task.status === 'accepted' && <Link className="btn_status accepted"><EventRepeatOutlinedIcon /> Accepted</Link>}
+                                            {task.status === 'in_review' && <Link className="btn_status in_review"><EventRepeatOutlinedIcon /> In Review</Link>}
                                         </div>
                                     </div>
                                     ))}

@@ -101,8 +101,12 @@ export default function AddTask(props) {
 
     const DatePickerCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="addRules addRules-date">
-            <span className="icon_rounded " onClick={onClick} ref={ref}><DateRangeOutlinedIcon /></span>
+            <span className="icon_rounded " ><DateRangeOutlinedIcon /></span>
             <Link className="addRules_text text-warning">{value}</Link>
+            <Link className="addRules_text btn_link" onClick={onClick} ref={ref}>
+                
+                Add Date
+            </Link>
         </div>
     ));
 
@@ -284,17 +288,16 @@ export default function AddTask(props) {
                                 <div className="AddTask_rulesOverview_item_name">Due Date</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        <DatePicker
-                                            selected={startDate}
-                                            onChange={(date) => setStartDate(date)}
-                                            customInput={
-                                                <DatePickerCustomInput />
-                                            }
-                                        />
+                                        
                                         <div className="AddTask_rulesOverview_item_add">
                                             <div className="addRules">
-                                                <span className="icon_rounded"><DateRangeOutlinedIcon /></span>
-                                                <Link className="addRules_text btn_link">Add Date</Link>
+                                                <DatePicker
+                                                    selected={startDate}
+                                                    onChange={(date) => setStartDate(date)}
+                                                    customInput={
+                                                        <DatePickerCustomInput />
+                                                    }
+                                                />
                                             </div>
                                         </div>
                                     </div>

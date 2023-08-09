@@ -40,6 +40,7 @@ export default function EditTask(props) {
     const [selectedNotifyUsers, setSelectedNotifyUsers] = useState([]);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
+    const [editor, setEditor] = useState(false);
 
     const userChangeHandler = e => {
 
@@ -301,10 +302,11 @@ export default function EditTask(props) {
 
                         <div className="AddTask_des">
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
-                            <SunEditor 
+                            {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <span>{description}</span></div>}
+                            {editor && <SunEditor
                                 onChange={(content) => { setDescription(content) }}
                                 setContents={description}
-                            />
+                            />}
                         </div>
                         <button className="btn btn-primary mt-3" onClick={UpdateTask}>Update</button>
 
