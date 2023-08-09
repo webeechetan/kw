@@ -829,13 +829,13 @@ svg.css-i4bv87-MuiSvgIcon-root {
 }
 /*---- Form Style Start Here ----*/
 .form-control, .form-select {
-  color: #9c9c9c;
   border: 1px solid #ced4da;
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 1rem;
   line-height: normal;
   text-align: left;
+  color: #191919;
 }
 .form-control:focus, .form-select:focus {
   outline: none;
@@ -2186,6 +2186,9 @@ div.css-d7l1ni-option, div.css-10wo9uf-option {
 div.css-3w2yfm-ValueContainer, div.css-wsp0cs-MultiValueGeneric, div.css-1p3m7a8-multiValue {
   padding: 0;
 }
+div.css-3w2yfm-ValueContainer {
+  grid-gap: 20px;
+}
 div.css-12a83d4-MultiValueRemove {
   margin-left: 5px;
 }
@@ -2382,12 +2385,8 @@ div.react-datepicker__day:hover {
 /* ----- Item Submit ----- */
 .item_submit {
   margin-top: 20px;
-  position: absolute;
-  right: 0;
   border-top: 1px solid #eee;
-  width: 100%;
-  text-align: right;
-  padding: 20px;
+  padding: 20px 0;
 }
 .item_submit button {
   min-width: 130px;

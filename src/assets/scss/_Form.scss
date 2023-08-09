@@ -1,13 +1,13 @@
 /*---- Form Style Start Here ----*/
 .form {
     &-control, &-select {
-        color: $text_form;
         border: 1px solid $border_form;
         padding: $spacing_xs $spacing_sm;
         border-radius: $border_radius_xs;
         font-size: 1rem;
         line-height: normal;
         text-align: left;
+        color: $text_color;
 
         &:focus {
             outline: none;

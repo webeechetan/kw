@@ -517,6 +517,9 @@ div.css {
     &-3w2yfm-ValueContainer, &-wsp0cs-MultiValueGeneric, &-1p3m7a8-multiValue {
         padding: 0;
     }
+    &-3w2yfm-ValueContainer {
+        grid-gap: 20px;
+    }
     &-12a83d4-MultiValueRemove {
         margin-left: 5px;
     }
@@ -699,12 +702,8 @@ div.react-datepicker {
 /* ----- Item Submit ----- */
 .item_submit {
     margin-top: $spacing_sm;
-    position: absolute;
-    right: 0;
     border-top: 1px solid $border_grey;
-    width: 100%;
-    text-align: right;
-    padding: $spacing_sm;
+    padding: $spacing_sm 0;
     button {
         min-width: 130px;
         text-transform: uppercase;

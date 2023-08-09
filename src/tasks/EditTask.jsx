@@ -306,21 +306,9 @@ export default function EditTask(props) {
                                 setContents={description}
                             />
                         </div>
-
                         <button className="btn btn-primary mt-3" onClick={UpdateTask}>Update</button>
 
-                        <h5 className="mt-5">Comments</h5>
-                        <div className="mt-4">
-                            <div className="mb-4">
-                            <SunEditor 
-                                onChange={(content) => { setComment(content) }}
-                                setContents={comment}
-                            />
-                            </div>
-                            <div className="d-flex">
-                                <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Comment</button>
-                            </div>
-                        </div>
+                        {/* Activity */}
                         <h5 className="mt-5">Activity</h5>
                         <div className="mt-4">
                             {comments.map((comment, index) => (
@@ -338,6 +326,20 @@ export default function EditTask(props) {
                                     <hr />
                                 </div>
                             ))}
+                        </div>
+                        
+                        {/* Comments */}
+                        <h5 className="mt-5">Comments</h5>
+                        <div className="mt-4">
+                            <div className="mb-4">
+                            <SunEditor 
+                                onChange={(content) => { setComment(content) }}
+                                setContents={comment}
+                            />
+                            </div>
+                            <div className="d-flex">
+                                <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Add Comment</button>
+                            </div>
                         </div>
                     </div>
                 </div>
