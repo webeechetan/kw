@@ -14,6 +14,7 @@ import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined';
 import EditTask from "./EditTask";
 import axios from "axios";
 import { config } from "../config";
+import Skeleton from '@mui/material/Skeleton';
 
 export default function TasksListView() {
 
@@ -22,8 +23,10 @@ export default function TasksListView() {
     const [editShow, setEditShow] = useState(false);
     const handleEditClose = () => setEditShow(false);
     const handleEditShow = () => setEditShow(true);
+    const [loading, setLoading] = useState(true);
 
     async function getTasks() {
+
         let __token = localStorage.getItem('__token');
         const header = {
             headers: { Authorization: `Bearer ${__token}` }
@@ -32,6 +35,7 @@ export default function TasksListView() {
         if (response.data.success === true) {
             setTasks(response.data.data);
         }
+        setLoading(false);
     }
 
 
@@ -102,6 +106,59 @@ export default function TasksListView() {
                                     </div>
                                 </div>
                                 <div className="taskList_item">
+                                {loading && 
+                                    <div className="taskList_row" key={"task_list_loading"} >
+                                    <div className="taskList_col taskList_col_title">
+                                        <div className="taskList_col_title_text">
+                                            <div>
+                                            <Skeleton
+                                                variant="rectangular"
+                                                width={300}
+                                                height={38}
+                                            />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="taskList_col">
+                                        <div className="team-member-group">
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={210}
+                                            height={38}
+                                        />
+                                        </div>
+                                    </div>
+                                    <div className="taskList_col">
+                                        <div className="team-member-group">
+                                        <Skeleton
+                                            variant="rectangular"
+                                            width={210}
+                                            height={38}
+                                        />
+                                        </div>
+                                    </div>
+                                    <div className="taskList_col">
+                                        <Link className="kanban_column_task_date" to="#">
+                                            <span>
+                                            <Skeleton
+                                                variant="rectangular"
+                                                width={210}
+                                                height={38}
+                                            />
+                                            </span>
+                                        </Link>
+                                    </div>
+                                    <div className="taskList_col">
+                                    <Skeleton
+                                        variant="rectangular"
+                                        width={210}
+                                        height={38}
+                                    />
+                                    </div>
+                                </div>
+                                    
+                                }
                                     { tasks.map((task, index) => (
                                     <div className="taskList_row" key={"task_list_"+task.id} onClick={ ()=>{ setSelectedTask(task); setEditShow(true); } }>
                                         <div className="taskList_col taskList_col_title">

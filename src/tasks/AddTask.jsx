@@ -32,48 +32,9 @@ export default function AddTask(props) {
         props.handleClose();
     }
 
-    let galleryImages = [
-        {
-          "albumId": 1,
-          "id": 1,
-          "title": "accusamus beatae ad facilis cum similique qui sunt",
-          "url": "https://via.placeholder.com/600/92c952",
-          "thumbnailUrl": "https://via.placeholder.com/150/92c952"
-        },
-        {
-          "albumId": 1,
-          "id": 2,
-          "title": "reprehenderit est deserunt velit ipsam",
-          "url": "https://via.placeholder.com/600/771796",
-          "thumbnailUrl": "https://via.placeholder.com/150/771796"
-        },
-        {
-          "albumId": 1,
-          "id": 3,
-          "title": "officia porro iure quia iusto qui ipsa ut modi",
-          "url": "https://via.placeholder.com/600/24f355",
-          "thumbnailUrl": "https://via.placeholder.com/150/24f355"
-        },
-        {
-          "albumId": 1,
-          "id": 4,
-          "title": "culpa odio esse rerum omnis laboriosam voluptate repudiandae",
-          "url": "https://via.placeholder.com/600/d32776",
-          "thumbnailUrl": "https://via.placeholder.com/150/d32776"
-        },
-        {
-          "albumId": 1,
-          "id": 5,
-          "title": "natus nisi omnis corporis facere molestiae rerum in",
-          "url": "https://via.placeholder.com/600/f66b97",
-          "thumbnailUrl": "https://via.placeholder.com/150/f66b97"
-        },
-    ];
-
-
     const [users, setUsers] = useState([]);
     const [userOptions, setUserOptions] = useState([]);
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState('');
     const [projects, setProjects] = useState([]);
     const [project, setProject] = useState({name:'WS'});
     const [userIds, setUserIds] = useState([]);
@@ -81,6 +42,7 @@ export default function AddTask(props) {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [editor, setEditor] = useState(false);
+    const [projectOptions, setProjectOptions] = useState([]);
 
     const userChangeHandler = e => {
 
@@ -99,12 +61,15 @@ export default function AddTask(props) {
         setNotifyIds(ids);
     };
 
+    const projectChangeHandler = e => {
+        setProject(e.value);
+    }
+
     const DatePickerCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="addRules addRules-date">
             <span className="icon_rounded " ><DateRangeOutlinedIcon /></span>
             <Link className="addRules_text text-warning">{value}</Link>
             <Link className="addRules_text btn_link" onClick={onClick} ref={ref}>
-                
                 Add Date
             </Link>
         </div>
@@ -148,6 +113,11 @@ export default function AddTask(props) {
             headers: { Authorization: `Bearer ${__token}` }
         };
         const res = await axios.get(`${config.api_url}/projects`, header);
+        let options = [];
+        res.data.data.map((item) => {
+            options.push({ value: item.id, label: item.name });
+        });
+        setProjectOptions(options);
         setProjects(res.data.data);
         return res;
         
@@ -161,7 +131,7 @@ export default function AddTask(props) {
         const res = await axios.post(`${config.api_url}/tasks`, {   
             name: title,
             description: description,
-            project_id: project.id,
+            project_id: project,
             users: userIds,
             notify_to: notifyIds,
             due_date: startDate,
@@ -236,22 +206,22 @@ export default function AddTask(props) {
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Notify to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <Select 
-                                    options={userOptions} 
-                                    isMulti 
-                                    onChange={notifyChangeHandler} 
-                                    formatOptionLabel={
-                                        ({ value, label, image }) => (
-                                            <div className="add_assignee">
-                                                <div className="add_assignee-img">
-                                                    <img src={image} alt={label} />
+                                <Select 
+                                        options={userOptions} 
+                                        isMulti 
+                                        onChange={userChangeHandler}
+                                        formatOptionLabel={
+                                            ({ value, label, image, email }) => (
+                                                <div className="add_assignee">
+                                                    <div className="add_assignee-img">
+                                                        <img src={image} alt={label} />
+                                                    </div>
+                                                    <div className="add_assignee-name">
+                                                        {label} <span>{email}</span>
+                                                    </div>
                                                 </div>
-                                                <div className="add_assignee-name">
-                                                    {label}
-                                                </div>
-                                            </div>
-                                        )
-                                    }
+                                            )
+                                        }
                                     />
 
                                 </div>
@@ -260,27 +230,10 @@ export default function AddTask(props) {
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Project</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        <div className="addRules addRules_project">
-                                            <span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>
-                                            <span className="addRules_text">{ project.name }</span>
-                                            <span className="addRules_remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div>
-                                        <NavDropdown title={<span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>} className="dropdown-chat dropdown-menu-end">
-                                            
-                                            <div className="dropdown-menu-items">
-                                            {projects.map((project, index) => (
-                                                    <NavDropdown.Item onClick={ ()=>{ setProject(project) } }>
-                                                        <div>
-                                                            <span>{project.name}</span>
-                                                            <div className="small text-muted">{project.client.name}</div>
-                                                            <div className="small text-muted mt-1"></div>
-                                                        </div>
-                                                    </NavDropdown.Item>
-                                               ))}
-                                            </div>
-                                        </NavDropdown>
-                                    </div>
+                                <Select
+                                        options={projectOptions}
+                                        onChange={projectChangeHandler}
+                                    />
                                 </div>
                             </div>
 

@@ -17,6 +17,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { async } from "q";
 import { Update } from "@mui/icons-material";
+import moment from "moment/moment";
 
 
 
@@ -41,6 +42,8 @@ export default function EditTask(props) {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [editor, setEditor] = useState(false);
+    const [projectOptions, setProjectOptions] = useState([]);
+    const [selectedProject, setSelectedProject] = useState([]);
 
     const userChangeHandler = e => {
 
@@ -58,6 +61,10 @@ export default function EditTask(props) {
         });
         setNotifyIds(ids);
     };
+
+    const projectChangeHandler = e => {
+        setProject(e.value);
+    }
 
     const DatePickerCustomInput = forwardRef(({ value, onClick }, ref) => (
         <div className="addRules addRules_date">
@@ -87,8 +94,14 @@ export default function EditTask(props) {
         setSelectedUsers(selectedUsers);
         setTitle(res.data.data.name);
         setDescription(res.data.data.description);
-        setProject(res.data.data.project);
+        setProject(res.data.data.project.id);
         setStartDate(new Date(res.data.data.due_date));
+        let selected_project = {
+            value: res.data.data.project.id,
+            label: res.data.data.project.name,
+        }
+        selectedProject.push(selected_project);
+        setSelectedProject(selectedProject);
         return res;
     }
 
@@ -127,7 +140,16 @@ export default function EditTask(props) {
             headers: { Authorization: `Bearer ${__token}` }
         };
         const res = await axios.get(`${config.api_url}/projects`, header);
-        setProjects(res.data.data);
+        let options = [];
+        res.data.data.map((item) => {
+            options.push({
+                value: item.id,
+                label: item.name,
+            });
+        }
+        );
+        setProjectOptions(options);
+        
         return res;
         
     }
@@ -141,7 +163,7 @@ export default function EditTask(props) {
         const res = await axios.put(`${config.api_url}/tasks/${props.id}`, {   
             name: title,
             description: description,
-            project_id: project.id,
+            project_id: project,
             users: userIds,
             notify_to: notifyIds,
             due_date: startDate
@@ -252,34 +274,14 @@ export default function EditTask(props) {
 
                                 </div>
                             </div>
-
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Project</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                    <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        {/* <div className="addRules addRules_project">
-                                            <span className="addRules_project_icon icon_rounded">WS</span>
-                                            <span className="addRules_project_text">Webeesocial India</span>
-                                            <span className="addRules_project-remove icon_remove"><CloseOutlinedIcon /></span>
-                                        </div> */}
-                                        <NavDropdown title={<span className="addRules_project_icon icon_rounded">{ project.name.slice(0,2)  }</span>} className="dropdown-chat dropdown-menu-end">
-                                            <div className="dropdown-header">
-                                                <h6 className="mb-0">Projects</h6>
-                                            </div>
-                                            <div className="dropdown-menu-items">
-                                            {projects.map((project, index) => (
-                                                    <NavDropdown.Item onClick={ ()=>{ setProject(project) } }>
-                                                        <div>
-                                                            <span>{project.name}</span>
-                                                            <div className="small text-muted">{project.client.name}</div>
-                                                            <div className="small text-muted mt-1"></div>
-                                                        </div>
-                                                    </NavDropdown.Item>
-                                               ))}
-                                            </div>
-                                        </NavDropdown>
-                                        {/* <div className="AddTask_rulesOverview_item_add"><Link className="btn_link">Add Project</Link></div> */}
-                                    </div>
+                                <Select
+                                        defaultValue={selectedProject}
+                                        options={projectOptions}
+                                        onChange={projectChangeHandler}
+                                    />
                                 </div>
                             </div>
 
@@ -302,10 +304,26 @@ export default function EditTask(props) {
 
                         <div className="AddTask_des">
                             <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
-                            {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <span>{description}</span></div>}
+                            {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <span 
+                            dangerouslySetInnerHTML={{ __html: description }}></span></div>}
                             {editor && <SunEditor
                                 onChange={(content) => { setDescription(content) }}
                                 setContents={description}
+                                setOptions={{
+                                    height: 100,
+                                    buttonList: [
+                                        ['undo', 'redo'],
+                                        ['font', 'fontSize', 'formatBlock'],
+                                        ['paragraphStyle', 'blockquote'],
+                                        ['bold', 'underline', 'italic', 'strike'],
+                                        ['fontColor', 'hiliteColor', 'textStyle'],
+                                        ['outdent', 'indent'],
+                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
+                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+                                        ['fullScreen', 'showBlocks', 'codeView'],
+                                    ],
+                                }}
                             />}
                         </div>
 
@@ -317,6 +335,21 @@ export default function EditTask(props) {
                             <SunEditor 
                                 onChange={(content) => { setComment(content) }}
                                 setContents={comment}
+                                setOptions={{
+                                    height: 100,
+                                    buttonList: [
+                                        ['undo', 'redo'],
+                                        ['font', 'fontSize', 'formatBlock'],
+                                        ['paragraphStyle', 'blockquote'],
+                                        ['bold', 'underline', 'italic', 'strike'],
+                                        ['fontColor', 'hiliteColor', 'textStyle'],
+                                        ['outdent', 'indent'],
+                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
+                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
+                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
+                                        ['fullScreen', 'showBlocks', 'codeView'],
+                                    ],
+                                }}
                             />
                             </div>
                             <div className="d-flex">
@@ -332,10 +365,11 @@ export default function EditTask(props) {
                                     </div>
                                     <div className="flex-grow-1">
                                         <div className="mb-2">
-                                            <strong>{comment.user.name}</strong> commented on <strong>{task.name}</strong>
+                                            <strong>{comment.user.name}</strong> commented on <strong>{
+                                                moment(comment.created_at).format('MMMM Do YYYY')
+                                            }</strong>
                                         </div>
                                         <div dangerouslySetInnerHTML={{ __html: comment.comment }}></div>
-                                        <div className="small text-muted">{comment.created_at}</div>
                                     </div>
                                     <hr />
                                 </div>
