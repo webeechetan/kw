@@ -266,7 +266,6 @@ svg.css-i4bv87-MuiSvgIcon-root {
   /*---- Options ----*/
   /* ----- Filter Sort ----- */
   /* ----- Border ----- */
-  /* ----- Button Status ----- */
 }
 .btn svg {
   max-width: 18px;
@@ -425,23 +424,6 @@ svg.css-i4bv87-MuiSvgIcon-root {
 .btn-border-primary:hover, .btn-border-primary.active {
   background-color: #f83890;
   color: #fff;
-}
-.btn_status {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px 10px;
-  transition: all 0.3s ease;
-}
-.btn_status svg {
-  width: 16px;
-  height: 16px;
-}
-.btn_status:hover, .btn_status.active {
-  border-color: #f83890;
-  color: #f83890;
-}
-.btn_status:not(:last-child) {
-  margin-right: 20px;
 }
 .btn_link {
   transition: all 0.3s ease;
@@ -2024,8 +2006,11 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   border-top: 1px solid #ddd;
   position: relative;
 }
-.AddTask_des {
-  margin-top: 30px;
+.AddTask_item_name {
+  font-size: 20px;
+}
+.AddTask_sec_space {
+  margin-top: 50px;
 }
 
 .addRules {

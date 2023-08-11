@@ -342,8 +342,11 @@
         border-top: 1px solid $border_dark_grey;
         position: relative;
     }
-    &_des {
-        margin-top: $spacing_md;
+    &_item_name {
+        font-size: 20px;
+    }
+    &_sec_space {
+        margin-top: $spacing_lg;
     }
 }
 

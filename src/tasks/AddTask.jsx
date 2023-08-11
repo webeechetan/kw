@@ -14,9 +14,6 @@ import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-
 import { config } from "../config";
 import axios from 'axios';
 import Select from 'react-select';

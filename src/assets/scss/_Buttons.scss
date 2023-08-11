@@ -177,27 +177,6 @@
         }
     }
 
-    /* ----- Button Status ----- */
-    &_status {
-        border: 1px solid $border_dark_grey;
-        border-radius: $border_radius_xs;
-        padding: $spacing_btn_xs;
-        transition: $ease_03;
-
-        svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        &:hover, &.active {
-            border-color: $brand;
-            color: $brand;
-        }
-
-        &:not(:last-child) {
-            margin-right: $spacing_sm;
-        }
-    }
     &_link {
         transition: $ease_03;
         display: inline-flex;

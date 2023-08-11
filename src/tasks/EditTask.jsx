@@ -7,6 +7,8 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Tooltip from '@mui/material/Tooltip';
+import Stack from '@mui/material/Stack';
 
 import { config } from "../config";
 import axios from 'axios';
@@ -192,14 +194,17 @@ export default function EditTask(props) {
         <>
             <div className="AddCanvas">
                 <div className="AddTask_head">
-                    <div className="AddTask_head_btn_status">
-                        <Link className="btn_status"><EventRepeatOutlinedIcon /> In Progress</Link>
-                        <Link className="btn_status"><GradingOutlinedIcon /> In Review</Link>
-                        <Link className="btn_status"><CheckOutlinedIcon /> Completed</Link>
-                    </div>
-                    <div onClick={() => {
-                        closeEditk()
-                    }} className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
+                    <Stack direction="row" justifyContent="end" spacing={2}>
+                        <Tooltip title="Save Task" arrow>
+                            <Link className="btn-border btn-border-primary" onClick={UpdateTask}><CheckOutlinedIcon /></Link>
+                        </Tooltip>
+                        <Tooltip title="Close" arrow>
+                            <Link onClick={() => {
+                                    closeEditk()
+                                }} className="btn-border"><CloseOutlinedIcon />
+                            </Link>
+                        </Tooltip>
+                    </Stack>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
@@ -298,36 +303,42 @@ export default function EditTask(props) {
                                     </div>
                                 </div>
                             </div>
+                            
+                            {/* Description */}
+                            <div className="AddTask_rulesOverview_item">
+                                <div className="AddTask_rulesOverview_item_name">Description</div>
+                                <div className="AddTask_rulesOverview_item_rulesAction">
+                                    <div className="AddTask_rulesOverview_item_rulesAction_wrap">
+                                    {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <div>{description}</div></div>}
+                                        {editor && <SunEditor
+                                            onChange={(content) => { setDescription(content) }}
+                                            setContents={description}
+                                        />}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-                        <div className="AddTask_des">
-                            <h4 className="AddTask_rulesOverview_item_name mb-4">Description</h4>
-                            {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <span>{description}</span></div>}
-                            {editor && <SunEditor
-                                onChange={(content) => { setDescription(content) }}
-                                setContents={description}
-                            />}
-                        </div>
-                        <button className="btn btn-primary mt-3" onClick={UpdateTask}>Update</button>
 
                         {/* Activity */}
-                        <h5 className="mt-5">Activity</h5>
-                        <div className="mt-4">
-                            {comments.map((comment, index) => (
-                                <div className="d-flex mt-3" key={"comment"+comment.id}>
-                                    <div className="me-3">
-                                        <img src={comment.user.image} className="rounded-circle" width="40" alt="..." />
-                                    </div>
-                                    <div className="flex-grow-1">
-                                        <div className="mb-2">
-                                            <strong>{comment.user.name}</strong> commented on <strong>{task.name}</strong>
+                        <div className="AddTask_activity AddTask_sec_space">
+                            <h4 className="AddTask_item_name mb-4">Activity</h4>
+                            <div className="">
+                                {comments.map((comment, index) => (
+                                    <div className="d-flex mt-3" key={"comment"+comment.id}>
+                                        <div className="me-3">
+                                            <img src={comment.user.image} className="rounded-circle" width="40" alt="..." />
                                         </div>
-                                        <div dangerouslySetInnerHTML={{ __html: comment.comment }}></div>
-                                        <div className="small text-muted">{comment.created_at}</div>
+                                        <div className="flex-grow-1">
+                                            <div className="mb-2">
+                                                <strong>{comment.user.name}</strong> commented on <strong>{task.name}</strong>
+                                            </div>
+                                            <div dangerouslySetInnerHTML={{ __html: comment.comment }}></div>
+                                            <div className="small text-muted">{comment.created_at}</div>
+                                        </div>
+                                        <hr />
                                     </div>
-                                    <hr />
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                         
                         {/* Comments */}
