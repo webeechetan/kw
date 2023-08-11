@@ -84,7 +84,6 @@
 
     &-group {
         @include flex_align_center;
-        margin-top: 30px;
     }
 
     /*---- Actions ----*/
@@ -151,6 +150,30 @@
         svg {
             max-width: 20px;
             max-height: 20px;
+        }
+    }
+
+    /* ----- Border ----- */
+    &-border {
+        border: 1px solid $border_dark_grey;
+        border-radius: $border_radius_xs;
+        padding: $spacing_btn_xs;
+        transition: $ease_03;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        &:hover, &.active {
+            border-color: $brand;
+            color: $brand;
+        }
+        &-primary {
+            &:hover, &.active {
+                background-color: $brand;
+                color: #fff;
+            }
         }
     }
 

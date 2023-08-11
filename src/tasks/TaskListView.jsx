@@ -11,6 +11,7 @@ import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutl
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import EditTask from "./EditTask";
 import axios from "axios";
 import { config } from "../config";
@@ -59,36 +60,41 @@ export default function TasksListView() {
                                         <Link className="tabNavigationBar-item" to="task-board"> <ViewWeekOutlinedIcon /> Board</Link>
                                     </div>
                                 </Col>
-                                <Col className="text-end">
-                                    <Dropdown className="dropdown-menu-end">
-                                        <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
-                                        <Dropdown.Menu>
-                                            <div className="filterSort_wrap">
-                                                <div className="filterSort_body">
-                                                    <div className="filterSort_body_item">
-                                                        <h2 className="filterSort_body-header">Quick Filter</h2>
-                                                        <div className="filterSort_body_btn_group">
-                                                            <span className="filterSort_body_btn_action">Incomplete tasks</span>
-                                                            <span className="filterSort_body_btn_action">Completed tasks</span>
-                                                            <span className="filterSort_body_btn_action">My tasks</span>
-                                                            <span className="filterSort_body_btn_action">Due this week</span>
-                                                            <span className="filterSort_body_btn_action">Due next week</span>
+                                <Col>
+                                    <div className="main-body-header-right">
+                                        <div className="main-body-header-btn_group justify-content-end">
+                                            <div className="main-body-header-btnAdd"><AddOutlinedIcon /> Add Task</div>
+                                            <Dropdown className="dropdown-menu-end">
+                                                <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    <div className="filterSort_wrap">
+                                                        <div className="filterSort_body">
+                                                            <div className="filterSort_body_item">
+                                                                <h2 className="filterSort_body-header">Quick Filter</h2>
+                                                                <div className="filterSort_body_btn_group">
+                                                                    <span className="filterSort_body_btn_action">Incomplete tasks</span>
+                                                                    <span className="filterSort_body_btn_action">Completed tasks</span>
+                                                                    <span className="filterSort_body_btn_action">My tasks</span>
+                                                                    <span className="filterSort_body_btn_action">Due this week</span>
+                                                                    <span className="filterSort_body_btn_action">Due next week</span>
+                                                                </div>
+                                                            </div>
+                                                            <div className="filterSort_body_item">
+                                                                <h2 className="filterSort_body-header">Sort By Assignee</h2>
+                                                                <div className="filterSort_body_btn_group">
+                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Rakesh Roshan</span>
+                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> John Cena</span>
+                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> The Rock</span>
+                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Chetan Kumar</span>
+                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Vikram Ahuja</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div className="filterSort_body_item">
-                                                        <h2 className="filterSort_body-header">Sort By Assignee</h2>
-                                                        <div className="filterSort_body_btn_group">
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Rakesh Roshan</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> John Cena</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> The Rock</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Chetan Kumar</span>
-                                                            <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Vikram Ahuja</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </div>
                                 </Col>
                             </Row>
                         </div>

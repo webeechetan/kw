@@ -326,9 +326,30 @@ export default function EditTask(props) {
                                 }}
                             />}
                         </div>
-
                         <button className="btn btn-primary mt-3" onClick={UpdateTask}>Update</button>
 
+                        {/* Activity */}
+                        <h5 className="mt-5">Activity</h5>
+                        <div className="mt-4">
+                            {comments.map((comment, index) => (
+                                <div className="d-flex mt-3" key={"comment"+comment.id}>
+                                    <div className="me-3">
+                                        <img src={comment.user.image} className="rounded-circle" width="40" alt="..." />
+                                    </div>
+                                    <div className="flex-grow-1">
+                                        <div className="mb-2">
+                                            <strong>{comment.user.name}</strong> commented on <strong>{
+                                                moment(comment.created_at).format('MMMM Do YYYY')
+                                            }</strong>
+                                        </div>
+                                        <div dangerouslySetInnerHTML={{ __html: comment.comment }}></div>
+                                    </div>
+                                    <hr />
+                                </div>
+                            ))}
+                        </div>
+                        
+                        {/* Comments */}
                         <h5 className="mt-5">Comments</h5>
                         <div className="mt-4">
                             <div className="mb-4">
@@ -353,27 +374,8 @@ export default function EditTask(props) {
                             />
                             </div>
                             <div className="d-flex">
-                                <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Comment</button>
+                                <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Add Comment</button>
                             </div>
-                        </div>
-                        <h5 className="mt-5">Activity</h5>
-                        <div className="mt-4">
-                            {comments.map((comment, index) => (
-                                <div className="d-flex mt-3" key={"comment"+comment.id}>
-                                    <div className="me-3">
-                                        <img src={comment.user.image} className="rounded-circle" width="40" alt="..." />
-                                    </div>
-                                    <div className="flex-grow-1">
-                                        <div className="mb-2">
-                                            <strong>{comment.user.name}</strong> commented on <strong>{
-                                                moment(comment.created_at).format('MMMM Do YYYY')
-                                            }</strong>
-                                        </div>
-                                        <div dangerouslySetInnerHTML={{ __html: comment.comment }}></div>
-                                    </div>
-                                    <hr />
-                                </div>
-                            ))}
                         </div>
                     </div>
                 </div>

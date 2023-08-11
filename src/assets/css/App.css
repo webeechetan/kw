@@ -265,6 +265,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
   /*---- Actions ----*/
   /*---- Options ----*/
   /* ----- Filter Sort ----- */
+  /* ----- Border ----- */
   /* ----- Button Status ----- */
 }
 .btn svg {
@@ -348,7 +349,6 @@ svg.css-i4bv87-MuiSvgIcon-root {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 30px;
 }
 .btn-action .btn-icon {
   width: 35px;
@@ -407,6 +407,24 @@ svg.css-i4bv87-MuiSvgIcon-root {
 .btn-filterSort svg {
   max-width: 20px;
   max-height: 20px;
+}
+.btn-border {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+.btn-border svg {
+  width: 16px;
+  height: 16px;
+}
+.btn-border:hover, .btn-border.active {
+  border-color: #f83890;
+  color: #f83890;
+}
+.btn-border-primary:hover, .btn-border-primary.active {
+  background-color: #f83890;
+  color: #fff;
 }
 .btn_status {
   border: 1px solid #ddd;
@@ -785,6 +803,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
 .dropdown-menu-end .dropdown-menu:before, .dropdown-menu-end .dropdown-menu:after {
   left: inherit;
   right: 22px;
+  width: 20px;
 }
 
 /*---- Rocket Animation ----*/
@@ -829,13 +848,13 @@ svg.css-i4bv87-MuiSvgIcon-root {
 }
 /*---- Form Style Start Here ----*/
 .form-control, .form-select {
-  color: #9c9c9c;
   border: 1px solid #ced4da;
   padding: 10px 20px;
   border-radius: 4px;
   font-size: 1rem;
   line-height: normal;
   text-align: left;
+  color: #191919;
 }
 .form-control:focus, .form-select:focus {
   outline: none;
@@ -1704,6 +1723,29 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .main-body-header-title {
   font-size: 1.8em;
 }
+.main-body-header-btn_group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  grid-gap: 15px;
+}
+.main-body-header-btnAdd {
+  font-size: 13px;
+  color: #f83890;
+  border: 1px solid #f83890;
+  padding: 6px 10px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.main-body-header-btnAdd svg {
+  width: 15px;
+  height: 15px;
+}
+.main-body-header-btnAdd:hover {
+  color: #fff;
+  background-color: #f83890;
+}
 
 /*---- Box Item Style ---*/
 .box-item {
@@ -1730,80 +1772,11 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   }
 }
 
-/*---- Avatar ----*/
-.avatar_email {
-  margin-bottom: 0;
-}
-
-/*---- Teams ----*/
-.team-member {
+/* ----- Avatar ----- */
+.AvatarGroup-avatar_small .MuiAvatarGroup-avatar {
   width: 30px;
   height: 30px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  color: #9c9c9c;
-  font-size: 0.7rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  margin-right: -10px;
-  overflow: hidden;
-}
-.team-member:last-child {
-  background-color: #fff;
-  border-color: #eee;
-  margin-right: 0;
-}
-.team-member-bg-secondary {
-  background-color: #7407ff;
-  border-color: #7407ff;
-  color: #fff;
-}
-.team-member-bg-yellow {
-  background-color: #f7d306;
-  border-color: #f7d306;
-  color: #191919;
-}
-.team-member-bg-orange {
-  background-color: #FF5E0E;
-  border-color: #FF5E0E;
-  color: #fff;
-}
-.team-member a {
-  color: #f83890;
-}
-.team-member img {
-  max-width: 100%;
-}
-.team-member-group {
-  display: flex;
-  flex-wrap: wrap;
-}
-.team-member-full {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px;
-}
-.team-member-full-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.team-member-full-list .team-member {
-  margin-right: 10px;
-}
-.team-member-remove {
-  padding: 0 10px;
-  cursor: pointer;
-  color: #9c9c9c;
-}
-.team-member-remove svg {
-  width: 18px;
+  font-size: 12px;
 }
 
 /*---- Scrollbar ----*/
@@ -1915,20 +1888,6 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   font-size: 20px;
   color: #191919;
 }
-.kanban_bord_column_title_btnAddTask {
-  font-size: 13px;
-  background-color: #fff;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-.kanban_bord_column_title_btnAddTask svg {
-  width: 15px;
-  height: 15px;
-}
-.kanban_bord_column_title_btnAddTask:hover {
-  color: #f83890;
-}
 .kanban_bord_column_title_wrap {
   display: flex;
   align-items: center;
@@ -2023,24 +1982,16 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   width: 767px;
   background-color: #fff;
   box-shadow: 0 3px 30px rgba(0, 0, 0, 0.07);
-  padding: 30px 0;
+  padding: 0 0 30px;
   position: absolute;
   right: 0;
   top: 0;
   height: 100%;
 }
-.AddCanvas_close {
-  position: absolute;
-  top: 15px;
-  right: 40px;
-}
 
 /* ----- Add Task ----- */
 .AddTask_head {
-  padding: 0 30px;
-}
-.AddTask_head_btn_status {
-  display: flex;
+  padding: 15px 30px;
 }
 .AddTask_title {
   font-size: 26px;
@@ -2068,7 +2019,6 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .AddTask_body {
   padding: 30px;
   padding-bottom: 80px;
-  margin-top: 20px;
   height: calc(100% - 30px);
   overflow-y: auto;
   border-top: 1px solid #ddd;
@@ -2112,7 +2062,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   max-height: 100%;
 }
 .add_assignee-name {
-  color: #9c9c9c;
+  color: #191919;
   transition: all 0.3s ease;
 }
 .add_assignee-name:hover {
@@ -2154,6 +2104,9 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   margin-bottom: 10px;
 }
 
+div.css-13cymwt-control {
+  min-height: inherit;
+}
 div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
   border: none;
   outline: none;
@@ -2185,6 +2138,9 @@ div.css-d7l1ni-option, div.css-10wo9uf-option {
 }
 div.css-3w2yfm-ValueContainer, div.css-wsp0cs-MultiValueGeneric, div.css-1p3m7a8-multiValue {
   padding: 0;
+}
+div.css-3w2yfm-ValueContainer {
+  grid-gap: 20px;
 }
 div.css-12a83d4-MultiValueRemove {
   margin-left: 5px;
@@ -2233,10 +2189,16 @@ div.react-datepicker__day--selected {
 div.react-datepicker__day:hover {
   border-radius: 50%;
 }
+div.react-datepicker-popper {
+  z-index: 9999;
+}
+div.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle:after {
+  border-bottom-color: #fff;
+}
 
 /* ----- Filter Sort ----- */
 .filterSort_wrap {
-  max-width: 450px;
+  min-width: 450px;
 }
 .filterSort_body {
   padding: 20px;
@@ -2382,12 +2344,8 @@ div.react-datepicker__day:hover {
 /* ----- Item Submit ----- */
 .item_submit {
   margin-top: 20px;
-  position: absolute;
-  right: 0;
   border-top: 1px solid #eee;
-  width: 100%;
-  text-align: right;
-  padding: 20px;
+  padding: 20px 0;
 }
 .item_submit button {
   min-width: 130px;
@@ -2417,5 +2375,7 @@ div.sun-editor .se-btn-module-border {
 div.sun-editor .se-wrapper-inner {
   font-family: "Jost", sans-serif;
 }
+
+/* ----- Dropdown ----- */
 
 /*# sourceMappingURL=App.css.map */

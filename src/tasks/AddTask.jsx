@@ -10,6 +10,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Dropdown} from "react-bootstrap";
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
+import Tooltip from '@mui/material/Tooltip';
+import Stack from '@mui/material/Stack';
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 import { config } from "../config";
 import axios from 'axios';
@@ -23,10 +29,6 @@ import { async } from "q";
 
 
 export default function AddTask(props) {
-
-    let status = props.status;
-    console.log(status);
-
 
     const closeAddTask = () => {
         props.handleClose();
@@ -168,14 +170,17 @@ export default function AddTask(props) {
         <>
             <div className="AddCanvas">
                 <div className="AddTask_head">
-                    <div className="AddTask_head_btn_status">
-                        <Link className="btn_status"><EventRepeatOutlinedIcon /> In Progress</Link>
-                        <Link className="btn_status"><GradingOutlinedIcon /> In Review</Link>
-                        <Link className="btn_status"><CheckOutlinedIcon /> Completed</Link>
-                    </div>
-                    <div onClick={() => {
-                        closeAddTask()
-                    }} className="AddCanvas_close icon_remove icon_rounded"><CloseOutlinedIcon /></div>
+                    <Stack direction="row" justifyContent="end" spacing={2}>
+                        <Tooltip title="Save Task" arrow>
+                            <Link className="btn-border btn-border-primary"><CheckOutlinedIcon /></Link>
+                        </Tooltip>
+                        <Tooltip title="Close" arrow>
+                            <Link onClick={() => {
+                                    closeAddTask()
+                                }} className="btn-border"><CloseOutlinedIcon />
+                            </Link>
+                        </Tooltip>
+                    </Stack>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
