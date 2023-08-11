@@ -26,6 +26,9 @@ import EditTask from "./EditTask";
 import moment from 'moment';
 import Skeleton from '@mui/material/Skeleton';
 
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+
 export default function TasksFrontend() {
 
     
@@ -361,20 +364,13 @@ export default function TasksFrontend() {
               </div>
 
               <div className="team-member-group">
-                {task.users.map((user,index) => (
-                    index < 2 &&
-                    <span title={user.name} key={"user_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
-                ))}
-                {
-                    task.users.length > 2 &&
                 
-                <span className="team-member">
-                    <a href="#">
-                        +{ task.users.length - 2}
-                    </a>
-                </span>
-                }
               </div>
+              <AvatarGroup className="AvatarGroup-avatar_small" max={3}>
+                {task.users.map((user,index) => (
+                    <Avatar title={user.name} alt={user.name} key={"user_"+user.id} src={user.image} />
+                ))}
+              </AvatarGroup>
           </div>
       </Card.Body>
     </Card>
@@ -417,7 +413,7 @@ export default function TasksFrontend() {
           >
           <div className="kanban_bord_column_title_wrap">
               <div className="kanban_bord_column_title">{columnName}</div> 
-              <div onClick={ ()=>{ handleShow(true); setStatus(columnName); } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</div>    
+              {/* <div onClick={ ()=>{ handleShow(true); setStatus(columnName); } } className="kanban_bord_column_title_btnAddTask"><AddOutlinedIcon /> Add Task</div> */}
           </div>
           <div className="kanban_column_card_body">
               <div className="kanban_column_card">
@@ -445,8 +441,8 @@ export default function TasksFrontend() {
   return (
    
     <>
-    <Header />
-        <div className="main-body">
+      <Header />
+      <div className="main-body">
         <Sidebar />
         <div className="main-body-content">
             <Container fluid>
@@ -460,33 +456,38 @@ export default function TasksFrontend() {
                             </div>
                         </Col>
                         <Col className="text-end">
-                            <Dropdown className="dropdown-menu-end">
-                                <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <div className="filterSort_wrap">
-                                        <div className="filterSort_body">
-                                            <div className="filterSort_body_item">
-                                                <h2 className="filterSort_body-header">Quick Filter</h2>
-                                                <div className="filterSort_body_btn_group">
-                                                    <span className="filterSort_body_btn_action">Incomplete tasks</span>
-                                                    <span className="filterSort_body_btn_action">Completed tasks</span>
-                                                    <span className="filterSort_body_btn_action">My tasks</span>
-                                                    <span className="filterSort_body_btn_action">Due this week</span>
-                                                    <span className="filterSort_body_btn_action">Due next week</span>
-                                                </div>
-                                            </div>
-                                            <div className="filterSort_body_item">
-                                                <h2 className="filterSort_body-header">Sort By Assignee</h2>
-                                                <div className="filterSort_body_btn_group">
-                                                    {users.map((user) => (
-                                                    <span key={"user_filter"+user.id} className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon />{user.name}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Dropdown.Menu>
-                            </Dropdown>
+                          <div className="main-body-header-right">
+                            <div className="main-body-header-btn_group justify-content-end">
+                              <div onClick={ ()=>{ handleShow(true) } } className="main-body-header-btnAdd"><AddOutlinedIcon /> Add Task</div>
+                              <Dropdown className="dropdown-menu-end">
+                                  <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
+                                  <Dropdown.Menu>
+                                      <div className="filterSort_wrap">
+                                          <div className="filterSort_body">
+                                              <div className="filterSort_body_item">
+                                                  <h2 className="filterSort_body-header">Quick Filter</h2>
+                                                  <div className="filterSort_body_btn_group">
+                                                      <span className="filterSort_body_btn_action">Incomplete tasks</span>
+                                                      <span className="filterSort_body_btn_action">Completed tasks</span>
+                                                      <span className="filterSort_body_btn_action">My tasks</span>
+                                                      <span className="filterSort_body_btn_action">Due this week</span>
+                                                      <span className="filterSort_body_btn_action">Due next week</span>
+                                                  </div>
+                                              </div>
+                                              <div className="filterSort_body_item">
+                                                  <h2 className="filterSort_body-header">Sort By Assignee</h2>
+                                                  <div className="filterSort_body_btn_group">
+                                                      {users.map((user) => (
+                                                      <span key={"user_filter"+user.id} className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon />{user.name}</span>
+                                                      ))}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </Dropdown.Menu>
+                              </Dropdown>
+                            </div>
+                          </div>
                         </Col>
                     </Row>
                 </div>
@@ -514,11 +515,8 @@ export default function TasksFrontend() {
             </Container>
         </div>
         { show ? <AddTask show={show} handleClose={handleClose} status={status} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
-        { editShow ? <EditTask id={taskIdForEdit} show={show} handleEditClose={handleEditClose} status={status} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }
-                                                      
-    </div>
-</>
-
+        { editShow ? <EditTask id={taskIdForEdit} show={show} handleEditClose={handleEditClose} status={status} addTask={addTask} title={title} setTitle={setTitle} description={description} setDescription={setDescription} priority={priority} setPriority={setPriority} dueDate={dueDate} setDueDate={setDueDate} userOptions={userOptions} userChangeHandler={userChangeHandler} clients={clients} setClientId={setClientId} projects={projects} setProjectId={setProjectId} /> : null }                                                     
+      </div>
+    </>
   );
-
 }
