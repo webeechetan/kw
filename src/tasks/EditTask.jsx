@@ -210,11 +210,6 @@ export default function EditTask(props) {
         return res;
     }
 
-
-
-
-
-
     return (
         <>
             <div className="AddCanvas">
@@ -308,7 +303,8 @@ export default function EditTask(props) {
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Project</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                <Select
+                                    <Select
+                                        isMulti
                                         defaultValue={selectedProject}
                                         options={projectOptions}
                                         onChange={projectChangeHandler}
@@ -337,17 +333,28 @@ export default function EditTask(props) {
                                 <div className="AddTask_rulesOverview_item_name">Description</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                    {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <div>{description}</div></div>}
+                                        {!editor && <div className="AddTask_des_text" onClick={() => { setEditor(true) }}> <span 
+                                        dangerouslySetInnerHTML={{ __html: description }}></span></div>}
+
                                         {editor && <SunEditor
                                             onChange={(content) => { setDescription(content) }}
                                             setContents={description}
+                                            setOptions={{
+                                                height: 100,
+                                                buttonList: [
+                                                    ['undo', 'redo'],
+                                                    [ 'fontSize'],
+                                                    ['bold', 'underline', 'italic', 'strike'],
+                                                    ['fontColor'],
+                                                    ['align', 'horizontalRule', 'list'],
+                                                    ['link'],
+                                                ],
+                                            }}
                                         />}
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        {/* <button className="btn btn-primary mt-3" onClick={UpdateTask}>Update</button> */}
 
                         {/* Activity */}
                         <h5 className="mt-5">Activity</h5>
@@ -380,15 +387,11 @@ export default function EditTask(props) {
                                     height: 100,
                                     buttonList: [
                                         ['undo', 'redo'],
-                                        ['font', 'fontSize', 'formatBlock'],
-                                        ['paragraphStyle', 'blockquote'],
+                                        [ 'fontSize'],
                                         ['bold', 'underline', 'italic', 'strike'],
-                                        ['fontColor', 'hiliteColor', 'textStyle'],
-                                        ['outdent', 'indent'],
-                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
-                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
-                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-                                        ['fullScreen', 'showBlocks', 'codeView'],
+                                        ['fontColor'],
+                                        ['align', 'horizontalRule', 'list'],
+                                        ['link'],
                                     ],
                                 }}
                             />

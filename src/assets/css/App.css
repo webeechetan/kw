@@ -2034,7 +2034,6 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .add_assignee {
   display: flex;
   align-items: center;
-  grid-gap: 10px;
   cursor: pointer;
 }
 .add_assignee-img {
@@ -2051,6 +2050,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 .add_assignee-name {
   color: #191919;
   transition: all 0.3s ease;
+  padding: 4px 4px 4px 10px;
 }
 .add_assignee-name:hover {
   color: #f83890;
@@ -2125,9 +2125,6 @@ div.css-3w2yfm-ValueContainer, div.css-wsp0cs-MultiValueGeneric, div.css-1p3m7a8
 }
 div.css-3w2yfm-ValueContainer {
   grid-gap: 10px;
-}
-div.css-12a83d4-MultiValueRemove {
-  margin-left: 5px;
 }
 div.css-1p3m7a8-multiValue {
   background-color: #f3f6f9;
@@ -2261,7 +2258,7 @@ div.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle:
 
 /* ----- Task List View ----- */
 .taskList_head {
-  margin: 15px 0;
+  margin-top: 15px;
 }
 .taskList_head_col {
   padding: 15px 20px;

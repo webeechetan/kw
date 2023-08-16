@@ -33,7 +33,7 @@ export default function TasksFrontend() {
 
     
   // modal state
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [editShow, setEditShow] = useState(false);

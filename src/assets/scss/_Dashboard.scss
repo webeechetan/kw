@@ -371,7 +371,6 @@
 .add_assignee {
     display: flex;
     align-items: center;
-    grid-gap: $spacing_xs;
     cursor: pointer;
     
     &-img {
@@ -384,6 +383,7 @@
     &-name {
         color: $text-color;
         transition: $ease_03;
+        padding: 4px 4px 4px 10px;
         
         &:hover {
             color: $brand;
@@ -457,9 +457,6 @@ div.css {
     }
     &-3w2yfm-ValueContainer {
         grid-gap: $spacing_xs;
-    }
-    &-12a83d4-MultiValueRemove {
-        margin-left: 5px;
     }
     &-1p3m7a8-multiValue {
         background-color: $light;
@@ -596,7 +593,7 @@ div.react-datepicker {
 /* ----- Task List View ----- */
 .taskList {
     &_head {
-        margin: $spacing_s 0;
+        margin-top: $spacing_s;
         &_col {
             padding: $spacing_s $spacing_sm;
             min-width: 150px;

@@ -179,7 +179,7 @@ export default function AddTask(props) {
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
-                        <input className="form-control add_input_style AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" placeholder="Type your task here..." />
+                        <input className="form-control form-control-typeStyle AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" placeholder="Type your task here..." />
                         <div className="AddTask_rulesOverview">
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Assigned to</div>
@@ -230,7 +230,7 @@ export default function AddTask(props) {
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Project</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
-                                <Select
+                                    <Select
                                         options={projectOptions}
                                         onChange={projectChangeHandler}
                                     />
@@ -271,16 +271,11 @@ export default function AddTask(props) {
                                                     height: 100,
                                                     buttonList: [
                                                         ['undo', 'redo'],
-                                                        ['font', 'fontSize', 'formatBlock'],
-                                                        ['paragraphStyle', 'blockquote'],
+                                                        [ 'fontSize'],
                                                         ['bold', 'underline', 'italic', 'strike'],
-                                                        ['fontColor', 'hiliteColor', 'textStyle'],
-                                                        ['outdent', 'indent'],
-                                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
-                                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
-                                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-                                                        ['fullScreen', 'showBlocks', 'codeView'],
-                                                        [ 'print'],
+                                                        ['fontColor'],
+                                                        ['align', 'horizontalRule', 'list'],
+                                                        ['link'],
                                                     ],
                                                 }}
                                                 imageUploadUrl={`${config.api_url}/uploadImage`}

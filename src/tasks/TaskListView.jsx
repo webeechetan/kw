@@ -22,6 +22,14 @@ import Tooltip from '@mui/material/Tooltip';
 
 export default function TasksListView() {
 
+    // modal state
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    // API Data State
+    const [users, setUsers] = useState([]);
+
     const [tasks, setTasks] = useState([]);
     const [selectedTask, setSelectedTask] = useState(null);
     const [editShow, setEditShow] = useState(false);
@@ -54,50 +62,48 @@ export default function TasksListView() {
                 <Sidebar />
                 <div className="main-body-content">
                     <Container fluid>
-                        <div className="main-body-header pb-0">
+                        <div className="main-body-header">
                             <Row className="align-items-center">
                                 <Col>
                                     <h3 className="main-body-header-title mb-0">All Tasks</h3>
                                     <div className="tabNavigationBar-tab">
-                                        <Link className="tabNavigationBar-item tabNavigationBar-item-active"><FormatListBulletedOutlinedIcon /> List</Link>
+                                        <div className="tabNavigationBar-item tabNavigationBar-item-active"><FormatListBulletedOutlinedIcon /> List</div>
                                         <Link className="tabNavigationBar-item" to="task-board"> <ViewWeekOutlinedIcon /> Board</Link>
                                     </div>
                                 </Col>
-                                <Col>
-                                    <div className="main-body-header-right">
-                                        <div className="main-body-header-btn_group justify-content-end">
-                                            <div className="main-body-header-btnAdd"><AddOutlinedIcon /> Add Task</div>
-                                            <Dropdown className="dropdown-menu-end">
-                                                <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
-                                                <Dropdown.Menu>
-                                                    <div className="filterSort_wrap">
-                                                        <div className="filterSort_body">
-                                                            <div className="filterSort_body_item">
-                                                                <h2 className="filterSort_body-header">Quick Filter</h2>
-                                                                <div className="filterSort_body_btn_group">
-                                                                    <span className="filterSort_body_btn_action">Incomplete tasks</span>
-                                                                    <span className="filterSort_body_btn_action">Completed tasks</span>
-                                                                    <span className="filterSort_body_btn_action">My tasks</span>
-                                                                    <span className="filterSort_body_btn_action">Due this week</span>
-                                                                    <span className="filterSort_body_btn_action">Due next week</span>
-                                                                </div>
-                                                            </div>
-                                                            <div className="filterSort_body_item">
-                                                                <h2 className="filterSort_body-header">Sort By Assignee</h2>
-                                                                <div className="filterSort_body_btn_group">
-                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Rakesh Roshan</span>
-                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> John Cena</span>
-                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> The Rock</span>
-                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Chetan Kumar</span>
-                                                                    <span className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon /> Vikram Ahuja</span>
-                                                                </div>
-                                                            </div>
+                                <Col className="text-end">
+                                <div className="main-body-header-right">
+                                    <div className="main-body-header-btn_group justify-content-end">
+                                    <div onClick={ ()=>{ handleShow(true) } } className="main-body-header-btnAdd"><AddOutlinedIcon /> Add Task</div>
+                                    <Dropdown className="dropdown-menu-end">
+                                        <Dropdown.Toggle className="btn-filterSort"><FilterListOutlinedIcon /> Filter</Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <div className="filterSort_wrap">
+                                                <div className="filterSort_body">
+                                                    <div className="filterSort_body_item">
+                                                        <h2 className="filterSort_body-header">Quick Filter</h2>
+                                                        <div className="filterSort_body_btn_group">
+                                                            <span className="filterSort_body_btn_action">Incomplete tasks</span>
+                                                            <span className="filterSort_body_btn_action">Completed tasks</span>
+                                                            <span className="filterSort_body_btn_action">My tasks</span>
+                                                            <span className="filterSort_body_btn_action">Due this week</span>
+                                                            <span className="filterSort_body_btn_action">Due next week</span>
                                                         </div>
                                                     </div>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div>
+                                                    <div className="filterSort_body_item">
+                                                        <h2 className="filterSort_body-header">Sort By Assignee</h2>
+                                                        <div className="filterSort_body_btn_group">
+                                                            {users.map((user) => (
+                                                            <span key={"user_filter"+user.id} className="filterSort_body_btn_action"><PersonOutlineOutlinedIcon />{user.name}</span>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                     </div>
+                                </div>
                                 </Col>
                             </Row>
                         </div>
