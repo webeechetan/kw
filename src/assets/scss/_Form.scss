@@ -21,6 +21,18 @@
             min-height: 50px;
         }
     }
+    &-control {
+        &-typeStyle {
+            border: none;
+            padding: 0;
+            &:focus-visible {
+                border: none;
+            }
+            &:hover, &:focus {
+                border: 1px solid $border_grey;
+            }
+        }
+     }
     &-check {
         text-align: left;
         &-input {
@@ -72,13 +84,6 @@ input {
         box-shadow: 0 0 0 50px $white inset;
         -webkit-box-shadow: 0 0 0 50px $white inset;
         -webkit-text-fill-color: $text_form;
-    }
-}
-.add_input_style {
-    border: none;
-    padding: 0;
-    &:focus-visible, &:focus {
-        border: none;
     }
 }
 /*---- Form Style End Here ----*/

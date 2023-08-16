@@ -15,6 +15,10 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import EditTask from "./EditTask";
 import axios from "axios";
 import { config } from "../config";
+import Skeleton from '@mui/material/Skeleton';
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Tooltip from '@mui/material/Tooltip';
 
 export default function TasksListView() {
 
@@ -23,8 +27,10 @@ export default function TasksListView() {
     const [editShow, setEditShow] = useState(false);
     const handleEditClose = () => setEditShow(false);
     const handleEditShow = () => setEditShow(true);
+    const [loading, setLoading] = useState(true);
 
     async function getTasks() {
+
         let __token = localStorage.getItem('__token');
         const header = {
             headers: { Authorization: `Bearer ${__token}` }
@@ -33,6 +39,7 @@ export default function TasksListView() {
         if (response.data.success === true) {
             setTasks(response.data.data);
         }
+        setLoading(false);
     }
 
 
@@ -108,6 +115,13 @@ export default function TasksListView() {
                                     </div>
                                 </div>
                                 <div className="taskList_item">
+                                    {loading && 
+                                        <div key={"task_list_loading"} >
+                                            <Skeleton />
+                                            <Skeleton animation="wave" />
+                                            <Skeleton animation={false} />
+                                        </div>
+                                    }
                                     { tasks.map((task, index) => (
                                     <div className="taskList_row" key={"task_list_"+task.id} onClick={ ()=>{ setSelectedTask(task); setEditShow(true); } }>
                                         <div className="taskList_col taskList_col_title">
@@ -118,18 +132,20 @@ export default function TasksListView() {
                                         </div>
                                         <div className="taskList_col"><div className="d-flex align-items-center justify-content-center"><InsertDriveFileOutlinedIcon /> <span className="ms-1">Acma Web</span></div></div>
                                         <div className="taskList_col">
-                                            <div className="team-member-group">
-                                                {task.users.map((user, index) => (
-                                                <span key={"assigned_memebr_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
+                                            <AvatarGroup className="AvatarGroup-avatar_small" max={3}>
+                                                {task.users.map((user,index) => (
+                                                    <Tooltip title={user.name} arrow>
+                                                        <Avatar alt={user.name} key={"assigned_memebr_"+user.id} src={user.image} />
+                                                    </Tooltip>
                                                 ))}
-                                            </div>
+                                            </AvatarGroup>
                                         </div>
                                         <div className="taskList_col">
-                                            <div className="team-member-group">
-                                                {task.users.map((user, index) => (
-                                                <span key={"assigned_memebr_"+user.id} className="team-member"><img src={user.image} alt="User" /></span>
+                                            <AvatarGroup className="AvatarGroup-avatar_small" max={3}>
+                                                {task.users.map((user,index) => (
+                                                    <Avatar title={user.name} alt={user.name} key={"assigned_memebr_"+user.id} src={user.image} />
                                                 ))}
-                                            </div>
+                                            </AvatarGroup>
                                         </div>
                                         <div className="taskList_col">
                                             <Link className="kanban_column_task_date" to="#"><span className="btn-icon-task-action"><DateRangeOutlinedIcon /></span> <span>{task.due_date}</span></Link>

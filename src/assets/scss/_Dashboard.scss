@@ -437,9 +437,6 @@ div.css {
             display: none;
         }
     }
-    &-1p3m7a8-multiValue {
-        background-color: transparent;
-    }
     &-qbdosj-Input {
         cursor: text;
     }
@@ -459,10 +456,15 @@ div.css {
         padding: 0;
     }
     &-3w2yfm-ValueContainer {
-        grid-gap: 20px;
+        grid-gap: $spacing_xs;
     }
     &-12a83d4-MultiValueRemove {
         margin-left: 5px;
+    }
+    &-1p3m7a8-multiValue {
+        background-color: $light;
+        border-radius: $border_radius_rounded;
+        padding-right: 3px;
     }
 }
 
@@ -594,7 +596,7 @@ div.react-datepicker {
 /* ----- Task List View ----- */
 .taskList {
     &_head {
-        margin-top: $spacing_s;
+        margin: $spacing_s 0;
         &_col {
             padding: $spacing_s $spacing_sm;
             min-width: 150px;
@@ -685,4 +687,12 @@ div.sun-editor {
     }
 }
 
-/* ----- Dropdown ----- */
+/* ----- Skeleton ----- */
+.Skeleton {
+    &-avatarName {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: 5px;
+        align-items: center;   
+    }
+}

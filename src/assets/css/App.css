@@ -678,7 +678,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
   background-color: #fff;
   background-clip: padding-box;
   box-shadow: 0 3px 30px #eee;
-  border: 1px solid #f5f5f5;
+  border: 1px solid #f3f6f9;
   position: relative;
 }
 .dropdown-menu[data-bs-popper] {
@@ -692,7 +692,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
   position: absolute;
   top: -10px;
   left: 15px;
-  border-bottom: 10px solid #f5f5f5;
+  border-bottom: 10px solid #f3f6f9;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
@@ -712,7 +712,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
   padding: 10px 15px;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   color: #191919;
 }
 .dropdown-item:hover .dropdown-subIcon, .dropdown-item:focus .dropdown-subIcon {
@@ -755,7 +755,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   border-radius: 50%;
   margin-right: 10px;
   transition: all 0.3s ease;
@@ -769,7 +769,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   border-radius: 50%;
   margin-right: 10px;
   transition: all 0.3s ease;
@@ -851,6 +851,16 @@ svg.css-i4bv87-MuiSvgIcon-root {
     min-height: 50px;
   }
 }
+.form-control-typeStyle {
+  border: none;
+  padding: 0;
+}
+.form-control-typeStyle:focus-visible {
+  border: none;
+}
+.form-control-typeStyle:hover, .form-control-typeStyle:focus {
+  border: 1px solid #eee;
+}
 .form-check {
   text-align: left;
 }
@@ -902,14 +912,6 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   box-shadow: 0 0 0 50px #fff inset;
   -webkit-box-shadow: 0 0 0 50px #fff inset;
   -webkit-text-fill-color: #9c9c9c;
-}
-
-.add_input_style {
-  border: none;
-  padding: 0;
-}
-.add_input_style:focus-visible, .add_input_style:focus {
-  border: none;
 }
 
 /*---- Form Style End Here ----*/
@@ -1182,7 +1184,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   color: #f83890;
   display: flex;
   flex-wrap: wrap;
@@ -1287,7 +1289,7 @@ input:-webkit-autofill, input:-webkit-autofill:focus {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   overflow: hidden;
   margin-right: 20px;
 }
@@ -1496,7 +1498,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
   opacity: 0;
 }
 table > :not(caption) > * > * {
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   box-shadow: none;
 }
 table.table > :not(:first-child) {
@@ -1628,7 +1630,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 }
 .table-striped > tbody > tr:nth-of-type(odd) > * {
   --bs-table-accent-bg: inherit;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
 }
 
 .table-hover > tbody > tr:hover > * {
@@ -1647,7 +1649,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   display: block;
   color: #191919;
   text-decoration: none;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   border: 1px solid #191919;
   transition: all 0.3s ease;
 }
@@ -1768,7 +1770,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   padding-right: 10px;
 }
 .scrollbar::-webkit-scrollbar-track {
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
 }
 .scrollbar::-webkit-scrollbar {
   border-radius: 4px;
@@ -2039,7 +2041,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
   overflow: hidden;
 }
 .add_assignee-img img {
@@ -2072,7 +2074,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 #react-select-3-listbox > div::-webkit-scrollbar-track, #react-select-3-listbox > div::-webkit-scrollbar-thumb {
   -webkit-box-shadow: none;
   border-radius: 7px;
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
 }
 #react-select-3-listbox > div::-webkit-scrollbar-thumb {
   background-color: #fdf4c1;
@@ -2106,9 +2108,6 @@ div.css-wsp0cs-MultiValueGeneric {
 div.css-wsp0cs-MultiValueGeneric .add_assignee-name span {
   display: none;
 }
-div.css-1p3m7a8-multiValue {
-  background-color: transparent;
-}
 div.css-qbdosj-Input {
   cursor: text;
 }
@@ -2125,10 +2124,15 @@ div.css-3w2yfm-ValueContainer, div.css-wsp0cs-MultiValueGeneric, div.css-1p3m7a8
   padding: 0;
 }
 div.css-3w2yfm-ValueContainer {
-  grid-gap: 20px;
+  grid-gap: 10px;
 }
 div.css-12a83d4-MultiValueRemove {
   margin-left: 5px;
+}
+div.css-1p3m7a8-multiValue {
+  background-color: #f3f6f9;
+  border-radius: 30px;
+  padding-right: 3px;
 }
 
 /* ----- React Date Picker ----- */
@@ -2165,7 +2169,7 @@ div.react-datepicker__day-name, div.react-datepicker__day, div.react-datepicker_
   border-radius: 30px;
 }
 div.react-datepicker__day-name {
-  background-color: #f5f5f5;
+  background-color: #f3f6f9;
 }
 div.react-datepicker__day--selected {
   background-color: #f83890;
@@ -2257,7 +2261,7 @@ div.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle:
 
 /* ----- Task List View ----- */
 .taskList_head {
-  margin-top: 15px;
+  margin: 15px 0;
 }
 .taskList_head_col {
   padding: 15px 20px;
@@ -2361,6 +2365,12 @@ div.sun-editor .se-wrapper-inner {
   font-family: "Jost", sans-serif;
 }
 
-/* ----- Dropdown ----- */
+/* ----- Skeleton ----- */
+.Skeleton-avatarName {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 5px;
+  align-items: center;
+}
 
 /*# sourceMappingURL=App.css.map */
