@@ -40,6 +40,7 @@
     &-sm {
         padding: $spacing_btn_sm;
         font-size: 0.8rem;
+        transition: $ease_03;
         svg {
             width: 1rem;
         }
@@ -159,6 +160,8 @@
         border-radius: $border_radius_xs;
         padding: $spacing_btn_xs;
         transition: $ease_03;
+        background-color: transparent;
+        display: inline-block;
 
         svg {
             width: 16px;

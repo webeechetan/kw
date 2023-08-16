@@ -304,6 +304,7 @@
     right: 0;
     top: 0;
     height: 100%;
+    overflow: hidden;
 }
 
 /* ----- Add Task ----- */
@@ -336,8 +337,7 @@
     }
     &_body {
         padding: $spacing_md;
-        padding-bottom: 80px;
-        height: calc(100% - 30px);
+        height: calc(100% - 200px);
         overflow-y: auto;
         border-top: 1px solid $border_dark_grey;
         position: relative;
@@ -660,19 +660,30 @@ div.react-datepicker {
 /* ----- Sun Editor ----- */
 div.sun-editor {
     font-family: $jost;
-    border-color: $grey;
+    border: none;
+    background-color: $light;
+    border-radius: $border_radius_sm;
     .se {
+        &-container {
+            padding: 10px 10px 55px;
+        }
         &-resizing-bar {
             display: none;
         }
         &-toolbar {
             outline: none;
-            border-bottom: 1px solid $grey;
-            background-color: #fff;
+            border-bottom: none;
+            background-color: transparent;
+            position: absolute;
+            left: 20px;
+            bottom: 20px;
+            width: auto;
+            display: inline-block;
         }
         &-btn {
             &-tray {
-                padding: 5px;
+                padding: 0;
+                height: 32px;
             }
             &-module-border {
                 border: none;
@@ -681,6 +692,15 @@ div.sun-editor {
         &-wrapper-inner {
             font-family: $jost;
         }
+    }
+    button>svg {
+        width: 13px;
+        height: 13px;
+        display: flex;
+        align-items: center;
+    }
+    &-editable {
+        background-color: transparent;
     }
 }
 
@@ -691,5 +711,28 @@ div.sun-editor {
         grid-template-columns: auto 1fr;
         grid-gap: 5px;
         align-items: center;   
+    }
+}
+
+/* ----- Comment Area ----- */
+.custComment {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    &-wrap {
+        position: relative;
+        margin: $spacing_sm $spacing_md;
+    }
+
+    &-btn {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        z-index: 99;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        grid-gap: 4px;
     }
 }

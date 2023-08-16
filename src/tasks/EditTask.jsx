@@ -23,6 +23,8 @@ import { Update } from "@mui/icons-material";
 import moment from "moment/moment";
 
 import Skeleton from '@mui/material/Skeleton';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+import CropFreeOutlinedIcon from '@mui/icons-material/CropFreeOutlined';
 
 
 
@@ -214,17 +216,26 @@ export default function EditTask(props) {
         <>
             <div className="AddCanvas">
                 <div className="AddTask_head">
-                    <Stack direction="row" justifyContent="end" spacing={2}>
-                        <Tooltip title="Save Task" arrow>
-                            <Link className="btn-border btn-border-primary" onClick={UpdateTask}><CheckOutlinedIcon /></Link>
-                        </Tooltip>
-                        <Tooltip title="Close" arrow>
-                            <Link onClick={() => {
-                                    closeEditk()
-                                }} className="btn-border"><CloseOutlinedIcon />
-                            </Link>
-                        </Tooltip>
-                    </Stack>
+                    <Row>
+                        <Col>
+                            <Tooltip title="Single Task View" placement="bottom-start" arrow>
+                                <Link className="btn-border" onClick={UpdateTask}><CropFreeOutlinedIcon /></Link>
+                            </Tooltip>
+                        </Col>
+                        <Col>
+                            <Stack direction="row" justifyContent="end" spacing={2}>
+                                <Tooltip title="Save Task" arrow>
+                                    <Link className="btn-border btn-border-primary" onClick={UpdateTask}><CheckOutlinedIcon /></Link>
+                                </Tooltip>
+                                <Tooltip title="Close" arrow>
+                                    <Link onClick={() => {
+                                            closeEditk()
+                                        }} className="btn-border"><CloseOutlinedIcon />
+                                    </Link>
+                                </Tooltip>
+                            </Stack>
+                        </Col>
+                    </Row>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
@@ -375,33 +386,31 @@ export default function EditTask(props) {
                                 </div>
                             ))}
                         </div>
-                        
-                        {/* Comments */}
-                        <h5 className="mt-5">Comments</h5>
-                        <div className="mt-4">
-                            <div className="mb-4">
-                            <SunEditor 
-                                onChange={(content) => { setComment(content) }}
-                                setContents={comment}
-                                setOptions={{
-                                    height: 100,
-                                    buttonList: [
-                                        ['undo', 'redo'],
-                                        [ 'fontSize'],
-                                        ['bold', 'underline', 'italic', 'strike'],
-                                        ['fontColor'],
-                                        ['align', 'horizontalRule', 'list'],
-                                        ['link'],
-                                    ],
-                                }}
-                            />
-                            </div>
-                            <div className="d-flex">
-                                <button className="btn btn-primary" onClick={ ()=>{ addComment() } }>Add Comment</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                {/* Comments */}
+                <div className="custComment">
+                        <div className="custComment-wrap">
+                            <div className="custComment-editor">
+                                <SunEditor 
+                                    onChange={(content) => { setComment(content) }}
+                                    setContents={comment}
+                                    setOptions={{
+                                        height: 100,
+                                        buttonList: [
+                                            ['undo', 'redo'],
+                                            [ 'fontSize'],
+                                            ['bold', 'underline', 'italic', 'strike'],
+                                            ['fontColor'],
+                                            ['align', 'horizontalRule', 'list'],
+                                            ['link'],
+                                        ],
+                                    }}
+                                />
+                            </div>
+                            <button className="btn-sm btn-primary custComment-btn" onClick={ ()=>{ addComment() } }>Comment <SendOutlinedIcon/></button>
+                        </div>
+                    </div>
             </div>
         </>
     )

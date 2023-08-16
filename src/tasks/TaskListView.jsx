@@ -122,7 +122,7 @@ export default function TasksListView() {
                                 </div>
                                 <div className="taskList_item">
                                     {loading && 
-                                        <div key={"task_list_loading"} >
+                                        <div className="mt-3" key={"task_list_loading"} >
                                             <Skeleton />
                                             <Skeleton animation="wave" />
                                             <Skeleton animation={false} />

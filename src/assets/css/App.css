@@ -304,6 +304,7 @@ svg.css-i4bv87-MuiSvgIcon-root {
 .btn-sm {
   padding: 0.3rem 1rem;
   font-size: 0.8rem;
+  transition: all 0.3s ease;
 }
 .btn-sm svg {
   width: 1rem;
@@ -412,6 +413,8 @@ svg.css-i4bv87-MuiSvgIcon-root {
   border-radius: 4px;
   padding: 5px 10px;
   transition: all 0.3s ease;
+  background-color: transparent;
+  display: inline-block;
 }
 .btn-border svg {
   width: 16px;
@@ -1971,6 +1974,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   right: 0;
   top: 0;
   height: 100%;
+  overflow: hidden;
 }
 
 /* ----- Add Task ----- */
@@ -2002,8 +2006,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 }
 .AddTask_body {
   padding: 30px;
-  padding-bottom: 80px;
-  height: calc(100% - 30px);
+  height: calc(100% - 200px);
   overflow-y: auto;
   border-top: 1px solid #ddd;
   position: relative;
@@ -2342,24 +2345,44 @@ div.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle:
 /* ----- Sun Editor ----- */
 div.sun-editor {
   font-family: "Jost", sans-serif;
-  border-color: #eee;
+  border: none;
+  background-color: #f3f6f9;
+  border-radius: 10px;
+}
+div.sun-editor .se-container {
+  padding: 10px 10px 55px;
 }
 div.sun-editor .se-resizing-bar {
   display: none;
 }
 div.sun-editor .se-toolbar {
   outline: none;
-  border-bottom: 1px solid #eee;
-  background-color: #fff;
+  border-bottom: none;
+  background-color: transparent;
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  width: auto;
+  display: inline-block;
 }
 div.sun-editor .se-btn-tray {
-  padding: 5px;
+  padding: 0;
+  height: 32px;
 }
 div.sun-editor .se-btn-module-border {
   border: none;
 }
 div.sun-editor .se-wrapper-inner {
   font-family: "Jost", sans-serif;
+}
+div.sun-editor button > svg {
+  width: 13px;
+  height: 13px;
+  display: flex;
+  align-items: center;
+}
+div.sun-editor-editable {
+  background-color: transparent;
 }
 
 /* ----- Skeleton ----- */
@@ -2368,6 +2391,28 @@ div.sun-editor .se-wrapper-inner {
   grid-template-columns: auto 1fr;
   grid-gap: 5px;
   align-items: center;
+}
+
+/* ----- Comment Area ----- */
+.custComment {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.custComment-wrap {
+  position: relative;
+  margin: 20px 30px;
+}
+.custComment-btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+  z-index: 99;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  grid-gap: 4px;
 }
 
 /*# sourceMappingURL=App.css.map */
