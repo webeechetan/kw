@@ -313,15 +313,11 @@ export default function EditTask(props) {
                                     height: 100,
                                     buttonList: [
                                         ['undo', 'redo'],
-                                        ['font', 'fontSize', 'formatBlock'],
-                                        ['paragraphStyle', 'blockquote'],
+                                        [ 'fontSize'],
                                         ['bold', 'underline', 'italic', 'strike'],
-                                        ['fontColor', 'hiliteColor', 'textStyle'],
-                                        ['outdent', 'indent'],
-                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
-                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
-                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-                                        ['fullScreen', 'showBlocks', 'codeView'],
+                                        ['fontColor'],
+                                        ['align', 'horizontalRule', 'list'],
+                                        ['link'],
                                     ],
                                 }}
                             />}
@@ -360,15 +356,11 @@ export default function EditTask(props) {
                                     height: 100,
                                     buttonList: [
                                         ['undo', 'redo'],
-                                        ['font', 'fontSize', 'formatBlock'],
-                                        ['paragraphStyle', 'blockquote'],
+                                        [ 'fontSize'],
                                         ['bold', 'underline', 'italic', 'strike'],
-                                        ['fontColor', 'hiliteColor', 'textStyle'],
-                                        ['outdent', 'indent'],
-                                        ['align', 'horizontalRule', 'list', 'lineHeight'],
-                                        ['link', 'image'], // You must add the 'katex' library at options to use the 'math' plugin.
-                                        /** ['imageGallery'] */ // You must add the "imageGalleryUrl".
-                                        ['fullScreen', 'showBlocks', 'codeView'],
+                                        ['fontColor'],
+                                        ['align', 'horizontalRule', 'list'],
+                                        ['link'],
                                     ],
                                 }}
                             />
