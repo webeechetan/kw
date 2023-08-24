@@ -13,6 +13,17 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
+import Favorite from '@mui/icons-material/Favorite';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import RepeatOneIcon from '@mui/icons-material/RepeatOne';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import { FormControl, InputLabel, MenuItem, FormHelperText } from '@mui/material';
+import { Select as SelectMaterial } from '@mui/material';
+import { Cron } from 'react-js-cron'
+import 'react-js-cron/dist/styles.css'
+import { converter } from 'react-js-cron'
+
 
 import { config } from "../config";
 import axios from 'axios';
@@ -31,6 +42,8 @@ export default function AddTask(props) {
         props.handleClose();
     }
 
+    const [cron, setCron] = useState('30 5 * * 1,6')
+
     const [users, setUsers] = useState([]);
     const [userOptions, setUserOptions] = useState([]);
     const [startDate, setStartDate] = useState('');
@@ -42,6 +55,12 @@ export default function AddTask(props) {
     const [description, setDescription] = useState('');
     const [editor, setEditor] = useState(false);
     const [projectOptions, setProjectOptions] = useState([]);
+    const [isRecurring, setIsRecurring] = useState(false);
+
+    const handleCronChange = (e) => {
+        console.log(e);
+        setCron(e);
+    }
 
     const userChangeHandler = e => {
 
@@ -282,6 +301,34 @@ export default function AddTask(props) {
                                                 onImageUpload={handleImageUpload}
                                             />
                                             )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="AddTask_rulesOverview_item">
+                                <div className="AddTask_rulesOverview_item_name">Recurring</div>
+                                <div className="AddTask_rulesOverview_item_rulesAction">
+                                    <div className="AddTask_rulesOverview_item_rulesAction_wrap">
+                                        <div className="AddTask_rulesOverview_item_add">
+                                            <div className="addRules">
+                                                    <Checkbox  
+                                                        checked={isRecurring}
+                                                        onChange={(e)=>{ setIsRecurring(e.target.checked) }}
+                                                        icon={<RepeatOneIcon />}
+                                                        checkedIcon={<RepeatIcon />}
+                                                    />
+                                            </div>
+                                            { isRecurring && 
+                                                <div className="addRules">
+                                                        <Cron 
+                                                        value={cron} 
+                                                        setValue={setCron} 
+                                                        onChange={(e)=>{ setCron(e) }}
+                                                        /> 
+                                                </div>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>

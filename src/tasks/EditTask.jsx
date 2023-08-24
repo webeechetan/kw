@@ -51,6 +51,7 @@ export default function EditTask(props) {
     const [editor, setEditor] = useState(false);
     const [projectOptions, setProjectOptions] = useState([]);
     const [selectedProject, setSelectedProject] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const userChangeHandler = e => {
 
@@ -138,6 +139,7 @@ export default function EditTask(props) {
             });
         });
         setUserOptions(options);
+        setLoading(false);
         return res;
     }
 
@@ -156,7 +158,7 @@ export default function EditTask(props) {
         }
         );
         setProjectOptions(options);
-        
+        setLoading(false);
         return res;
         
     }
@@ -239,14 +241,19 @@ export default function EditTask(props) {
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
-                        <Skeleton height={10} />
-                        <Skeleton animation="wave" height={10} />
-                        <Skeleton animation={false} height={10} />
+                    {loading && 
+                        <div>
+                            <Skeleton height={10} />
+                            <Skeleton animation="wave" height={10} />
+                            <Skeleton animation={false} height={10} />
+                        </div>
+                    }
                         <input className="form-control form-control-typeStyle AddTask_title" onChange={(e)=>{ setTitle(e.target.value) }} type="text" defaultValue={task.name} placeholder="Type your task..." />
                         <div className="AddTask_rulesOverview">
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Assigned to</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
+                                    {loading && 
                                     <Row>
                                         <Col>
                                             <div className="Skeleton-avatarName">
@@ -267,6 +274,7 @@ export default function EditTask(props) {
                                             </div>
                                         </Col>
                                     </Row>
+                                    }
                                     <Select 
                                         options={userOptions} 
                                         isMulti 
