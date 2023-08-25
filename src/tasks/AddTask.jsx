@@ -180,6 +180,8 @@ export default function AddTask(props) {
 
     }
 
+
+
     return (
         <>
             <div className="AddCanvas">
@@ -269,6 +271,26 @@ export default function AddTask(props) {
                                                         <DatePickerCustomInput />
                                                     }
                                                 />
+                                                <Checkbox  
+                                                    checked={isRecurring}
+                                                    onChange={(e)=>{ setIsRecurring(e.target.checked) }}
+                                                    icon={<RepeatOneIcon />}
+                                                    checkedIcon={<RepeatIcon />}
+                                                />
+                                                <button id="rec_pop" className="cus_popover-btn"></button>
+                                                <div className="cus_popover repeatTaskCalender cus_popover-end">
+                                                    <div className="cus_popover-wrap">
+                                                        <div className="cus_popover-header">
+
+                                                        </div>
+                                                        <div className="cus_popover-body">
+                                                            
+                                                        </div>
+                                                        <div className="cus_popover-footer">
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -328,7 +350,6 @@ export default function AddTask(props) {
                                                         /> 
                                                 </div>
                                             }
-
                                         </div>
                                     </div>
                                 </div>
