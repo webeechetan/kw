@@ -855,14 +855,17 @@ svg.css-i4bv87-MuiSvgIcon-root {
   }
 }
 .form-control-typeStyle {
-  border: none;
+  border: 1px solid transparent;
   padding: 0;
+  transition: all 0.3s ease;
 }
 .form-control-typeStyle:focus-visible {
-  border: none;
+  border: 1px solid transparent;
 }
-.form-control-typeStyle:hover, .form-control-typeStyle:focus {
-  border: 1px solid #eee;
+.form-control-typeStyle:hover, .form-control-typeStyle:focus, .form-control-typeStyle:focus-visible {
+  padding: 0 15px;
+  border: 1px solid #ddd;
+  outline: none;
 }
 .form-check {
   text-align: left;
@@ -1760,6 +1763,9 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 }
 
 /* ----- Avatar ----- */
+.AvatarGroup-avatar {
+  cursor: pointer;
+}
 .AvatarGroup-avatar_small .MuiAvatarGroup-avatar {
   width: 30px;
   height: 30px;
@@ -1899,6 +1905,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   display: flex;
   gap: 10px;
   padding-right: 30px;
+  cursor: pointer;
 }
 .kanban_column_task_name svg {
   max-width: 18px;
@@ -1992,7 +1999,7 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   grid-template-columns: 150px 1fr;
 }
 .AddTask_rulesOverview_item:not(:last-child) {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 .AddTask_rulesOverview_item_name {
   min-width: 150px;
@@ -2006,10 +2013,13 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
 }
 .AddTask_body {
   padding: 30px;
-  height: calc(100% - 200px);
+  height: 100%;
   overflow-y: auto;
   border-top: 1px solid #ddd;
   position: relative;
+}
+.AddTask_body-edit {
+  height: calc(100% - 200px);
 }
 .AddTask_item_name {
   font-size: 20px;
@@ -2094,13 +2104,13 @@ div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   margin-bottom: 10px;
 }
 
-div.css-13cymwt-control {
-  min-height: inherit;
-}
 div.css-13cymwt-control, div.css-t3ipsp-control, div.css-t3ipsp-control:hover {
   border: none;
   outline: none;
   box-shadow: none;
+}
+div.css-13cymwt-control, div.css-t3ipsp-control {
+  min-height: inherit;
 }
 div.css-1hb7zxy-IndicatorsContainer {
   display: none;
@@ -2297,6 +2307,7 @@ div.react-datepicker-popper[data-placement^=bottom] .react-datepicker__triangle:
 .taskList_col_title {
   flex: 1;
   display: flex;
+  cursor: pointer;
 }
 .taskList_col_title_complete_icon {
   margin-right: 10px;

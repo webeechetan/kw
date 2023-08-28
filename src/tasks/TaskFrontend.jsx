@@ -362,11 +362,7 @@ export default function TasksFrontend() {
                     </span>
                   </Link>
               </div>
-
-              <div className="team-member-group">
-                
-              </div>
-              <AvatarGroup className="AvatarGroup-avatar_small" max={3}>
+              <AvatarGroup className="AvatarGroup-avatar AvatarGroup-avatar_small" max={3}>
                 {task.users.map((user,index) => (
                     <Avatar title={user.name} alt={user.name} key={"user_"+user.id} src={user.image} />
                 ))}

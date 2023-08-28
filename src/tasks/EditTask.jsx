@@ -239,7 +239,7 @@ export default function EditTask(props) {
                         </Col>
                     </Row>
                 </div>
-                <div className="AddTask_body">
+                <div className="AddTask_body AddTask_body-edit">
                     <div className="AddTask_body_overview">
                     {loading && 
                         <div>

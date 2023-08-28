@@ -1,13 +1,14 @@
 import React, { useState, useEffect, Component, forwardRef } from "react";
 import { Link } from 'react-router-dom';
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CropFreeOutlinedIcon from '@mui/icons-material/CropFreeOutlined';
 import EventRepeatOutlinedIcon from '@mui/icons-material/EventRepeatOutlined';
 import GradingOutlinedIcon from '@mui/icons-material/GradingOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Dropdown} from "react-bootstrap";
+import { Dropdown, Row, Col } from "react-bootstrap";
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
@@ -186,17 +187,26 @@ export default function AddTask(props) {
         <>
             <div className="AddCanvas">
                 <div className="AddTask_head">
-                    <Stack direction="row" justifyContent="end" spacing={2}>
-                        <Tooltip title="Save Task" arrow>
-                            <Link className="btn-border btn-border-primary" onClick={saveTask}><CheckOutlinedIcon /></Link>
-                        </Tooltip>
-                        <Tooltip title="Close" arrow>
-                            <Link onClick={() => {
-                                    closeAddTask()
-                                }} className="btn-border"><CloseOutlinedIcon />
-                            </Link>
-                        </Tooltip>
-                    </Stack>
+                    <Row>
+                        <Col>
+                            <Tooltip title="Single Task View" placement="bottom-start" arrow>
+                                <Link className="btn-border"><CropFreeOutlinedIcon /></Link>
+                            </Tooltip>
+                        </Col>
+                        <Col>
+                            <Stack direction="row" justifyContent="end" spacing={2}>
+                                <Tooltip title="Save Task" arrow>
+                                    <Link className="btn-border btn-border-primary" onClick={saveTask}><CheckOutlinedIcon /></Link>
+                                </Tooltip>
+                                <Tooltip title="Close" arrow>
+                                    <Link onClick={() => {
+                                            closeAddTask()
+                                        }} className="btn-border"><CloseOutlinedIcon />
+                                    </Link>
+                                </Tooltip>
+                            </Stack>
+                        </Col>
+                    </Row>
                 </div>
                 <div className="AddTask_body">
                     <div className="AddTask_body_overview">
@@ -297,33 +307,32 @@ export default function AddTask(props) {
                                 </div>
                             </div>
 
+                            {/* Description */}
                             <div className="AddTask_rulesOverview_item">
                                 <div className="AddTask_rulesOverview_item_name">Description</div>
                                 <div className="AddTask_rulesOverview_item_rulesAction">
                                     <div className="AddTask_rulesOverview_item_rulesAction_wrap">
-                                        <div className="AddTask_rulesOverview_item_add">
-                                            <div onClick={ ()=>{ setEditor(true) } }>
-                                                { !description && <div className="text-muted"> { !editor && <span>Add more detailed description...</span> }</div> }
-                                            </div>
-                                            {editor && (
-                                            <SunEditor 
-                                                onChange={(content) => { setDescription(content) }}
-                                                setOptions={{
-                                                    height: 100,
-                                                    buttonList: [
-                                                        ['undo', 'redo'],
-                                                        [ 'fontSize'],
-                                                        ['bold', 'underline', 'italic', 'strike'],
-                                                        ['fontColor'],
-                                                        ['align', 'horizontalRule', 'list'],
-                                                        ['link'],
-                                                    ],
-                                                }}
-                                                imageUploadUrl={`${config.api_url}/uploadImage`}
-                                                onImageUpload={handleImageUpload}
-                                            />
-                                            )}
+                                        <div onClick={ ()=>{ setEditor(true) } }>
+                                            { !description && <div className="text-muted"> { !editor && <span>Add more detailed description...</span> }</div> }
                                         </div>
+                                        {editor && (
+                                        <SunEditor 
+                                            onChange={(content) => { setDescription(content) }}
+                                            setOptions={{
+                                                height: 100,
+                                                buttonList: [
+                                                    ['undo', 'redo'],
+                                                    [ 'fontSize'],
+                                                    ['bold', 'underline', 'italic', 'strike'],
+                                                    ['fontColor'],
+                                                    ['align', 'horizontalRule', 'list'],
+                                                    ['link'],
+                                                ],
+                                            }}
+                                            imageUploadUrl={`${config.api_url}/uploadImage`}
+                                            onImageUpload={handleImageUpload}
+                                        />
+                                        )}
                                     </div>
                                 </div>
                             </div>

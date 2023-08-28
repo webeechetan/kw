@@ -66,11 +66,14 @@
 
 /* ----- Avatar ----- */
 .AvatarGroup {
-    &-avatar_small {
-        .MuiAvatarGroup-avatar {
-            width: 30px;
-            height: 30px;
-            font-size: 12px;
+    &-avatar {
+        cursor: pointer;
+        &_small {
+            .MuiAvatarGroup-avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
         }
     }
 }
@@ -218,6 +221,7 @@
                 display: flex;
                 gap: $spacing_xs;
                 padding-right: $spacing_md;
+                cursor: pointer;
                 svg {
                     max-width: 18px;
                 }
@@ -321,7 +325,7 @@
             display: grid;
             grid-template-columns: 150px 1fr;
             &:not(:last-child) {
-                margin-bottom: $spacing_md;
+                margin-bottom: $spacing_sm;
             }
             &_name {
                 min-width: 150px;
@@ -337,10 +341,14 @@
     }
     &_body {
         padding: $spacing_md;
-        height: calc(100% - 200px);
+        height: 100%;
         overflow-y: auto;
         border-top: 1px solid $border_dark_grey;
         position: relative;
+        
+        &-edit {
+            height: calc(100% - 200px);    
+        }
     }
     &_item_name {
         font-size: 20px;
@@ -420,14 +428,14 @@
 }
 
 div.css {
-    &-13cymwt-control {
-        min-height: inherit;
-    }
     &-13cymwt-control, &-t3ipsp-control, &-t3ipsp-control:hover {
         border: none;
         outline: none;
         box-shadow: none;
-    }    
+    }
+    &-13cymwt-control, &-t3ipsp-control {
+        min-height: inherit;
+    }
     &-1hb7zxy-IndicatorsContainer {
         display: none;
     }
@@ -625,6 +633,7 @@ div.react-datepicker {
         &_title {
             flex: 1;
             display: flex;
+            cursor: pointer;
             &_complete_icon {
                 margin-right: $spacing_xs;
                 cursor: pointer;
