@@ -8,10 +8,12 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { Dropdown, Row, Col } from "react-bootstrap";
+import { Dropdown, Row, Col, Form, ListGroup } from "react-bootstrap";
 import FilterListOutlinedIcon from '@mui/icons-material/FilterListOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import KeyboardTabIcon from '@mui/icons-material/KeyboardTab';
+import AdjustOutlinedIcon from '@mui/icons-material/AdjustOutlined';
+import CircleOutlinedIcon from '@mui/icons-material/CircleOutlined';
 import Tooltip from '@mui/material/Tooltip';
 import Stack from '@mui/material/Stack';
 import Favorite from '@mui/icons-material/Favorite';
@@ -21,9 +23,13 @@ import RepeatOneIcon from '@mui/icons-material/RepeatOne';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import { FormControl, InputLabel, MenuItem, FormHelperText } from '@mui/material';
 import { Select as SelectMaterial } from '@mui/material';
-import { Cron } from 'react-js-cron'
-import 'react-js-cron/dist/styles.css'
-import { converter } from 'react-js-cron'
+import { Cron } from 'react-js-cron';
+import 'react-js-cron/dist/styles.css';
+import { converter } from 'react-js-cron';
+
+import Avatar from '@mui/material/Avatar';
+import { styled } from '@mui/material/styles';
+import Badge from '@mui/material/Badge';
 
 
 import { config } from "../config";
@@ -180,8 +186,6 @@ export default function AddTask(props) {
             .catch(err => console.log(err))
 
     }
-
-
 
     return (
         <>
@@ -346,8 +350,8 @@ export default function AddTask(props) {
                                                     <Checkbox  
                                                         checked={isRecurring}
                                                         onChange={(e)=>{ setIsRecurring(e.target.checked) }}
-                                                        icon={<RepeatOneIcon />}
-                                                        checkedIcon={<RepeatIcon />}
+                                                        icon={<RepeatIcon />}
+                                                        checkedIcon={<RepeatOneIcon />}
                                                     />
                                             </div>
                                             { isRecurring && 
@@ -360,6 +364,100 @@ export default function AddTask(props) {
                                                 </div>
                                             }
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="req_calender">
+                                <div className="req_calender-wrap">
+                                    <div className="req_calender-header">
+                                        <div className="req_calender-header-item">
+                                            <Tooltip title="Start Date" arrow>
+                                                <Link className="req_calender-header-item-date req_calender-header-item-date-primary">
+                                                    <span><DateRangeOutlinedIcon /></span> Start Date
+                                                </Link>
+                                            </Tooltip>
+                                            <Tooltip title="Due Date" arrow>
+                                                <Link className="req_calender-header-item-date req_calender-header-item-date-secondary">
+                                                    <span><DateRangeOutlinedIcon /></span> Due Date
+                                                </Link>
+                                            </Tooltip>
+                                        </div>
+                                    </div>
+                                    <div className="req_calender-body">
+                                        <div className="req_calender-repeats">
+                                            <div className="req_calender-label">Repeats</div>
+                                            <div>
+                                                <Form.Select className="planHoverStyle" aria-label="Weekly">
+                                                    <option value="1">Daily</option>
+                                                    <option value="2">Weekly</option>
+                                                    <option value="3">Monthly</option>
+                                                    <option value="4">Custom</option>
+                                                </Form.Select>
+                                            </div>
+                                        </div>
+                                        {/* Weekly */}
+                                        <div className="req_calender-repeats-weekly d-none">
+                                            <h4 className="req_calender-repeats-lable">On These Days</h4>
+                                            <Stack className="req_calender-repeats-weekly-day_select" direction="row" spacing={2}>
+                                                <Avatar>S</Avatar>
+                                                <Avatar className="active">M</Avatar>
+                                                <Avatar>T</Avatar>
+                                                <Avatar>W</Avatar>
+                                                <Avatar>T</Avatar>
+                                                <Avatar>F</Avatar>
+                                                <Avatar>S</Avatar>
+                                            </Stack>
+                                        </div>
+                                        {/* Monthly */}
+                                        <div className="req_calender-repeats-monthly">
+                                            <div className="req_calender-repeats-monthly">
+                                                <div className="req_calender-repeats-monthly-item">
+                                                    <div>
+                                                        <Link className="req_calender-repeats-monthly-opt active">
+                                                            <span><AdjustOutlinedIcon /></span> On The
+                                                        </Link>
+                                                    </div>
+                                                    <div>
+                                                        <div className="req_calender-repeats-monthly-onThe-r">
+                                                            <Form.Select className="planHoverStyle" aria-label="Monthly">
+                                                                <option value="1">1st</option>
+                                                                <option value="2">2nd</option>
+                                                                <option value="3">3rd</option>
+                                                                <option value="4">4th</option>
+                                                                <option value="5">Last</option>
+                                                            </Form.Select>
+                                                            <Form.Select className="planHoverStyle" aria-label="Monthly">
+                                                                <option value="1">Sunday</option>
+                                                                <option value="2">Monday</option>
+                                                                <option value="3">Tuesday</option>
+                                                                <option value="4">Wednesday</option>
+                                                                <option value="5">Thursday</option>
+                                                                <option value="5">Firday</option>
+                                                                <option value="5">Suterday</option>
+                                                            </Form.Select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="req_calender-repeats-monthly-item mt-4">
+                                                    <div>
+                                                        <Link className="req_calender-repeats-monthly-opt">
+                                                            <span><CircleOutlinedIcon /></span> On Day
+                                                        </Link>
+                                                    </div>
+                                                    <div>
+                                                        <Form.Select className="planHoverStyle" aria-label="Monthly">
+                                                            <option value="1">1st</option>
+                                                            <option value="2">2nd</option>
+                                                            <option value="3">3rd</option>
+                                                            <option value="4">4th</option>
+                                                            <option value="5">Last</option>
+                                                        </Form.Select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="req_calender-repeats-info">Every Monday of the week</div>
                                     </div>
                                 </div>
                             </div>

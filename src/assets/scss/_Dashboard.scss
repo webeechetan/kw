@@ -583,6 +583,14 @@ div.react-datepicker {
             width: 18px;
             height: 18px;
         }
+        &_s {
+            width: 25px;
+            height: 25px;
+            svg {
+                width: 15px;
+                height: 15px;
+            }
+        }
     }
     &_remove {
         transition: $ease_03;
@@ -608,7 +616,7 @@ div.react-datepicker {
             text-align: center;
             color: $white;
             text-transform: uppercase;
-            background-color: $secondary;
+            background-color: $brand;
             &_name {
                 flex: 1;
                 text-align: left;
@@ -743,5 +751,142 @@ div.sun-editor {
         display: flex;
         align-items: center;
         grid-gap: 4px;
+    }
+}
+
+/* ----- Requiring Task ----- */
+.req_calender {
+    width: 350px;
+    max-width: 100%;
+    border: 1px solid $border_grey;
+    padding: $spacing_s;
+    border-radius: $border_radius_xs;
+    &-label {
+        font-size: 18px;
+        font-weight: 500;
+    }
+    &-header {
+        &-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: $spacing_xs;
+            border-radius: $border_radius_xs;
+            &-date {
+                padding: 5px 15px;
+                border-radius: $border_radius_xs;
+                grid-gap: 5px;
+                @include flex_align_center;
+                &-primary {
+                    border: 1px solid $brand_light;
+                    color: $brand;
+                    &:hover {
+                        border-color: $brand;
+                    }
+                }
+                &-secondary {
+                    border: 1px solid $secondary_light;
+                    color: $secondary;
+                    &:hover {
+                        border-color: $secondary;
+                    }
+                }
+                span {
+                    display: inline-flex;
+                    svg {
+                        width: 15px;
+                        height: 15px;
+                    }
+                }
+            }
+        }
+    }
+    &-body {
+        background-color: $light;
+        padding: $spacing_sm;
+        border-radius: $border_radius_xs;
+    }
+    &-repeats {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $spacing_sm;
+        &-info {
+            background-color: $yellow;
+            padding: 5px 10px;
+            border-radius: $border_radius_xs;
+            text-align: center;
+            margin-top: $spacing_sm;
+        }
+        select.form-select {
+            &.planHoverStyle {
+                background-color: transparent;
+                min-height: inherit;
+                border: none;
+                border-radius: $border_radius_xs;
+                background-color: #fff;
+                padding: 5px 30px 5px 15px;
+                font-size: 14px;
+                &:hover, &.active {
+                    border-color: $border_form;
+                }
+            }
+        }
+        &-lable {
+            font-size: 14px;
+        }
+        &-weekly {
+            &-day_select {
+                justify-content: space-between;
+                &>:not(style)~:not(style) {
+                    margin-left: 0 !important;
+                }
+                .MuiAvatar-circular {
+                    width: 30px;
+                    height: 30px;
+                    font-size: 14px;
+                    cursor: pointer;
+                    transition: $ease_03;
+                    &:hover, &.active {
+                        background-color: $brand;
+                    }
+                }
+            }
+        }
+        &-monthly {
+            &-opt {
+                background: #fff;
+                display: block;
+                padding: 5px $spacing_xs;
+                text-align: center;
+                border-radius: $border_radius_xs;
+                transition: $ease_03;
+                font-size: 12px;
+                svg {
+                    width: 12px;
+                    height: 12px;
+                }
+                &:hover, &.active {
+                    background-color: $brand;
+                    color: #fff;
+                }
+            }
+            &-item {
+                display: flex;
+                justify-content: space-between;
+                grid-gap: $spacing_sm;
+                .form-control, .form-select {
+                    min-height: inherit;
+                    border: none;
+                    font-size: 12px;
+                    padding: 5px 30px 5px 10px;
+                    border-radius: $border_radius_xs;
+                }
+            }
+            &-onThe-r {
+                display: flex;
+                justify-content: space-between;
+                grid-gap: $spacing_s;
+            }
+        }
     }
 }

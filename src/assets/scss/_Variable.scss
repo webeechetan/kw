@@ -135,7 +135,6 @@ $team_dp: 75px;
 /*---- Flex Align Center ----*/
 @mixin flex_align_center {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
 }
 
